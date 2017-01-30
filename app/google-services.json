@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "334504524386",
+    "firebase_url": "https://tattod-e49d8.firebaseio.com",
+    "project_id": "tattod-e49d8",
+    "storage_bucket": "tattod-e49d8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:334504524386:android:91e14712254698c4",
+        "android_client_info": {
+          "package_name": "com.tattood.tattod"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "334504524386-uk5gjkt5pbcjiug75k5g5v0om770etas.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tattood.tattod",
+            "certificate_hash": "59F1B0887FD1548CD376462A78D365E80E82F61C"
+          }
+        },
+        {
+          "client_id": "334504524386-7iff86nnacmq9vt1pri1o5628bskpe0s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9LQKbAAYW_YQFvHiFM8QZCVznaGalBNo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "334504524386-7iff86nnacmq9vt1pri1o5628bskpe0s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
