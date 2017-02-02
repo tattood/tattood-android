@@ -5,22 +5,50 @@
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:text="Recent"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView"/>
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="Recent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView"
+            android:layout_weight="1"/>
+
+        <Button
+            android:text="See More"
+            android:layout_width="159dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/seemore_recent"
+            />
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recent_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <TextView
-        android:text="Popular"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView2"/>
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="Popular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView2"
+            android:layout_weight="1"/>
+
+        <Button
+            android:text="See More"
+            android:layout_width="159dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/seemore_popular"
+            />
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/popular_list"

@@ -16,29 +16,32 @@ public class DummyContent {
     /**
      * An array of sample (dummy) items.
      */
-    public static final List<DummyItem> ITEMS = new ArrayList<DummyItem>();
+    public static final List<DummyItem> RECENT_ITEMS = new ArrayList<DummyItem>();
+    public static final List<DummyItem> POPULAR_ITEMS = new ArrayList<DummyItem>();
 
     /**
      * A map of sample (dummy) items, by ID.
      */
-    public static final Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
+    public static final Map<String, DummyItem> RECENT_ITEM_MAP = new HashMap<String, DummyItem>();
+    public static final Map<String, DummyItem> POPULAR_ITEM_MAP = new HashMap<>();
 
     private static final int COUNT = 25;
 
     static {
         // Add some sample items.
         for (int i = 1; i <= COUNT; i++) {
-            addItem(createDummyItem(i));
+            addItem(RECENT_ITEMS, RECENT_ITEM_MAP,  createDummyItem(i, "recent "));
+            addItem(POPULAR_ITEMS, POPULAR_ITEM_MAP, createDummyItem(i, "popular "));
         }
     }
 
-    private static void addItem(DummyItem item) {
-        ITEMS.add(item);
-        ITEM_MAP.put(item.id, item);
+    static void addItem(List<DummyItem> list, Map<String, DummyItem> hash, DummyItem item) {
+        list.add(item);
+        hash.put(item.id, item);
     }
 
-    private static DummyItem createDummyItem(int position) {
-        return new DummyItem(String.valueOf(position), "Item " + position, makeDetails(position));
+    static DummyItem createDummyItem(int position, String label) {
+        return new DummyItem(String.valueOf(position), label + position, makeDetails(position));
     }
 
     private static String makeDetails(int position) {

@@ -1,14 +1,17 @@
 package com.tattood.tattod;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.tattood.tattod.dummy.DummyContent;
 import com.tattood.tattod.dummy.DummyContent.DummyItem;
@@ -21,7 +24,7 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class DiscoveryFragment extends Fragment {
+public class DiscoveryFragment extends Fragment implements View.OnClickListener {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -63,11 +66,16 @@ public class DiscoveryFragment extends Fragment {
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recent_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        recyclerView.setAdapter(new MyItemRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+        recyclerView.setAdapter(new MyItemRecyclerViewAdapter(DummyContent.RECENT_ITEMS, mListener));
 
         recyclerView = (RecyclerView) view.findViewById(R.id.popular_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        recyclerView.setAdapter(new MyItemRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+        recyclerView.setAdapter(new MyItemRecyclerViewAdapter(DummyContent.POPULAR_ITEMS, mListener));
+
+        Button see_more = (Button) view.findViewById(R.id.seemore_recent);
+        see_more.setOnClickListener(this);
+        see_more = (Button) view.findViewById(R.id.seemore_popular);
+        see_more.setOnClickListener(this);
         return view;
     }
 
@@ -87,6 +95,17 @@ public class DiscoveryFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent myIntent = new Intent(this.getContext(), BigList.class);
+        if (v.getId() == R.id.seemore_recent) {
+            myIntent.putExtra("TAG", "RECENT");
+        } else if (v.getId() == R.id.seemore_popular) {
+            myIntent.putExtra("TAG", "POPULAR");
+        }
+        getContext().startActivity(myIntent);
     }
 
     /**
