@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
             if (position == 0)
                 return CameraFragment.newInstance("a", "a");
             else if (position == 1)
-                return DiscoveryFragment.newInstance(position + 1);
+                return DiscoveryFragment.newInstance(1);
             else if (position == 2)
                 return ProfileFragment.newInstance("b", "b");
             else
