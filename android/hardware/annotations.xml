@@ -1,0 +1,5 @@
+<root>
+  <item name='android.hardware.Camera'>
+    <annotation name='java.lang.annotation.Deprecated'/>
+  </item>
+</root>

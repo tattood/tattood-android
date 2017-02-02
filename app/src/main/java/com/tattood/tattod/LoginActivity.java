@@ -10,6 +10,8 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -33,11 +35,13 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
+import static android.R.attr.permission;
 
 /**
  * A login screen that offers login via email/password.
@@ -72,6 +76,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        askForPermission(android.Manifest.permission.CAMERA, 0x5);
         String user = settings.getString("username", null);
         if (user != null) {
             Log.d("Login", "Already logged in with "+user);
@@ -105,6 +110,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+    }
+
+    private void askForPermission(String permission, Integer requestCode) {
+        if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
+                //This is called if user has denied the permission before
+                //In this case I am just asking the permission again
+                ActivityCompat.requestPermissions(this, new String[]{permission}, requestCode);
+
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{permission}, requestCode);
+            }
+        }
     }
 
     private void populateAutoComplete() {
