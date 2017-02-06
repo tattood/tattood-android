@@ -1,0 +1,19 @@
+* tattood-android
+** Implemented
+  + Login Page
+  + Tabbed View
+    + Camera
+    + Discovery
+    + [TODO] User Page
+** Missing
+  + User Page
+  + Tattoo Page
+  + Link from Camera page to library
+  + Some transitions/links
+    + Tattoos on Discovery page
+** Bug
+  + Listed in the code with [BUG] tag
+  + Open the bugs in the code as an issue in Github
+  + Back button on the first page sometimes crashes
+  + Camera is rotated 90 degrees
+  + Camera on Pause/Resume/Start/Stop probably has bugs
