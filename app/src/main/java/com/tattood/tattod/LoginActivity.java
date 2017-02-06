@@ -76,11 +76,12 @@ public class LoginActivity extends AppCompatActivity implements
         String user = settings.getString("username", null);
         if (user != null) {
             Log.d("Login", "Already logged in with "+user);
-//            Intent myIntent = new Intent(this, MainActivity.class);
-//            this.startActivity(myIntent);
+            Intent myIntent = new Intent(this, MainActivity.class);
+            this.startActivity(myIntent);
         }
         setContentView(R.layout.activity_login);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail().build();
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, this)
@@ -91,6 +92,7 @@ public class LoginActivity extends AppCompatActivity implements
         login_button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("Signing", "clicked method signIn");
                 signIn();
             }
         });
@@ -100,7 +102,12 @@ public class LoginActivity extends AppCompatActivity implements
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     Log.d("Signing", "signed in:"+user.getUid());
-                    // [TODO} Save preferences
+                    SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    Log.d("User", user.getEmail());
+                    Log.d("User", user.getDisplayName());
+                    editor.putString("username", user.getEmail());
+                    editor.commit();
                     Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
                     startActivity(myIntent);
                 } else {
@@ -108,6 +115,15 @@ public class LoginActivity extends AppCompatActivity implements
                 }
             }
         };
+
+        Button signout_button = (Button) findViewById(R.id.signout_button);
+        signout_button.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("Signing", "clicked method signout");
+                FirebaseAuth.getInstance().signOut();
+            }
+        });
     }
 
     @Override
@@ -127,7 +143,7 @@ public class LoginActivity extends AppCompatActivity implements
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        Log.d("Signing", "on activityResult");
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
@@ -164,6 +180,9 @@ public class LoginActivity extends AppCompatActivity implements
 
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        Log.d("Signing", "method signIn:");
+        if (signInIntent == null)
+            Log.d("Signing", "Fatal error");
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
