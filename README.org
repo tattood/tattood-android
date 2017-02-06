@@ -15,5 +15,4 @@
   + Listed in the code with [BUG] tag
   + Open the bugs in the code as an issue in Github
   + Back button on the first page sometimes crashes
-  + Camera is rotated 90 degrees
   + Camera on Pause/Resume/Start/Stop probably has bugs

@@ -57,7 +57,6 @@ public class CameraFragment extends Fragment {
     }
 
     /** A safe way to get an instance of the Camera object. */
-    // [BUG] Android camera appears upside-down
     // Might be a virtual device related bug, web-cam bug, Nexus bug.
     public static Camera getCameraInstance(){
         Camera c = null;
@@ -65,7 +64,7 @@ public class CameraFragment extends Fragment {
             c = Camera.open(0); // attempt to get a Camera instance
             if (c == null)
                 throw new Exception("Camera not found");
-//            c.setDisplayOrientation(-180);
+            c.setDisplayOrientation(90);
         }
         catch (Exception e){
             Log.d("EXCEPTION", "Camera Exception");
