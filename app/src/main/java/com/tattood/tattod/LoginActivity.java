@@ -16,12 +16,16 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -29,6 +33,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+
+import org.json.JSONObject;
+
+import static com.android.volley.Response.*;
 
 
 /**
@@ -42,6 +50,7 @@ public class LoginActivity extends AppCompatActivity implements
     private static int RC_SIGN_IN = 100;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private Server mServer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +58,6 @@ public class LoginActivity extends AppCompatActivity implements
         initLogin();
         askForPermission(android.Manifest.permission.CAMERA, 0x5);
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        if (getIntent().hasExtra("logout")) {
-            SharedPreferences.Editor editor = settings.edit();
-            editor.putString("username", null);
-            editor.commit();
-        }
         String user = settings.getString("username", null);
         if (user != null) {
             Log.d("Login", "Already logged in with "+user);
@@ -96,8 +100,18 @@ public class LoginActivity extends AppCompatActivity implements
                     @Override
                     public void onConnected(@Nullable Bundle bundle) {
                         if (getIntent().hasExtra("logout")) {
-                            Auth.GoogleSignInApi.signOut(mGoogleApiClient);
-                            FirebaseAuth.getInstance().signOut();
+                            Log.d("Login", "HERE--Logout");
+                            mAuth.signOut();
+                            Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                                    new ResultCallback<Status>() {
+                                        @Override
+                                        public void onResult(@NonNull Status status) {
+                                            Log.d("Login", "Finally log-out");
+                                            SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, 0).edit();
+                                            editor.putString("username", null);
+                                            editor.apply();
+                                        }
+                                    });
                         }
                     }
 
@@ -107,21 +121,32 @@ public class LoginActivity extends AppCompatActivity implements
                 .build();
         mGoogleApiClient.connect();
         mAuth = FirebaseAuth.getInstance();
-
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
+                final FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
+                    Server.signIn(LoginActivity.this, user.getEmail(), new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            String username = response.optString("username");
+                            Log.d("Login", "username is NULLL");
+                            SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.putString("username", username);
+                            editor.apply();
+                            Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
+                            startActivity(myIntent);
+                        }
+                    }, new ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Intent myIntent = new Intent(getBaseContext(), RegisterActivity.class);
+                            myIntent.putExtra("email", user.getEmail());
+                            startActivity(myIntent);
+                        }
+                    });
                     Log.d("Signing", "signed in:"+user.getUid());
-                    SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPref.edit();
-                    Log.d("User", user.getEmail());
-                    Log.d("User", user.getDisplayName());
-                    editor.putString("username", user.getEmail());
-                    editor.apply();
-                    Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
-                    startActivity(myIntent);
                 } else {
                     Log.d("Signing", "signed out:");
                 }
@@ -184,8 +209,6 @@ public class LoginActivity extends AppCompatActivity implements
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         Log.d("Signing", "method signIn:");
-        if (signInIntent == null)
-            Log.d("Signing", "Fatal error");
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
