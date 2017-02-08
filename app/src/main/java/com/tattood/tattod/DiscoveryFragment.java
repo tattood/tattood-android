@@ -66,11 +66,13 @@ public class DiscoveryFragment extends Fragment implements View.OnClickListener 
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recent_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        recyclerView.setAdapter(new MyItemRecyclerViewAdapter(DummyContent.RECENT_ITEMS, mListener));
+        recyclerView.setAdapter(new MyItemRecyclerViewAdapter(
+                DummyContent.RECENT_ITEMS.subList(0, 25), mListener, this.getContext(), recyclerView));
 
         recyclerView = (RecyclerView) view.findViewById(R.id.popular_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        recyclerView.setAdapter(new MyItemRecyclerViewAdapter(DummyContent.POPULAR_ITEMS, mListener));
+        recyclerView.setAdapter(new MyItemRecyclerViewAdapter(
+                DummyContent.POPULAR_ITEMS.subList(0, 25), mListener, this.getContext(), recyclerView));
 
         Button see_more = (Button) view.findViewById(R.id.seemore_recent);
         see_more.setOnClickListener(this);

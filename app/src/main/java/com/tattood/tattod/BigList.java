@@ -3,11 +3,9 @@ package com.tattood.tattod;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.tattood.tattod.dummy.DummyContent;
-import com.tattood.tattod.dummy.DummyContent2;
 
 public class BigList extends AppCompatActivity {
 
@@ -23,8 +21,10 @@ public class BigList extends AppCompatActivity {
 
         String data_type = getIntent().getExtras().getString("TAG");
         if (data_type.equals("RECENT"))
-            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(DummyContent2.RECENT_ITEMS, mListener));
+            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(
+                    DummyContent.RECENT_ITEMS, mListener, this, recyclerView));
         else
-            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(DummyContent2.POPULAR_ITEMS, mListener));
+            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(
+                    DummyContent.POPULAR_ITEMS, mListener, this, recyclerView));
     }
 }

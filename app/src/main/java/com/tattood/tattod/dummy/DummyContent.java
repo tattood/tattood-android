@@ -25,7 +25,7 @@ public class DummyContent {
     public static final Map<String, DummyItem> RECENT_ITEM_MAP = new HashMap<String, DummyItem>();
     public static final Map<String, DummyItem> POPULAR_ITEM_MAP = new HashMap<>();
 
-    private static final int COUNT = 25;
+    private static final int COUNT = 100;
 
     static {
         // Add some sample items.
