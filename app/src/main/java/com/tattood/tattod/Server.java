@@ -61,45 +61,56 @@ public class Server {
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
-    public static void signIn(Context context, String email, Response.Listener<JSONObject> callback) {
-        signIn(context, email, callback, error_handler);
+    public static void signIn(Context context, String token, String email, Response.Listener<JSONObject> callback) {
+        signIn(context, token, email, callback, error_handler);
     }
 
-    public static void signIn(Context context, String email,
+    public static JSONObject create_json(String token, String email, String username) {
+        JSONObject data = new JSONObject();
+        try {
+            if (username != null)
+                data.put("username", username);
+            data.put("token", token);
+            data.put("email", email);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
+    public static JSONObject create_json(String token, String email) {
+        return create_json(token, email, null);
+    }
+
+    public static void signIn(Context context, String token, String email,
                               Response.Listener<JSONObject> callback, Response.ErrorListener error_handler) {
         if (!Server.isOnline(context)) {
             Toast.makeText(context, "No Internet Connection!", Toast.LENGTH_LONG).show();
             return;
         }
+        JSONObject data = create_json(token, email);
         RequestQueue queue = Volley.newRequestQueue(context);
-        String url = host + "/user?email="+email;
-        Log.d("Login-email", email);
-        JsonObjectRequest request = new JsonObjectRequest(url, null, callback, error_handler);
+        String url = host + "/login";
+        JsonObjectRequest request = new JsonObjectRequest(url, data, callback, error_handler);
         queue.add(request);
     }
 
-    public static void register(Context context, String email, String username,
+    public static void register(Context context, String email, String username, String token,
                                 Response.Listener<JSONObject> callback) {
-        register(context, email, username, callback, error_handler);
+        register(context, email, username, token, callback, error_handler);
     }
 
-    public static void register(Context context, String email, String username,
+    public static void register(Context context, String email, String username, String token,
                                 Response.Listener<JSONObject> callback, Response.ErrorListener error_handler) {
         if (!Server.isOnline(context)) {
             Toast.makeText(context, "No Internet Connection!", Toast.LENGTH_LONG).show();
             return;
         }
         RequestQueue queue = Volley.newRequestQueue(context);
-        String url = host + "/user";
-        JSONObject data = new JSONObject();
-        try {
-            data.put("username", username);
-            data.put("email", email);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        String url = host + "/register";
+        JSONObject data = create_json(token, email, username);
         Log.d("REGISTER-Body", data.toString());
-        System.out.println(data.toString());
+//        System.out.println(data.toString());
         JsonObjectRequest request = new JsonObjectRequest(url, data, callback, error_handler) {
             @Override
             public String getBodyContentType() {

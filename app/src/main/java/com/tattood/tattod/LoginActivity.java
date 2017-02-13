@@ -125,29 +125,7 @@ public class LoginActivity extends AppCompatActivity implements
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 final FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    Server.signIn(LoginActivity.this, user.getEmail(), new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            String username = response.optString("username");
-                            Log.d("Login", "username is NULL");
-                            SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedPref.edit();
-                            editor.putString("username", username);
-                            editor.apply();
-                            Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
-                            startActivity(myIntent);
-                        }
-                    }, new ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Intent myIntent = new Intent(getBaseContext(), RegisterActivity.class);
-                            myIntent.putExtra("email", user.getEmail());
-                            startActivity(myIntent);
-                        }
-                    });
-                    Log.d("Signing", "signed in:"+user.getUid());
-                } else {
+                if (user == null) {
                     Log.d("Signing", "signed out:");
                 }
             }
@@ -184,7 +162,7 @@ public class LoginActivity extends AppCompatActivity implements
         }
     }
 
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+    private void firebaseAuthWithGoogle(final GoogleSignInAccount acct) {
         Log.d("Firebase", "firebaseAuthWithGoogle:" + acct.getId());
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
@@ -193,14 +171,32 @@ public class LoginActivity extends AppCompatActivity implements
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d("Complete", "signInWithCredential:onComplete:" + task.isSuccessful());
-
-                        // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
-                        // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
                             Log.w("Sign-in", "signInWithCredential", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+                        } else {
+                            Server.signIn(LoginActivity.this, acct.getIdToken(), acct.getEmail(),
+                                    new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    String username = response.optString("username");
+                                    SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPref.edit();
+                                    editor.putString("username", username);
+                                    editor.apply();
+                                    Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
+                                    startActivity(myIntent);
+                                }
+                            }, new ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Intent myIntent = new Intent(getBaseContext(), RegisterActivity.class);
+                                    myIntent.putExtra("email", acct.getEmail());
+                                    myIntent.putExtra("token", acct.getIdToken());
+                                    startActivity(myIntent);
+                                }
+                            });
                         }
                     }
                 });

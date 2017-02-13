@@ -35,7 +35,8 @@ public class RegisterActivity extends AppCompatActivity {
                 TextView tv = (TextView) findViewById(R.id.editText_username);
                 final String username = tv.getText().toString();
                 final String email = getIntent().getStringExtra("email");
-                Server.register(RegisterActivity.this, email, username,
+                final String token = getIntent().getStringExtra("token");
+                Server.register(RegisterActivity.this, email, username, token,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
