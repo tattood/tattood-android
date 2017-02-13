@@ -130,7 +130,7 @@ public class LoginActivity extends AppCompatActivity implements
                         @Override
                         public void onResponse(JSONObject response) {
                             String username = response.optString("username");
-                            Log.d("Login", "username is NULLL");
+                            Log.d("Login", "username is NULL");
                             SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPref.edit();
                             editor.putString("username", username);
@@ -207,6 +207,10 @@ public class LoginActivity extends AppCompatActivity implements
     }
 
     private void signIn() {
+        if (!Server.isOnline(this)) {
+            Toast.makeText(this, "No Internet Connection!", Toast.LENGTH_LONG).show();
+            return;
+        }
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         Log.d("Signing", "method signIn:");
         startActivityForResult(signInIntent, RC_SIGN_IN);

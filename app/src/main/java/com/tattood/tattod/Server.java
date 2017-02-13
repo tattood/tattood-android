@@ -2,7 +2,10 @@ package com.tattood.tattod;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -26,6 +29,8 @@ import java.util.Map;
  */
 
 public class Server {
+//    public static final String host = "http://localhost:5000";
+//    Uncomment below line when running in virtual device
     public static final String host = "http://10.0.2.2:5000";
     public static boolean isInternetAvailable() {
         try {
@@ -49,12 +54,23 @@ public class Server {
     private Server() {
     }
 
+    public static boolean isOnline(Context context) {
+        ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
     public static void signIn(Context context, String email, Response.Listener<JSONObject> callback) {
         signIn(context, email, callback, error_handler);
     }
 
     public static void signIn(Context context, String email,
                               Response.Listener<JSONObject> callback, Response.ErrorListener error_handler) {
+        if (!Server.isOnline(context)) {
+            Toast.makeText(context, "No Internet Connection!", Toast.LENGTH_LONG).show();
+            return;
+        }
         RequestQueue queue = Volley.newRequestQueue(context);
         String url = host + "/user?email="+email;
         Log.d("Login-email", email);
@@ -69,6 +85,10 @@ public class Server {
 
     public static void register(Context context, String email, String username,
                                 Response.Listener<JSONObject> callback, Response.ErrorListener error_handler) {
+        if (!Server.isOnline(context)) {
+            Toast.makeText(context, "No Internet Connection!", Toast.LENGTH_LONG).show();
+            return;
+        }
         RequestQueue queue = Volley.newRequestQueue(context);
         String url = host + "/user";
         JSONObject data = new JSONObject();

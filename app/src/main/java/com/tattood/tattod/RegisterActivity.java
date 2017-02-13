@@ -9,9 +9,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONObject;
@@ -42,6 +45,16 @@ public class RegisterActivity extends AppCompatActivity {
                                 editor.apply();
                                 Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
                                 startActivity(myIntent);
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                NetworkResponse networkResponse = error.networkResponse;
+                                if (networkResponse != null && networkResponse.statusCode == 400) {
+                                    Toast.makeText(RegisterActivity.this,
+                                            "This username is available please try again",
+                                            Toast.LENGTH_LONG).show();
+                                }
                             }
                         });
             }

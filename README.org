@@ -4,7 +4,6 @@
   + Tabbed View
     + Camera
     + Discovery
-    + [TODO] User Page
 ** Missing
   + User Page
   + Tattoo Page
@@ -12,7 +11,7 @@
   + Some transitions/links
     + Tattoos on Discovery page
 ** Bug
-  + Listed in the code with [BUG] tag
-  + Open the bugs in the code as an issue in Github
   + Back button on the first page sometimes crashes
+  + Check internet connection even before performing the request
+  + Change server response code from 404 to something else
   + Camera on Pause/Resume/Start/Stop probably has bugs
