@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-
+        token = getIntent().getStringExtra("token");
     }
 
 
@@ -140,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
             else if (position == 1)
                 return DiscoveryFragment.newInstance(1);
             else if (position == 2)
-                return ProfileFragment.newInstance("b", "b");
+                return ProfileFragment.newInstance(token);
             else
                 return PlaceholderFragment.newInstance(position + 1);
                 // getItem is called to instantiate the fragment for the given page.

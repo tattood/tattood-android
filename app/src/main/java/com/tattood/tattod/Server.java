@@ -21,6 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,7 +32,10 @@ import java.util.Map;
 public class Server {
 //    public static final String host = "http://localhost:5000";
 //    Uncomment below line when running in virtual device
-    public static final String host = "http://10.0.2.2:5000";
+    public static final String host = "http://139.179.211.192:5000";
+    public enum TattooRequest {Liked, Public, Private};
+    public enum UserRequest {Followed, Followers};
+
     public static boolean isInternetAvailable() {
         try {
             InetAddress ipAddr = InetAddress.getByName("google.com"); //You can replace it with your name
@@ -82,6 +86,10 @@ public class Server {
         return create_json(token, email, null);
     }
 
+    public static JSONObject create_json(String token) {
+        return create_json(token, null, null);
+    }
+
     public static void signIn(Context context, String token, String email,
                               Response.Listener<JSONObject> callback, Response.ErrorListener error_handler) {
         if (!Server.isOnline(context)) {
@@ -110,7 +118,6 @@ public class Server {
         String url = host + "/register";
         JSONObject data = create_json(token, email, username);
         Log.d("REGISTER-Body", data.toString());
-//        System.out.println(data.toString());
         JsonObjectRequest request = new JsonObjectRequest(url, data, callback, error_handler) {
             @Override
             public String getBodyContentType() {
@@ -119,4 +126,33 @@ public class Server {
         };
         queue.add(request);
     }
+
+    public static void getUserList(Context context, String token, UserRequest r,
+                                     Response.Listener<JSONObject> callback) {
+    }
+
+    public static void getTattooList(Context context, String token, TattooRequest r,
+                                     Response.Listener<JSONObject> callback) {
+        if (!Server.isOnline(context)) {
+            Toast.makeText(context, "No Internet Connection!", Toast.LENGTH_LONG).show();
+            return;
+        }
+        JSONObject data = create_json(token);
+        RequestQueue queue = Volley.newRequestQueue(context);
+        final String url;
+        if (r == TattooRequest.Liked) {
+            url = host + "/user-likes";
+        } else {
+            if (r == TattooRequest.Public)
+                url = host + "/user-tattoo?private=0";
+            else
+                url = host + "/user-tattoo?private=1";
+        }
+        JsonObjectRequest request = new JsonObjectRequest(url, data, callback, error_handler);
+        queue.add(request);
+    }
+
+//    public static getTattoo(int id) {
+//
+//    }
 }
