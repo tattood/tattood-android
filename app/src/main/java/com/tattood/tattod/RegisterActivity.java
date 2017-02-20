@@ -24,6 +24,8 @@ import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    private static final String PREFS_NAME = "LoginPreferences";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,11 +42,12 @@ public class RegisterActivity extends AppCompatActivity {
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
-                                SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+                                SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, 0);
                                 SharedPreferences.Editor editor = sharedPref.edit();
                                 editor.putString("username", username);
                                 editor.apply();
                                 Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
+                                myIntent.putExtra("token", getIntent().getStringExtra("token"));
                                 startActivity(myIntent);
                             }
                         }, new Response.ErrorListener() {

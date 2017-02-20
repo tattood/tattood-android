@@ -12,6 +12,6 @@
     + Tattoos on Discovery page
 ** Bug
   + Back button on the first page sometimes crashes
-  + Check internet connection even before performing the request
-  + Change server response code from 404 to something else
   + Camera on Pause/Resume/Start/Stop probably has bugs
+  + Network requests are performed repeatedly implement some kind of caching mechanism
+  + Tattoos are not automatically refreshed when the image is available.

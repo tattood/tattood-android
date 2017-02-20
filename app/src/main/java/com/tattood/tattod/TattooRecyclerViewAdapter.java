@@ -1,6 +1,9 @@
 package com.tattood.tattod;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,8 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tattood.tattod.DiscoveryFragment.OnListFragmentInteractionListener;
-import com.tattood.tattod.dummy.DummyContent.Tattoo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,16 +26,14 @@ import java.util.List;
 public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecyclerViewAdapter.ViewHolder>
         implements View.OnClickListener {
 
-    private final List<Tattoo> mValues;
+    private final Tattoo mValues[];
     private final OnListFragmentInteractionListener mListener;
     private final Context mContext;
     private final RecyclerView mRecyclerView;
 
-    public TattooRecyclerViewAdapter(List<Tattoo> items,
-                                     OnListFragmentInteractionListener listener,
-                                     Context context,
-                                     RecyclerView recyclerView) {
-        mValues = items;
+    public TattooRecyclerViewAdapter(OnListFragmentInteractionListener listener,
+                                     Context context, RecyclerView recyclerView, int count) {
+        mValues = new Tattoo[count];
         mListener = listener;
         mContext = context;
         mRecyclerView = recyclerView;
@@ -41,17 +42,34 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_item_list, parent, false);
+                .inflate(R.layout.fragment_tattoo_item, parent, false);
         view.setOnClickListener(this);
         return new ViewHolder(view);
     }
 
+    private Bitmap getTattooImage(int index) {
+        Tattoo t = mValues[index];
+        if (t == null || t.getImage() == null) {
+            return BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.ic_launcher);
+        }
+        return t.getImage();
+    }
+
+    public void setTattooImage(int index, Bitmap image) {
+        if (mValues[index] == null)
+            return;
+        mValues[index].setImage(image);
+    }
+
+    public void setTattoo(int index, Tattoo t) {
+        if (t == null) {
+        }
+        mValues[index] = t;
+    }
+
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-//        holder.image.setText(mValues.get(position).id);
-//        holder.mContentView.setText(mValues.get(position).content);
-
+        holder.image.setImageBitmap(getTattooImage(position));
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,14 +84,14 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return mValues.length;
     }
 
     @Override
     public void onClick(View v) {
         int itemPosition = mRecyclerView.getChildLayoutPosition(v);
         Log.d("click", "clicked");
-        Tattoo item = mValues.get(itemPosition);
+        Tattoo item = mValues[itemPosition];
         Toast.makeText(mContext, item.toString(), Toast.LENGTH_LONG).show();
     }
 

@@ -181,11 +181,12 @@ public class LoginActivity extends AppCompatActivity implements
                                 @Override
                                 public void onResponse(JSONObject response) {
                                     String username = response.optString("username");
-                                    SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+                                    SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, 0);
                                     SharedPreferences.Editor editor = sharedPref.edit();
                                     editor.putString("username", username);
                                     editor.apply();
                                     Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
+                                    myIntent.putExtra("token", acct.getIdToken());
                                     startActivity(myIntent);
                                 }
                             }, new ErrorListener() {

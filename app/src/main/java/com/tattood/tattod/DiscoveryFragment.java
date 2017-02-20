@@ -2,6 +2,8 @@ package com.tattood.tattod;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,10 +14,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
-import com.tattood.tattod.dummy.DummyContent;
-import com.tattood.tattod.dummy.DummyContent.DummyItem;
+import com.android.volley.Response;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -26,11 +35,8 @@ import java.util.List;
  */
 public class DiscoveryFragment extends Fragment implements View.OnClickListener {
 
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+    private String token;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -40,11 +46,10 @@ public class DiscoveryFragment extends Fragment implements View.OnClickListener 
     }
 
     // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static DiscoveryFragment newInstance(int columnCount) {
+    public static DiscoveryFragment newInstance(String token) {
         DiscoveryFragment fragment = new DiscoveryFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
+        args.putString("token", token);
         fragment.setArguments(args);
         return fragment;
     }
@@ -54,25 +59,67 @@ public class DiscoveryFragment extends Fragment implements View.OnClickListener 
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+            token = getArguments().getString("token");
+        }
+    }
+
+    private void set_data(View view, int id, JSONObject obj) {
+        final Context context = view.getContext();
+        final RecyclerView recyclerView = (RecyclerView) view.findViewById(id);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        recyclerView.setAdapter(new TattooRecyclerViewAdapter(mListener, this.getContext(), recyclerView, 25));
+        try {
+            JSONArray arr;
+            obj = obj.getJSONObject("data");
+            Iterator<String> keys = obj.keys();
+            while( keys.hasNext() ) {
+                String key = keys.next();
+                int i = Integer.parseInt(key);
+                JSONArray tattooJSON = obj.getJSONArray(key);
+                int tattoo_id = tattooJSON.getInt(0);
+                int owner_id = tattooJSON.getInt(1);
+                ((TattooRecyclerViewAdapter)recyclerView.getAdapter()).setTattoo(i, new Tattoo(tattoo_id, owner_id));
+                Server.getTattooImage(context, tattoo_id, i, token,
+                        new Server.ResponseCallback() {
+                            @Override
+                            public void run(int id, int i) {
+                                try {
+                                    String name = id + ".jpg";
+                                    FileInputStream stream = context.openFileInput(name);
+                                    Bitmap img = BitmapFactory.decodeStream(stream);
+                                    ((TattooRecyclerViewAdapter)recyclerView.getAdapter()).setTattooImage(i, img);
+                                } catch (FileNotFoundException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+            }
+        } catch(JSONException e) {
+            e.printStackTrace();
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_item_list, container, false);
+        final View view = inflater.inflate(R.layout.fragment_item_list, container, false);
         Context context = view.getContext();
 
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recent_list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        recyclerView.setAdapter(new MyItemRecyclerViewAdapter(
-                DummyContent.RECENT_ITEMS.subList(0, 25), mListener, this.getContext(), recyclerView));
+        Server.getPopular(context, token,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        set_data(view, R.id.popular_list, response);
+                    }
+                });
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.popular_list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        recyclerView.setAdapter(new MyItemRecyclerViewAdapter(
-                DummyContent.POPULAR_ITEMS.subList(0, 25), mListener, this.getContext(), recyclerView));
+        Server.getRecent(context, token,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        set_data(view, R.id.recent_list, response);
+                    }
+                });
 
         Button see_more = (Button) view.findViewById(R.id.seemore_recent);
         see_more.setOnClickListener(this);
@@ -101,13 +148,13 @@ public class DiscoveryFragment extends Fragment implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        Intent myIntent = new Intent(this.getContext(), BigList.class);
-        if (v.getId() == R.id.seemore_recent) {
-            myIntent.putExtra("TAG", "RECENT");
-        } else if (v.getId() == R.id.seemore_popular) {
-            myIntent.putExtra("TAG", "POPULAR");
-        }
-        getContext().startActivity(myIntent);
+//        Intent myIntent = new Intent(this.getContext(), BigList.class);
+//        if (v.getId() == R.id.seemore_recent) {
+//            myIntent.putExtra("TAG", "RECENT");
+//        } else if (v.getId() == R.id.seemore_popular) {
+//            myIntent.putExtra("TAG", "POPULAR");
+//        }
+//        getContext().startActivity(myIntent);
     }
 
     /**
@@ -122,6 +169,6 @@ public class DiscoveryFragment extends Fragment implements View.OnClickListener 
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(Tattoo item);
     }
 }
