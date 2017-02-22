@@ -41,7 +41,7 @@ import java.util.StringTokenizer;
 public class Server {
 //    public static final String host = "http://localhost:5000";
 //    Uncomment below line when running in virtual device
-    public static final String host = "http://139.179.197.201:5000";
+    public static final String host = "http://139.179.211.45:5000";
     public enum TattooRequest {Liked, Public, Private};
     public enum UserRequest {Followed, Followers};
 
@@ -61,7 +61,7 @@ public class Server {
             Log.d("Connection", "ERROR");
             Log.d("Connection", String.valueOf(isInternetAvailable()));
             Log.d("Connection", error.toString());
-            Log.d("Connection", String.valueOf(error.networkResponse.statusCode));
+//            Log.d("Connection", String.valueOf(error.networkResponse.statusCode));
         }
     };
     private Server() {
@@ -154,6 +154,7 @@ public class Server {
     public static void getPopular(Context context, String token,
                                   Response.Listener<JSONObject> callback) {
         final String url = host + "/popular";
+        Log.d("TATTOO", "Requesting Popular");
 //        JSONObject data = create_json(token);
         request(context, url, null, callback);
     }
@@ -202,6 +203,7 @@ public class Server {
                 url = host + "/user-tattoo?private=1";
         }
         url += "&token=" + token;
+        Log.d("User-tatoo", url);
         request(context, url, null, callback);
     }
 

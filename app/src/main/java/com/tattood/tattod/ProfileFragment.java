@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,20 +20,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import org.json.JSONObject;
 
 public class ProfileFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     private User user;
     private String token;
 
     private RecyclerView user_liked;
     private RecyclerView user_private;
     private RecyclerView user_public;
+
+    private OnListFragmentInteractionListener liked_listener;
+    private OnListFragmentInteractionListener public_listener;
+    private OnListFragmentInteractionListener private_listener;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -61,25 +58,55 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    private void create_user(Context context) {
-        user = new User(context, token);
-        user.getLiked(new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-            }
-        });
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        Context context = view.getContext();
+        user = new User(context, token);
+
         user_liked = (RecyclerView) view.findViewById(R.id.user_liked_list);
+        liked_listener = new OnListFragmentInteractionListener();
+        user_liked.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        user_liked.setAdapter(new TattooRecyclerViewAdapter(liked_listener, context, user_liked, 25));
+        user.getLiked(
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        ((TattooRecyclerViewAdapter) user_liked.getAdapter()).set_data(token, response);
+                    }
+                });
+
+
         user_public = (RecyclerView) view.findViewById(R.id.user_public_list);
+        public_listener = new OnListFragmentInteractionListener();
+        user_public.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        user_public.setAdapter(new TattooRecyclerViewAdapter(public_listener, context, user_public, 25));
+        user.getPublic(
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        ((TattooRecyclerViewAdapter) user_public.getAdapter()).set_data(token, response);
+                    }
+                });
+
+
         user_private = (RecyclerView) view.findViewById(R.id.user_private_list);
+        private_listener = new OnListFragmentInteractionListener();
+        user_private.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        user_private.setAdapter(new TattooRecyclerViewAdapter(private_listener, context, user_private, 25));
+        user.getPrivate(
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        ((TattooRecyclerViewAdapter) user_private.getAdapter()).set_data(token, response);
+                    }
+                });
+
+
         Button signout_button = (Button) view.findViewById(R.id.signout_button);
-        create_user(view.getContext());
+
         signout_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
