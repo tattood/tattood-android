@@ -62,6 +62,7 @@ public class LoginActivity extends AppCompatActivity implements
         if (user != null) {
             Log.d("Login", "Already logged in with "+user);
             Intent myIntent = new Intent(this, MainActivity.class);
+            myIntent.putExtra("token", settings.getString("token", null));
             this.startActivity(myIntent);
         }
         setContentView(R.layout.activity_login);
@@ -184,6 +185,7 @@ public class LoginActivity extends AppCompatActivity implements
                                     SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, 0);
                                     SharedPreferences.Editor editor = sharedPref.edit();
                                     editor.putString("username", username);
+                                    editor.putString("token", acct.getIdToken());
                                     editor.apply();
                                     Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
                                     myIntent.putExtra("token", acct.getIdToken());
