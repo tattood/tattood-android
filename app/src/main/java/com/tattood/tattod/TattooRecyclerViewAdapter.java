@@ -86,6 +86,8 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
                     mListener.onListFragmentInteraction(holder.mItem);
+                } else {
+                    Log.d("Tattoo", "DIscovery Page");
                 }
             }
         });
@@ -99,7 +101,7 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
     @Override
     public void onClick(View v) {
         int itemPosition = mRecyclerView.getChildLayoutPosition(v);
-        Log.d("click", "clicked");
+        Log.d("Tattoo", "onCLick()");
         Tattoo item = mValues[itemPosition];
         Toast.makeText(mContext, item.toString(), Toast.LENGTH_LONG).show();
     }

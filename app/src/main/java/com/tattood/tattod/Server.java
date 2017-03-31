@@ -41,7 +41,7 @@ import java.util.StringTokenizer;
 public class Server {
 //    public static final String host = "http://localhost:5000";
 //    Uncomment below line when running in virtual device
-    public static final String host = "http://139.179.211.45:5000";
+    public static final String host = "http://139.179.197.147:5000";
     public enum TattooRequest {Liked, Public, Private};
     public enum UserRequest {Followed, Followers};
 

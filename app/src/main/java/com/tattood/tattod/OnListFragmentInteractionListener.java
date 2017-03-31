@@ -15,6 +15,6 @@ public class OnListFragmentInteractionListener implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        Log.d("Tattoo", "Clicked");
+        Log.d("Tattoo", "Profile Page");
     }
 }
