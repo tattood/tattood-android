@@ -19,9 +19,12 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONObject;
 
+import static com.tattood.tattod.SplashActivity.PREFS_NAME;
+
 public class ProfileFragment extends Fragment {
     private User user;
     private String token;
+    private Context context;
 
     private RecyclerView user_liked;
     private RecyclerView user_private;
@@ -63,7 +66,7 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        Context context = view.getContext();
+        context = view.getContext();
         user = new User(context, token);
 
         user_liked = (RecyclerView) view.findViewById(R.id.user_liked_list);
@@ -91,7 +94,6 @@ public class ProfileFragment extends Fragment {
                     }
                 });
 
-
         user_private = (RecyclerView) view.findViewById(R.id.user_private_list);
         private_listener = new OnListFragmentInteractionListener();
         user_private.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
@@ -110,9 +112,18 @@ public class ProfileFragment extends Fragment {
         signout_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(getActivity(), LoginActivity.class);
-                myIntent.putExtra("logout", "logout");
-                startActivity(myIntent);
+//                Context context, String token, Response.Listener<JSONObject> callback)
+                Server.logout(context, token, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        SharedPreferences.Editor editor = context.getSharedPreferences(PREFS_NAME, 0).edit();
+                        editor.remove("username");
+                        editor.apply();
+                        Log.d("Logout", "|HERE");
+                        Intent myIntent = new Intent(context, LoginActivity.class);
+                        startActivity(myIntent);
+                    }
+                });
             }
         });
         return view;

@@ -56,6 +56,9 @@ public class LoginActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         initLogin();
         askForPermission(android.Manifest.permission.CAMERA, 0x5);
+        SharedPreferences.Editor editor = this.getSharedPreferences(PREFS_NAME, 0).edit();
+        editor.remove("username");
+        editor.commit();
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         String user = settings.getString("username", null);
         if (user != null) {
