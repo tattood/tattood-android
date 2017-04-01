@@ -49,10 +49,16 @@
                 android:id="@+id/user_liked_list"/>
 
             <Button
-                android:text="Button"
+                android:text="Sign-out"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/signout_button"/>
+
+            <Button
+                android:id="@+id/upload_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Upload"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

@@ -1,17 +1,8 @@
 * tattood-android
-** Implemented
-  + Login Page
-  + Tabbed View
-    + Camera
-    + Discovery
 ** Missing
-  + User Page
   + Tattoo Page
-  + Link from Camera page to library
-  + Some transitions/links
-    + Tattoos on Discovery page
+  + Upload (Tag, Privacy)
+  + Other User
 ** Bug
-  + Back button on the first page sometimes crashes
-  + Camera on Pause/Resume/Start/Stop probably has bugs
-  + Network requests are performed repeatedly implement some kind of caching mechanism
-  + Tattoos are not automatically refreshed when the image is available.
+  + See More page shows empty entries
+  + Change See more to a grid instead of LinearLayout

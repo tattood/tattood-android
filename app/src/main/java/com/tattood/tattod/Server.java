@@ -1,10 +1,15 @@
 package com.tattood.tattod;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -24,6 +29,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -31,8 +37,11 @@ import java.io.InputStream;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 import java.util.StringTokenizer;
+
+import static android.R.attr.bitmap;
 
 /**
  * Created by eksi on 08/02/17.
@@ -41,7 +50,7 @@ import java.util.StringTokenizer;
 public class Server {
 //    public static final String host = "http://localhost:5000";
 //    Uncomment below line when running in virtual device
-    public static final String host = "http://192.168.1.26:5000";
+    public static final String host = "http://139.179.197.147:5000";
     public enum TattooRequest {Liked, Public, Private};
     public enum UserRequest {Followed, Followers};
 
@@ -158,19 +167,23 @@ public class Server {
                                      Response.Listener<JSONObject> callback) {
     }
 
-    public static void getPopular(Context context, String token,
-                                  Response.Listener<JSONObject> callback) {
-        final String url = host + "/popular";
-        Log.d("TATTOO", "Requesting Popular");
-//        JSONObject data = create_json(token);
+    public static void getPopular(Context context, Response.Listener<JSONObject> callback, int limit) {
+        final String url = host + "/popular?limit=" + limit;
+        Log.d("POPULAR", "" + limit);
         request(context, url, null, callback);
     }
 
-    public static void getRecent(Context context, String token,
-                                 Response.Listener<JSONObject> callback) {
-        final String url = host + "/recent";
-//        JSONObject data = create_json(token);
+    public static void getPopular(Context context, Response.Listener<JSONObject> callback) {
+        getPopular(context, callback, 20);
+    }
+
+    public static void getRecent(Context context, Response.Listener<JSONObject> callback, int limit) {
+        final String url = host + "/recent?limit=" + limit;
         request(context, url, null, callback);
+    }
+
+    public static void getRecent(Context context, Response.Listener<JSONObject> callback) {
+        getRecent(context, callback, 20);
     }
 
     public static void getTattooImage(final Context context, final int id, final int item_id,
@@ -214,9 +227,52 @@ public class Server {
         request(context, url, null, callback);
     }
 
-//    public static getTattoo(int id) {
-//
-//    }
+    public static String getStringImage(Bitmap bmp){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        return Base64.encodeToString(imageBytes, Base64.DEFAULT);
+    }
+
+    public static void uploadImage(Context context, final Uri path, final String name, final String token,
+                                   final boolean priv, final Response.Listener<String> callback) {
+        //Showing the progress dialog
+        final Bitmap bitmap;
+        try {
+            bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), path);
+        } catch (IOException ex) {
+            return;
+        }
+//        final ProgressDialog loading = ProgressDialog.show(context, "Uploading...","Please wait...",false,false);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, host + "/tattoo-upload",
+                callback, error_handler){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //Converting Bitmap to String
+                String image = getStringImage(bitmap);
+
+                //Creating parameters
+                Map<String,String> params = new Hashtable<String, String>();
+
+                //Adding parameters
+//                Log.d("Upload", image);
+//                Log.d("Upload:name", name);
+                params.put("image", image);
+                params.put("token", token);
+                params.put("private", String.valueOf(priv));
+                params.put("name", name);
+
+                //returning parameters
+                return params;
+            }
+        };
+
+        //Creating a Request Queue
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+
+        //Adding request to the queue
+        requestQueue.add(stringRequest);
+    }
 
     public interface ResponseCallback {
         void run(int id, int item_id);

@@ -2,30 +2,18 @@ package com.tattood.tattod;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import com.android.volley.Response;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * A fragment representing a list of Items.
@@ -71,8 +59,8 @@ public class DiscoveryFragment extends Fragment implements View.OnClickListener 
 
         final RecyclerView popular_view = (RecyclerView) view.findViewById(R.id.popular_list);
         popular_view.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        popular_view.setAdapter(new TattooRecyclerViewAdapter(mListener, context, popular_view, 25));
-        Server.getPopular(context, token,
+        popular_view.setAdapter(new TattooRecyclerViewAdapter(mListener, context, popular_view, 20));
+        Server.getPopular(context,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -82,13 +70,12 @@ public class DiscoveryFragment extends Fragment implements View.OnClickListener 
 
         final RecyclerView recent_view = (RecyclerView) view.findViewById(R.id.recent_list);
         recent_view.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        recent_view.setAdapter(new TattooRecyclerViewAdapter(mListener, context, recent_view, 25));
-        Server.getRecent(context, token,
+        recent_view.setAdapter(new TattooRecyclerViewAdapter(mListener, context, recent_view, 20));
+        Server.getRecent(context,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         ((TattooRecyclerViewAdapter) recent_view.getAdapter()).set_data(token, response);
-//                        set_data(view, R.id.recent_list, response);
                     }
                 });
 
@@ -103,11 +90,6 @@ public class DiscoveryFragment extends Fragment implements View.OnClickListener 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-//        if (context instanceof OnListFragmentInteractionListener) {
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnListFragmentInteractionListener");
-//        }
     }
 
     @Override
@@ -118,12 +100,13 @@ public class DiscoveryFragment extends Fragment implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-//        Intent myIntent = new Intent(this.getContext(), BigList.class);
-//        if (v.getId() == R.id.seemore_recent) {
-//            myIntent.putExtra("TAG", "RECENT");
-//        } else if (v.getId() == R.id.seemore_popular) {
-//            myIntent.putExtra("TAG", "POPULAR");
-//        }
-//        getContext().startActivity(myIntent);
+        Intent myIntent = new Intent(this.getContext(), SeeMore.class);
+        if (v.getId() == R.id.seemore_recent) {
+            myIntent.putExtra("TAG", "RECENT");
+        } else if (v.getId() == R.id.seemore_popular) {
+            myIntent.putExtra("TAG", "POPULAR");
+        }
+        myIntent.putExtra("token", token);
+        getContext().startActivity(myIntent);
     }
 }
