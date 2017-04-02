@@ -60,14 +60,16 @@ public class TattooActivity extends AppCompatActivity {
                         try {
 //                            JSONObject obj = response.getJSONObject("data");
 //                            boolean priv = Boolean.valueOf(obj.getString("private"));
-                            String username = response.getString("owner");
+                            final String username = response.getString("owner");
                             TextView owner = (TextView) findViewById(R.id.owner_name);
                             owner.setText(username);
                             Log.d("Tattoo", username);
                             owner.setOnClickListener( new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    Intent myIntent = new Intent(this, UserActivity.class);
+                                    Intent myIntent = new Intent(TattooActivity.this, UserActivity.class);
+                                    myIntent.putExtra("token", token);
+                                    myIntent.putExtra("username", username);
                                     startActivity(myIntent);
                                 }});
                             JSONArray tattooJSON = response.getJSONArray("tags");
@@ -80,7 +82,8 @@ public class TattooActivity extends AppCompatActivity {
                                 @Override
                                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 //                                    Intent myIntent = new Intent(this, Search.class);
-//                                    TextView entry = (TextView) adapterView.getItemAtPosition(i);
+                                    String entry = (String) adapterView.getItemAtPosition(i);
+                                    Log.d("Clicked-Tag", entry);
 //                                    myIntent.putExtra("Tag", entry.getText());
 //                                    startActivity(myIntent);
                                 }

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class User {
 
 //    private String email;
-//    private String username;
+    private String username;
     private String token;
     private ArrayList<Tattoo> liked = null;
     private ArrayList<Tattoo> upload_public = null;
@@ -25,9 +25,12 @@ public class User {
     private Context context;
 
     public User(Context context, String t) {
-//        email = e;
-//        username = u;
+        this(context, t, null);
+    }
+
+    public User(Context context, String t, String u) {
         token = t;
+        username = u;
         this.context = context;
     }
 

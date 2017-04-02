@@ -17,6 +17,7 @@ import android.widget.FrameLayout;
 public class CameraFragment extends Fragment {
     private Camera mCamera;
     private CameraPreview mPreview;
+    private View view;
 
     public CameraFragment() {
         // Required empty public constructor
@@ -50,14 +51,14 @@ public class CameraFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        mCamera = getCameraInstance();
         initCamera();
     }
 
     public void initCamera() {
+        mCamera = getCameraInstance();
         mCamera.setPreviewCallback(null);
         mPreview = new CameraPreview(getContext(), mCamera);
-        FrameLayout preview = (FrameLayout) getActivity().findViewById(R.id.camera_preview);
+        FrameLayout preview = (FrameLayout) view.findViewById(R.id.camera_preview);
         preview.addView(mPreview);
         mCamera.startPreview();
     }
@@ -79,8 +80,7 @@ public class CameraFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_camera, container, false);
-        mCamera = getCameraInstance();
+        view = inflater.inflate(R.layout.fragment_camera, container, false);
         initCamera();
         return view;
     }

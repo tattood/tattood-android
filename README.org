@@ -1,14 +1,15 @@
 * tattood-android
 ** Missing
-  + Tattoo Page [/]
-    + [ ] Clickable username
-    + [ ] Clickable Tag
   + Search Page
   + Tattoo Edit Page
   + Upload (Tag, Privacy)
-  + Other User
 ** Bug
-  + See More page shows empty entries
-  + Save tattoos using tattoo id not using loop index
+  + See-More page shows empty entries
+  + tattoos should be saved using tattoo id not using loop index. (index might cause collision)
   + CameraFragment.java gives warning: attempt to use a camera after disconnect()
     Most probably onPause()/onResume() related
+  + Currently there is a bug in Tattoo interactions if listener is null OnClick gets called in
+    OnListFragmentInteractionListener. Otherwise, it gets called in TatooRecyclerViewAdapter.
+    I've used this to distinguish between calls from Discovery Page and Profile Page;
+    but it is definitely a bug.
+  + Visual Interface looks horrible

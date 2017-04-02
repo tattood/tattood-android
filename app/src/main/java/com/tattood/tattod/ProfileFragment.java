@@ -127,7 +127,6 @@ public class ProfileFragment extends Fragment {
         signout_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Context context, String token, Response.Listener<JSONObject> callback)
                 Server.logout(context, token, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -150,17 +149,6 @@ public class ProfileFragment extends Fragment {
                 Log.d("Upload", "Clicked");
                 Intent i = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(i, RESULT_LOAD_IMAGE);
-//                Server.logout(context, token, new Response.Listener<JSONObject>() {
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                        SharedPreferences.Editor editor = context.getSharedPreferences(PREFS_NAME, 0).edit();
-//                        editor.remove("username");
-//                        editor.apply();
-//                        Log.d("Logout", "|HERE");
-//                        Intent myIntent = new Intent(context, LoginActivity.class);
-//                        startActivity(myIntent);
-//                    }
-//                });
             }
         });
 
