@@ -186,7 +186,13 @@ public class Server {
         getRecent(context, callback, 20);
     }
 
-    public static void getTattooImage(final Context context, final int id, final int item_id,
+    public static void getTattooData(final Context context, final String id,
+                                     final String token, Response.Listener<JSONObject> callback) {
+        final String url = host + "/tattoo-data?id="+id+"&token="+token;
+        request(context, url, null, callback);
+    }
+
+    public static void getTattooImage(final Context context, final String id, final int item_id,
                                       final String token, final ResponseCallback callback) {
         final String url = host + "/tattoo?id="+id+"&token="+token;
         InputStreamVolleyRequest request = new InputStreamVolleyRequest(Request.Method.GET, url,
@@ -275,6 +281,6 @@ public class Server {
     }
 
     public interface ResponseCallback {
-        void run(int id, int item_id);
+        void run(String id, int item_id);
     }
 }

@@ -1,6 +1,7 @@
 package com.tattood.tattod;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v4.content.ContextCompat;
@@ -71,13 +72,11 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
     }
 
     public void setTattoo(int index, Tattoo t) {
-        if (t == null) {
-        }
         mValues[index] = t;
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.image.setImageBitmap(getTattooImage(position));
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +87,10 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
                     mListener.onListFragmentInteraction(holder.mItem);
                 } else {
                     Log.d("Tattoo", "DIscovery Page");
+                    Intent myIntent = new Intent(mContext, TattooActivity.class);
+//                    myIntent.putExtra("token", mValues[position].tattoo_id);
+                    myIntent.putExtra("tid",   mValues[position].tattoo_id);
+                    mContext.startActivity(myIntent);
                 }
             }
         });
@@ -125,20 +128,20 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
 
     public void set_data(String token, JSONObject obj) {
         try {
-            JSONArray arr;
+//            JSONArray arr;
             obj = obj.getJSONObject("data");
             Iterator<String> keys = obj.keys();
             while( keys.hasNext() ) {
                 String key = keys.next();
                 int i = Integer.parseInt(key);
                 JSONArray tattooJSON = obj.getJSONArray(key);
-                int tattoo_id = tattooJSON.getInt(0);
-                int owner_id = tattooJSON.getInt(1);
+                String tattoo_id = tattooJSON.getString(0);
+                String owner_id = tattooJSON.getString(1);
                 this.setTattoo(i, new Tattoo(tattoo_id, owner_id));
                 Server.getTattooImage(mContext, tattoo_id, i, token,
                         new Server.ResponseCallback() {
                             @Override
-                            public void run(int id, int i) {
+                            public void run(String id, int i) {
                                 try {
                                     String name = id + ".jpg";
                                     FileInputStream stream = mContext.openFileInput(name);

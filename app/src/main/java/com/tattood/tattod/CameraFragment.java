@@ -41,23 +41,27 @@ public class CameraFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    //[BUG] According to Android documentation onPause should release the camera and onResume should
-    // acquire it back. If I comment out the lines below, camera appears pitch black.
     @Override
     public void onPause() {
         super.onPause();
-//        destroyCamera();
+        destroyCamera();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-//        mCamera = getCameraInstance();
-//        mCamera.startPreview();|
+        mCamera = getCameraInstance();
+        initCamera();
     }
 
-    /** A safe way to get an instance of the Camera object. */
-    // Might be a virtual device related bug, web-cam bug, Nexus bug.
+    public void initCamera() {
+        mCamera.setPreviewCallback(null);
+        mPreview = new CameraPreview(getContext(), mCamera);
+        FrameLayout preview = (FrameLayout) getActivity().findViewById(R.id.camera_preview);
+        preview.addView(mPreview);
+        mCamera.startPreview();
+    }
+
     public static Camera getCameraInstance(){
         Camera c = null;
         try {
@@ -77,9 +81,7 @@ public class CameraFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_camera, container, false);
         mCamera = getCameraInstance();
-        mPreview = new CameraPreview(getContext(), mCamera);
-        FrameLayout preview = (FrameLayout) view.findViewById(R.id.camera_preview);
-        preview.addView(mPreview);
+        initCamera();
         return view;
     }
 
@@ -97,6 +99,8 @@ public class CameraFragment extends Fragment {
     private void destroyCamera() {
         if(mCamera!=null) {
             mCamera.stopPreview();
+            mCamera.setPreviewCallback(null);
+            mPreview.getHolder().removeCallback(mPreview);
             mCamera.release();
             mCamera = null;
         }
