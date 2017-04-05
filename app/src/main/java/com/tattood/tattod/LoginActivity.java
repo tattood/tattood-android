@@ -58,10 +58,16 @@ public class LoginActivity extends AppCompatActivity implements
         String user = settings.getString("username", null);
         if (user != null) {
             Log.d("Login", "Already logged in with "+user);
-            Intent myIntent = new Intent(this, MainActivity.class);
-            myIntent.putExtra("token", settings.getString("token", null));
-            Log.d("Login", settings.getString("token", ""));
-            this.startActivity(myIntent);
+            final String email = settings.getString("email", null);
+            final String token = settings.getString("token", null);
+            Server.signIn(this, token, email, new Response.Listener<JSONObject>(){
+                @Override
+                public void onResponse(JSONObject response) {
+                    Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
+                    myIntent.putExtra("token", token);
+                    LoginActivity.this.startActivity(myIntent);
+                }
+            });
         }
         setContentView(R.layout.activity_login);
         Button login_button = (Button) findViewById(R.id.login_button);
@@ -178,6 +184,7 @@ public class LoginActivity extends AppCompatActivity implements
                                     SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, 0);
                                     SharedPreferences.Editor editor = sharedPref.edit();
                                     editor.putString("username", username);
+                                    editor.putString("email", acct.getEmail());
                                     editor.putString("token", acct.getIdToken());
                                     editor.apply();
                                     Intent myIntent = new Intent(getBaseContext(), MainActivity.class);

@@ -4,18 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.tattood.tattod.OnListFragmentInteractionListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,9 +18,7 @@ import org.json.JSONObject;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link Tattoo} and makes a call to the
@@ -39,13 +32,15 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
     private final OnListFragmentInteractionListener mListener;
     private final Context mContext;
     private final RecyclerView mRecyclerView;
+    private final String token;
 
     public TattooRecyclerViewAdapter(OnListFragmentInteractionListener listener,
-                                     Context context, RecyclerView recyclerView, int count) {
+                                     Context context, RecyclerView recyclerView, int count, String t) {
         mValues = new Tattoo[count];
         mListener = listener;
         mContext = context;
         mRecyclerView = recyclerView;
+        token = t;
     }
 
     @Override
@@ -89,7 +84,7 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
                 } else {
                     Log.d("Tattoo", "Discovery Page");
                     Intent myIntent = new Intent(mContext, TattooActivity.class);
-//                    myIntent.putExtra("token", mValues[position].tattoo_id);
+                    myIntent.putExtra("token", token);
                     myIntent.putExtra("tid",   mValues[position].tattoo_id);
                     mContext.startActivity(myIntent);
                 }

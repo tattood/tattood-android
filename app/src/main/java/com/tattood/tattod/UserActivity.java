@@ -1,13 +1,9 @@
 package com.tattood.tattod;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.TextView;
 
 import com.android.volley.Response;
@@ -40,7 +36,7 @@ public class UserActivity extends AppCompatActivity {
 //        liked_listener = new OnListFragmentInteractionListener();
         liked_listener = null;
         user_liked.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        user_liked.setAdapter(new TattooRecyclerViewAdapter(liked_listener, this, user_liked, 25));
+        user_liked.setAdapter(new TattooRecyclerViewAdapter(liked_listener, this, user_liked, 25, token));
         user.getLiked(
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -53,7 +49,7 @@ public class UserActivity extends AppCompatActivity {
 //        public_listener = new OnListFragmentInteractionListener();
         public_listener = null;
         user_public.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        user_public.setAdapter(new TattooRecyclerViewAdapter(public_listener, this, user_public, 25));
+        user_public.setAdapter(new TattooRecyclerViewAdapter(public_listener, this, user_public, 25, token));
         user.getPublic(
                 new Response.Listener<JSONObject>() {
                     @Override

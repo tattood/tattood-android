@@ -59,7 +59,7 @@ public class DiscoveryFragment extends Fragment implements View.OnClickListener 
 
         final RecyclerView popular_view = (RecyclerView) view.findViewById(R.id.popular_list);
         popular_view.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        popular_view.setAdapter(new TattooRecyclerViewAdapter(mListener, context, popular_view, 20));
+        popular_view.setAdapter(new TattooRecyclerViewAdapter(mListener, context, popular_view, 20, token));
         Server.getPopular(context,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -70,7 +70,7 @@ public class DiscoveryFragment extends Fragment implements View.OnClickListener 
 
         final RecyclerView recent_view = (RecyclerView) view.findViewById(R.id.recent_list);
         recent_view.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        recent_view.setAdapter(new TattooRecyclerViewAdapter(mListener, context, recent_view, 20));
+        recent_view.setAdapter(new TattooRecyclerViewAdapter(mListener, context, recent_view, 20, token));
         Server.getRecent(context,
                 new Response.Listener<JSONObject>() {
                     @Override

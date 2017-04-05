@@ -70,7 +70,7 @@ public class ProfileFragment extends Fragment {
 //        liked_listener = new OnListFragmentInteractionListener(getContext(), token);
         liked_listener = null;
         user_liked.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        user_liked.setAdapter(new TattooRecyclerViewAdapter(liked_listener, context, user_liked, 25));
+        user_liked.setAdapter(new TattooRecyclerViewAdapter(liked_listener, context, user_liked, 25, token));
         user.getLiked(
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -83,7 +83,7 @@ public class ProfileFragment extends Fragment {
         user_public = (RecyclerView) view.findViewById(R.id.user_public_list);
         public_listener = new OnListFragmentInteractionListener(getContext(), token);
         user_public.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        user_public.setAdapter(new TattooRecyclerViewAdapter(public_listener, context, user_public, 25));
+        user_public.setAdapter(new TattooRecyclerViewAdapter(public_listener, context, user_public, 25, token));
         user.getPublic(
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -95,7 +95,7 @@ public class ProfileFragment extends Fragment {
         user_private = (RecyclerView) view.findViewById(R.id.user_private_list);
         private_listener = new OnListFragmentInteractionListener(getContext(), token);
         user_private.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        user_private.setAdapter(new TattooRecyclerViewAdapter(private_listener, context, user_private, 25));
+        user_private.setAdapter(new TattooRecyclerViewAdapter(private_listener, context, user_private, 25, token));
         user.getPrivate(
                 new Response.Listener<JSONObject>() {
                     @Override
