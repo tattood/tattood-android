@@ -24,10 +24,6 @@ public class User {
     private ArrayList<User> followers = null;
     private Context context;
 
-    public User(Context context, String t) {
-        this(context, t, null);
-    }
-
     public User(Context context, String t, String u) {
         token = t;
         username = u;
@@ -36,31 +32,32 @@ public class User {
 
     public ArrayList<Tattoo> getLiked(Response.Listener<JSONObject> callback) {
         if (liked == null)
-            Server.getTattooList(context, token, Server.TattooRequest.Liked, callback);
+            Server.getTattooList(context, token, Server.TattooRequest.Liked, username, callback);
         return liked;
     }
 
     public ArrayList<Tattoo> getPublic(Response.Listener<JSONObject> callback) {
         if (upload_public == null)
-            Server.getTattooList(context, token, Server.TattooRequest.Public, callback);
+            Server.getTattooList(context, token, Server.TattooRequest.Public, username, callback);
         return upload_public;
     }
 
     public ArrayList<Tattoo> getPrivate(Response.Listener<JSONObject> callback) {
         if (upload_private == null)
-            Server.getTattooList(context, token, Server.TattooRequest.Private, callback);
+            Server.getTattooList(context, token, Server.TattooRequest.Private, username, callback);
         return upload_private;
     }
 
-    public ArrayList<User> getFollowers(Response.Listener<JSONObject> callback) {
-        if (followers == null)
-            Server.getUserList(context, token, Server.UserRequest.Followers, callback);
-        return followers;
-    }
-
-    public ArrayList<User> getFollowed(Response.Listener<JSONObject> callback) {
-        if (followed == null)
-            Server.getUserList(context, token, Server.UserRequest.Followed, callback);
-        return followed;
-    }
+    //
+//    public ArrayList<User> getFollowers(Response.Listener<JSONObject> callback) {
+//        if (followers == null)
+//            Server.getUserList(context, token, Server.UserRequest.Followers, callback);
+//        return followers;
+//    }
+//
+//    public ArrayList<User> getFollowed(Response.Listener<JSONObject> callback) {
+//        if (followed == null)
+//            Server.getUserList(context, token, Server.UserRequest.Followed, callback);
+//        return followed;
+//    }
 }

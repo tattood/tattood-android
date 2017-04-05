@@ -49,10 +49,11 @@ public class ProfileFragment extends Fragment {
      * @return A new instance of fragment ProfileFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ProfileFragment newInstance(String token) {
+    public static ProfileFragment newInstance(String token, String username) {
         ProfileFragment fragment = new ProfileFragment();
         Bundle args = new Bundle();
         args.putString("token", token);
+        args.putString("username", username);
         fragment.setArguments(args);
         return fragment;
     }
@@ -111,7 +112,9 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_profile, container, false);
         context = view.getContext();
-        user = new User(context, token);
+        Bundle extras = getActivity().getIntent().getExtras();
+        String username = extras.getString("username", null);
+        user = new User(context, token, username);
 
         refresh_images(view);
         Button signout_button = (Button) view.findViewById(R.id.signout_button);

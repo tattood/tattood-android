@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
     private String token;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         token = getIntent().getStringExtra("token");
+        username = getIntent().getStringExtra("username");
     }
 
 
@@ -142,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
             else if (position == 1)
                 return DiscoveryFragment.newInstance(token);
             else if (position == 2)
-                return ProfileFragment.newInstance(token);
+                return ProfileFragment.newInstance(token, username);
             else
                 return PlaceholderFragment.newInstance(position + 1);
                 // getItem is called to instantiate the fragment for the given page.

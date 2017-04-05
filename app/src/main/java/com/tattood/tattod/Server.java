@@ -204,7 +204,7 @@ public class Server {
         mRequestQueue.add(request);
     }
 
-    public static void getTattooList(Context context, String token, TattooRequest r,
+    public static void getTattooList(Context context, String token, TattooRequest r, String username,
                                      Response.Listener<JSONObject> callback) {
         String url;
         if (r == TattooRequest.Liked) {
@@ -215,7 +215,7 @@ public class Server {
             else
                 url = host + "/user-tattoo?private=1";
         }
-        url += "&token=" + token;
+        url += "&token=" + token + "&user=" + username;
         Log.d("User-tatoo", url);
         request(context, url, null, callback);
     }
