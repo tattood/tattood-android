@@ -240,6 +240,12 @@ public class Server {
         return Base64.encodeToString(imageBytes, Base64.DEFAULT);
     }
 
+    public static void search(Context context, String token, String by, String what,
+                              Response.Listener<JSONObject> callback) {
+        String url = host + "/search?by=" + by + "&what=" + what + "&token=" + token + "&limit=20";
+        request(context, url, null, callback);
+    }
+
     public static void uploadImage(Context context, final Uri path, final String name, final String token,
                                    final boolean priv, final Response.Listener<String> callback) {
         //Showing the progress dialog

@@ -4,15 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,14 +17,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.android.volley.Response;
-import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONObject;
-
-import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 import static com.tattood.tattod.SplashActivity.PREFS_NAME;
@@ -76,7 +67,8 @@ public class ProfileFragment extends Fragment {
 
     public void refresh_images(View view) {
         user_liked = (RecyclerView) view.findViewById(R.id.user_liked_list);
-        liked_listener = new OnListFragmentInteractionListener();
+//        liked_listener = new OnListFragmentInteractionListener(getContext(), token);
+        liked_listener = null;
         user_liked.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         user_liked.setAdapter(new TattooRecyclerViewAdapter(liked_listener, context, user_liked, 25));
         user.getLiked(
@@ -89,7 +81,7 @@ public class ProfileFragment extends Fragment {
 
 
         user_public = (RecyclerView) view.findViewById(R.id.user_public_list);
-        public_listener = new OnListFragmentInteractionListener();
+        public_listener = new OnListFragmentInteractionListener(getContext(), token);
         user_public.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         user_public.setAdapter(new TattooRecyclerViewAdapter(public_listener, context, user_public, 25));
         user.getPublic(
@@ -101,7 +93,7 @@ public class ProfileFragment extends Fragment {
                 });
 
         user_private = (RecyclerView) view.findViewById(R.id.user_private_list);
-        private_listener = new OnListFragmentInteractionListener();
+        private_listener = new OnListFragmentInteractionListener(getContext(), token);
         user_private.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         user_private.setAdapter(new TattooRecyclerViewAdapter(private_listener, context, user_private, 25));
         user.getPrivate(

@@ -55,6 +55,18 @@
             android:label="@string/title_activity_user"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity
+            android:name=".UploadActivity"
+            android:label="@string/title_activity_upload"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".SearchActivity"
+            android:label="@string/title_activity_search"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".TattooEditActivity">
+        </activity>
     </application>
 
 </manifest>

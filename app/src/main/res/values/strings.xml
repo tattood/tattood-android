@@ -22,4 +22,6 @@
     <string name="title_activity_see_more">See More</string>
     <string name="title_activity_tattoo">TattooActivity</string>
     <string name="title_activity_user">UserActivity</string>
+    <string name="title_activity_upload">UploadActivity</string>
+    <string name="title_activity_search">SearchActivity</string>
 </resources>

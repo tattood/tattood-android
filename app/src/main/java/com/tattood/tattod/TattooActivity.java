@@ -81,11 +81,11 @@ public class TattooActivity extends AppCompatActivity {
                             tag_list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
                                 @Override
                                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                                    Intent myIntent = new Intent(this, Search.class);
+                                    Intent myIntent = new Intent(TattooActivity.this, SearchActivity.class);
                                     String entry = (String) adapterView.getItemAtPosition(i);
                                     Log.d("Clicked-Tag", entry);
-//                                    myIntent.putExtra("Tag", entry.getText());
-//                                    startActivity(myIntent);
+                                    myIntent.putExtra("tag", entry);
+                                    startActivity(myIntent);
                                 }
                             });
                         } catch (JSONException e) {

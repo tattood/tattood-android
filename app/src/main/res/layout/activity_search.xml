@@ -7,8 +7,17 @@
     android:layout_height="match_parent"
     tools:context="com.tattood.tattod.SeeMore">
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/no_result"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/list_view"/>
+        android:text="No Result Found"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/result_list"
+        android:layout_width="395dp"
+        android:layout_height="643dp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp"/>
+
 </android.support.constraint.ConstraintLayout>

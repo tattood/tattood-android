@@ -8,7 +8,9 @@
     tools:context="com.tattood.tattod.SeeMore">
 
     <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
+        android:layout_width="395dp"
         android:layout_height="wrap_content"
-        android:id="@+id/list_view"/>
+        android:id="@+id/list_view"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="8dp"/>
 </android.support.constraint.ConstraintLayout>

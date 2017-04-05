@@ -2,12 +2,10 @@ package com.tattood.tattod;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -35,7 +33,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 import org.json.JSONObject;
 
-import static com.android.volley.Response.*;
+import static com.android.volley.Response.ErrorListener;
 
 
 /**
@@ -56,15 +54,13 @@ public class LoginActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         initLogin();
         askForPermission();
-//        askForPermission(android.Manifest.permission.CAMERA, 0x5);
-//        askForPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE, 0x6);
-//        askForPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE, 0x7);
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         String user = settings.getString("username", null);
         if (user != null) {
             Log.d("Login", "Already logged in with "+user);
             Intent myIntent = new Intent(this, MainActivity.class);
             myIntent.putExtra("token", settings.getString("token", null));
+            Log.d("Login", settings.getString("token", ""));
             this.startActivity(myIntent);
         }
         setContentView(R.layout.activity_login);
@@ -84,17 +80,7 @@ public class LoginActivity extends AppCompatActivity implements
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 android.Manifest.permission.READ_EXTERNAL_STORAGE
         };
-//        if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
-//            Log.d("Permission", permission + " " + requestCode);
-//            if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
-//                //This is called if user has denied the permission before
-//                //In this case I am just asking the permission again
-//                ActivityCompat.requestPermissions(this, new String[]{permission}, requestCode);
-//
-//            } else {
         ActivityCompat.requestPermissions(this, permission, 0x5);
-//            }
-//        }
     }
 
     private void initLogin() {

@@ -23,14 +23,14 @@ public class SeeMore extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_see_more);
 
-        mListener = new OnListFragmentInteractionListener();
+//        mListener = new OnListFragmentInteractionListener(this);
+        mListener = null;
         Bundle extras = getIntent().getExtras();
         final String token = extras.getString("token");
         final String tag = extras.getString("TAG");
 
         final RecyclerView list_view = (RecyclerView) findViewById(R.id.list_view);
         list_view.setLayoutManager(new GridLayoutManager(this, 3));
-//        list_view.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         list_view.setAdapter(new TattooRecyclerViewAdapter(mListener, this, list_view, 100));
         if (tag.equals("RECENT")) {
             Server.getRecent(this,
