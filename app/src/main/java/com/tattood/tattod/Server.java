@@ -1,13 +1,10 @@
 package com.tattood.tattod;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
@@ -22,26 +19,16 @@ import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.InetAddress;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
-import java.util.StringTokenizer;
-
-import static android.R.attr.bitmap;
 
 /**
  * Created by eksi on 08/02/17.
@@ -50,7 +37,7 @@ import static android.R.attr.bitmap;
 public class Server {
 //    public static final String host = "http://localhost:5000";
 //    Uncomment below line when running in virtual device
-    public static final String host = "http://139.179.197.147:5000";
+    public static final String host = "http://192.168.1.26:5000";
     public enum TattooRequest {Liked, Public, Private};
     public enum UserRequest {Followed, Followers};
 
