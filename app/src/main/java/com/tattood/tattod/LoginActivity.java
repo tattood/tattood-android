@@ -83,7 +83,6 @@ public class LoginActivity extends AppCompatActivity implements
                 .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
                     @Override
                     public void onConnected(@Nullable Bundle bundle) {
-                        Log.d("initLogin", "HERE");
                         if (getIntent().hasExtra("logout")) {
                             Log.d("Login", "HERE--Logout");
                             mAuth.signOut();
@@ -174,24 +173,20 @@ public class LoginActivity extends AppCompatActivity implements
                                     editor.apply();
                                     Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
                                     myIntent.putExtra("token", acct.getIdToken());
-                                    mAuth.getCurrentUser().linkWithCredential(credential)
-                                            .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                                    if (!task.isSuccessful()) {
-                                                        Log.d("Firebase", "linkWithCredentials:Error:");
-                                                    }
-                                                }
-                                            });
                                     startActivity(myIntent);
                                 }
                             }, new ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    Intent myIntent = new Intent(getBaseContext(), RegisterActivity.class);
-                                    myIntent.putExtra("email", acct.getEmail());
-                                    myIntent.putExtra("token", acct.getIdToken());
-                                    startActivity(myIntent);
+                                    int response = error.networkResponse.statusCode;
+                                    if (response == 464) {
+                                        Intent myIntent = new Intent(getBaseContext(), RegisterActivity.class);
+                                        myIntent.putExtra("email", acct.getEmail());
+                                        myIntent.putExtra("token", acct.getIdToken());
+                                        startActivity(myIntent);
+                                    } else {
+                                        Log.d("Network-Error", "" + response);
+                                    }
                                 }
                             });
                         }

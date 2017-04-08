@@ -11,12 +11,17 @@
   + Recursive clicks should lead back to Discovery page (From tattoo? user? all?)
   + Images should use fixed size
   + Login/Register requires a rework:
-    + [ ] Tokens change from time-to-time (maybe on uninstall). Server needs to adapt
-    + [ ] Storing tokens in Server and checking it every time looks quite primitive
-    + [ ] Server should use official Python API instead of HTTP request
+    + [X] Tokens change from time-to-time (maybe on uninstall). Server needs to adapt (Server code
+      is updated to update token, but needs investigation, when/why token changes? or does it
+      actually change?)
+    + [X] Storing tokens in Server and checking it every time looks quite primitive (According to
+      StackOverflow, using either this or ApplicationManager is the default way to go)
+    + [ ] Server should use official Python API instead of HTTP request (Should, it?)
     + [X] If the user is already logged in, login activity should not appear
-    + [ ] Looks like some Firebase related operations are not performed during register
-    + [ ] Notifying un-registered user via 400 sounds like a poor design, (at least choose a /different code)
+    + [X] Looks like some Firebase related operations are not performed during register
+    + [X] Notifying un-registered user via 400 sounds like a poor design, (at least choose a
+      different code) According to Wikipedia, for unauthorized access one should use 401. But this
+      requires an authorization scheme. And I decided to go with 464, which is available to use
     + [X] Whether via back-button or something else, user should never be able to reach back the login screen
           :nohistory should fix this
   + Upload button does not appear in Profile Fragment
