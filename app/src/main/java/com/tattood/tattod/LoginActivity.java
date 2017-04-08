@@ -47,28 +47,12 @@ public class LoginActivity extends AppCompatActivity implements
     private static int RC_SIGN_IN = 100;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private Server mServer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initLogin();
         askForPermission();
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        String user = settings.getString("username", null);
-        if (user != null) {
-            Log.d("Login", "Already logged in with "+user);
-            final String email = settings.getString("email", null);
-            final String token = settings.getString("token", null);
-            Server.signIn(this, token, email, new Response.Listener<JSONObject>(){
-                @Override
-                public void onResponse(JSONObject response) {
-                    Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
-                    myIntent.putExtra("token", token);
-                    LoginActivity.this.startActivity(myIntent);
-                }
-            });
-        }
         setContentView(R.layout.activity_login);
         Button login_button = (Button) findViewById(R.id.login_button);
         login_button.setOnClickListener(new OnClickListener() {
@@ -99,6 +83,7 @@ public class LoginActivity extends AppCompatActivity implements
                 .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
                     @Override
                     public void onConnected(@Nullable Bundle bundle) {
+                        Log.d("initLogin", "HERE");
                         if (getIntent().hasExtra("logout")) {
                             Log.d("Login", "HERE--Logout");
                             mAuth.signOut();
@@ -165,7 +150,7 @@ public class LoginActivity extends AppCompatActivity implements
     private void firebaseAuthWithGoogle(final GoogleSignInAccount acct) {
         Log.d("Firebase", "firebaseAuthWithGoogle:" + acct.getId());
 
-        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        final AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -189,6 +174,15 @@ public class LoginActivity extends AppCompatActivity implements
                                     editor.apply();
                                     Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
                                     myIntent.putExtra("token", acct.getIdToken());
+                                    mAuth.getCurrentUser().linkWithCredential(credential)
+                                            .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                                    if (!task.isSuccessful()) {
+                                                        Log.d("Firebase", "linkWithCredentials:Error:");
+                                                    }
+                                                }
+                                            });
                                     startActivity(myIntent);
                                 }
                             }, new ErrorListener() {

@@ -7,8 +7,18 @@
   + tattoos should be saved using tattoo id not using loop index. (index might cause collision)
   + CameraFragment.java gives warning: attempt to use a camera after disconnect()
     Most probably onPause()/onResume() related
-  + Currently there is a bug in Tattoo interactions. If listener is null, OnClick gets called in+
-    OnListFragmentInteractionListener. Otherwise, it gets called in TatooRecyclerViewAdapter.
-    I've used this to distinguish between calls from Discovery Page and Profile Page;
-    but it is definitely a bug.
   + Visual Interface looks horrible
+  + Recursive clicks should lead back to Discovery page (From tattoo? user? all?)
+  + Images should use fixed size
+  + Login/Register requires a rework:
+    + [ ] Tokens change from time-to-time (maybe on uninstall). Server needs to adapt
+    + [ ] Storing tokens in Server and checking it every time looks quite primitive
+    + [ ] Server should use official Python API instead of HTTP request
+    + [X] If the user is already logged in, login activity should not appear
+    + [ ] Looks like some Firebase related operations are not performed during register
+    + [ ] Notifying un-registered user via 400 sounds like a poor design, (at least choose a /different code)
+    + [X] Whether via back-button or something else, user should never be able to reach back the login screen
+          :nohistory should fix this
+  + Upload button does not appear in Profile Fragment
+  + Change Upload button to FAB
+  + Change Camera button to FAB
