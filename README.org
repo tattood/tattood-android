@@ -2,9 +2,10 @@
 ** Missing
   + Search Page (Works on clicking from tag/username but there is no dedicated search bar)
   + Upload (Tag, Privacy)
-** Bug [1/1]
-  + [ ] See-More page shows empty entries
-  + [ ] tattoos should be saved using tattoo id not using loop index. (index might cause collision)
+** Bug [3/7]
+  + [X] See-More page shows empty entries
+  + [ ] RecyclerView Creation is repeated way too many times
+  + [X] tattoos should be saved using tattoo id not using loop index. (index might cause collision)
   + CameraFragment.java gives warning: attempt to use a camera after disconnect()
     Most probably onPause()/onResume() related
   + Visual Interface looks horrible
