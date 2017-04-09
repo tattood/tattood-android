@@ -9,44 +9,33 @@
     tools:layout_editor_absoluteX="8dp"
     tools:layout_editor_absoluteY="8dp">
 
-    <ScrollView
+    <ImageView
+        android:id="@+id/tattoo_image_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal"/>
+
+    <Switch
+        android:id="@+id/switch_visibility"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:showText="true"
+        android:textAlignment="viewStart"
+        android:textOff="Public"
+        android:textOn="Private"/>
+
+    <Button
+        android:id="@+id/add_tag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        tools2:text="Add new Tag"/>
+
+    <ListView
+        android:id="@+id/tag_list_edit"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/tattoo_image_edit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal"/>
-
-            <ListView
-                android:id="@+id/tag_list_edit"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent">
-            </ListView>
-
-            <Button
-                android:id="@+id/add_tag"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Button"
-                tools2:text="Add new Tag"/>
-
-            <Switch
-                android:id="@+id/switch_public"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:showText="true"
-                android:textAlignment="viewStart"
-                android:textOff="Private"
-                android:textOn="Public"/>
-        </LinearLayout>
-    </ScrollView>
+    </ListView>
 
 </LinearLayout>
