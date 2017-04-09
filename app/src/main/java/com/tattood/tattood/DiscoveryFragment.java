@@ -79,9 +79,9 @@ public class DiscoveryFragment extends Fragment implements View.OnClickListener 
                     }
                 });
 
-        Button see_more = (Button) view.findViewById(R.id.seemore_recent);
+        Button see_more = (Button) view.findViewById(R.id.see_more_recent);
         see_more.setOnClickListener(this);
-        see_more = (Button) view.findViewById(R.id.seemore_popular);
+        see_more = (Button) view.findViewById(R.id.see_more_popular);
         see_more.setOnClickListener(this);
         return view;
     }
@@ -96,9 +96,9 @@ public class DiscoveryFragment extends Fragment implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         Intent myIntent = new Intent(this.getContext(), SeeMore.class);
-        if (v.getId() == R.id.seemore_recent) {
+        if (v.getId() == R.id.see_more_recent) {
             myIntent.putExtra("TAG", "RECENT");
-        } else if (v.getId() == R.id.seemore_popular) {
+        } else if (v.getId() == R.id.see_more_popular) {
             myIntent.putExtra("TAG", "POPULAR");
         }
         myIntent.putExtra("token", token);

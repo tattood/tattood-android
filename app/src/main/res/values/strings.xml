@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Tattod</string>
+    <string name="app_name">Tattood</string>
 
     <!-- Strings related to login -->
     <string name="title_activity_main">MainActivity</string>
