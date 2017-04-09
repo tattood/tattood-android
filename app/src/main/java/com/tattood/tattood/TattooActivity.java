@@ -53,8 +53,6 @@ public class TattooActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-//                            JSONObject obj = response.getJSONObject("data");
-//                            boolean is_private = Boolean.valueOf(obj.getString("private"));
                             final String username = response.getString("owner");
                             TextView owner = (TextView) findViewById(R.id.owner_name);
                             owner.setText(username);

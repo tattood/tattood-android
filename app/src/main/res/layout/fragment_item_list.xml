@@ -11,14 +11,14 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:text="Recent"
+            android:text="@string/recent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/textView"
             android:layout_weight="1"/>
 
         <Button
-            android:text="See More"
+            android:text="@string/see_more"
             android:layout_width="159dp"
             android:layout_height="wrap_content"
             android:id="@+id/see_more_recent"
@@ -36,14 +36,14 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:text="Popular"
+            android:text="@string/popular"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/textView2"
             android:layout_weight="1"/>
 
         <Button
-            android:text="See More"
+            android:text="@string/see_more"
             android:layout_width="159dp"
             android:layout_height="wrap_content"
             android:id="@+id/see_more_popular"

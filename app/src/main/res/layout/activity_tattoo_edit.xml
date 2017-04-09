@@ -2,7 +2,6 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/apk/res-auto"
-    xmlns:tools2="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="643dp"
     android:orientation="vertical"
@@ -14,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal"
-        android:contentDescription="Image of the Tattoo"/>
+        android:contentDescription="@string/tattoo_description"/>
 
     <Switch
         android:id="@+id/switch_visibility"
@@ -23,15 +22,14 @@
         android:layout_weight="1"
         android:showText="true"
         android:textAlignment="viewStart"
-        android:textOff="Public"
-        android:textOn="Private"/>
+        android:textOff="@string/sw_public"
+        android:textOn="@string/sw_private"/>
 
     <Button
         android:id="@+id/add_tag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button"
-        tools2:text="Add new Tag"/>
+        android:text="@string/new_tag"/>
 
     <ListView
         android:id="@+id/tag_list_edit"

@@ -11,4 +11,23 @@
     <string name="title_activity_user">UserActivity</string>
     <string name="title_activity_upload">UploadActivity</string>
     <string name="title_activity_search">SearchActivity</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="user_name">User Name</string>
+    <string name="register">Register</string>
+    <string name="no_result_found">No Result Found</string>
+    <string name="tattoo_description">Image of the Tattoo</string>
+    <string name="private_tattoos">Private Tattoos</string>
+    <string name="public_tattoos">Public Tattoos</string>
+    <string name="liked_tattoos">Liked Tattoos</string>
+    <string name="upload">Upload</string>
+    <string name="recent">Recent</string>
+    <string name="see_more">See More</string>
+    <string name="popular">Popular</string>
+    <string name="liked">Liked</string>
+    <string name="uploaded">Uploaded</string>
+    <string name="sw_public">Public</string>
+    <string name="sw_private">Private</string>
+    <string name="new_tag">New Tag</string>
+    <string name="by">by</string>
+    <string name="user">User</string>
 </resources>
