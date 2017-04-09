@@ -20,8 +20,8 @@ public class User {
     private ArrayList<Tattoo> liked = null;
     private ArrayList<Tattoo> upload_public = null;
     private ArrayList<Tattoo> upload_private = null;
-    private ArrayList<User> followed = null;
-    private ArrayList<User> followers = null;
+//    private ArrayList<User> followed = null;
+//    private ArrayList<User> followers = null;
     private Context context;
 
     public User(Context context, String t, String u) {

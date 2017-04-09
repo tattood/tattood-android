@@ -73,6 +73,7 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.image.setImageBitmap(getTattooImage(position));
+        final int pos = holder.getAdapterPosition();
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,12 +81,12 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
                     Log.d("TATTOO-edit", "HERE");
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(mValues[position]);
+                    mListener.onListFragmentInteraction(mValues[pos]);
                 } else {
                     Log.d("Tattoo", "Discovery Page");
                     Intent myIntent = new Intent(mContext, TattooActivity.class);
                     myIntent.putExtra("token", token);
-                    myIntent.putExtra("tid",   mValues[position].tattoo_id);
+                    myIntent.putExtra("tid",   mValues[pos].tattoo_id);
                     mContext.startActivity(myIntent);
                 }
             }
@@ -108,7 +109,6 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final ImageView image;
-        public Tattoo mItem;
 
         public ViewHolder(View view) {
             super(view);

@@ -39,21 +39,21 @@ public class Server {
     public static final String host = "http://139.179.197.171:5000";
 //    Uncomment below line when running in virtual device
 //    public static final String host = "http://192.168.1.26:5000";
-    public enum TattooRequest {Liked, Public, Private};
-    public enum UserRequest {Followed, Followers};
+    public enum TattooRequest {Liked, Public, Private}
+//    public enum UserRequest {Followed, Followers}
 
     public static boolean isInternetAvailable() {
         try {
-            InetAddress ipAddr = InetAddress.getByName(host); //You can replace it with your name
-            return !ipAddr.equals("");
+            InetAddress ip = InetAddress.getByName(host); //You can replace it with your name
+            return !ip.toString().equals("");
         } catch (Exception e) {
             return false;
         }
 
     }
-    private static final Response.Listener default_callback =  new Response.Listener() {
+    private static final Response.Listener<JSONObject> default_json_callback =  new Response.Listener<JSONObject>() {
         @Override
-        public void onResponse(Object response) {
+        public void onResponse(JSONObject response) {
         }
     };
 
@@ -69,11 +69,11 @@ public class Server {
     private Server() {
     }
 
-    public static boolean isOnline(Context context) {
+    public static boolean isOffline(Context context) {
         ConnectivityManager cm =
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return netInfo != null && netInfo.isConnectedOrConnecting();
+        return netInfo == null || !netInfo.isConnectedOrConnecting();
     }
 
     public static void signIn(Context context, String token, String email, Response.Listener<JSONObject> callback) {
@@ -89,7 +89,7 @@ public class Server {
 
     private static void request(Context context, String url, JSONObject data,
                                 Response.Listener<JSONObject> callback) {
-        if (!Server.isOnline(context)) {
+        if (Server.isOffline(context)) {
             Toast.makeText(context, "No Internet Connection!", Toast.LENGTH_LONG).show();
             return;
         }
@@ -121,7 +121,7 @@ public class Server {
 
     public static void signIn(Context context, String token, String email,
                               Response.Listener<JSONObject> callback, Response.ErrorListener error_handler) {
-        if (!Server.isOnline(context)) {
+        if (Server.isOffline(context)) {
             Toast.makeText(context, "No Internet Connection!", Toast.LENGTH_LONG).show();
             return;
         }
@@ -132,14 +132,14 @@ public class Server {
         queue.add(request);
     }
 
-    public static void register(Context context, String email, String username, String token,
-                                Response.Listener<JSONObject> callback) {
-        register(context, email, username, token, callback, error_handler);
-    }
+//    public static void register(Context context, String email, String username, String token,
+//                                Response.Listener<JSONObject> callback) {
+//        register(context, email, username, token, callback, error_handler);
+//    }
 
     public static void register(Context context, String email, String username, String token,
                                 Response.Listener<JSONObject> callback, Response.ErrorListener error_handler) {
-        if (!Server.isOnline(context)) {
+        if (Server.isOffline(context)) {
             Toast.makeText(context, "No Internet Connection!", Toast.LENGTH_LONG).show();
             return;
         }
@@ -156,9 +156,9 @@ public class Server {
         queue.add(request);
     }
 
-    public static void getUserList(Context context, String token, UserRequest r,
-                                     Response.Listener<JSONObject> callback) {
-    }
+//    public static void getUserList(Context context, String token, UserRequest r,
+//                                     Response.Listener<JSONObject> callback) {
+//    }
 
     public static void getPopular(Context context, Response.Listener<JSONObject> callback, int limit) {
         final String url = host + "/popular?limit=" + limit;
@@ -222,14 +222,14 @@ public class Server {
                 url = host + "/user-tattoo?private=1";
         }
         url += "&token=" + token + "&user=" + username;
-        Log.d("User-tatoo", url);
+        Log.d("User-tattoo", url);
         request(context, url, null, callback);
     }
 
     public static String getStringImage(Bitmap bmp){
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] imageBytes = baos.toByteArray();
+        ByteArrayOutputStream byte_stream = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, byte_stream);
+        byte[] imageBytes = byte_stream.toByteArray();
         return Base64.encodeToString(imageBytes, Base64.DEFAULT);
     }
 
@@ -250,15 +250,15 @@ public class Server {
             Log.d("Update", String.valueOf(tattoo.tags.size()));
             for (int i =0 ; i < tattoo.tags.size(); i++)
                 Log.d("Update", tattoo.tags.get(i));
-            data.put("private", tattoo.priv);
+            data.put("private", tattoo.is_private);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        request(context, url, data, default_callback);
+        request(context, url, data, default_json_callback);
     }
 
     public static void uploadImage(Context context, final Uri path, final String name, final String token,
-                                   final boolean priv, final Response.Listener<String> callback) {
+                                   final boolean is_private, final Response.Listener<String> callback) {
         //Showing the progress dialog
         final Bitmap bitmap;
         try {
@@ -275,14 +275,14 @@ public class Server {
                 String image = getStringImage(bitmap);
 
                 //Creating parameters
-                Map<String,String> params = new Hashtable<String, String>();
+                Map<String,String> params = new Hashtable<>();
 
                 //Adding parameters
 //                Log.d("Upload", image);
 //                Log.d("Upload:name", name);
                 params.put("image", image);
                 params.put("token", token);
-                params.put("private", String.valueOf(priv));
+                params.put("private", String.valueOf(is_private));
                 params.put("name", name);
 
                 //returning parameters

@@ -13,8 +13,8 @@ public class Tattoo implements Serializable {
     public String owner_id;
     public String tattoo_id;
     public ArrayList<String> tags;
-    public boolean priv;
-    private String path;
+    public boolean is_private;
+//    private String path;
     private Bitmap image;
 
     public Tattoo(String tid, String oid) {

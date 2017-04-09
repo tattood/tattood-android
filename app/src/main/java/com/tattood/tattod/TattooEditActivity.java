@@ -43,7 +43,7 @@ public class TattooEditActivity extends AppCompatActivity {
         switch_listener = new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                tattoo.priv = isChecked;
+                tattoo.is_private = isChecked;
                 Server.updateTattoo(TattooEditActivity.this, token, tattoo);
             }
         };
@@ -78,7 +78,7 @@ public class TattooEditActivity extends AppCompatActivity {
                             JSONArray tattooJSON = response.getJSONArray("tags");
                             for (int i = 0; i < tattooJSON.length(); i++)
                                 tags.add(tattooJSON.getString(i));
-                            tattoo.priv = priv;
+                            tattoo.is_private = priv;
                             tattoo.tags = tags;
                             ListView tag_list = (ListView) findViewById(R.id.tag_list_edit);
                             adapter = new TagItemAdapter(TattooEditActivity.this, token, tags, tattoo);

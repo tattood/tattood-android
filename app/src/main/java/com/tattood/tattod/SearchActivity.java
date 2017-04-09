@@ -14,8 +14,6 @@ import org.json.JSONObject;
 
 public class SearchActivity extends AppCompatActivity {
 
-    private OnListFragmentInteractionListener mListener;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,9 +36,8 @@ public class SearchActivity extends AppCompatActivity {
         if (by != null) {
             final RecyclerView list_view = (RecyclerView) findViewById(R.id.result_list);
 //            mListener = new OnListFragmentInteractionListener(this);
-            mListener = null;
             list_view.setLayoutManager(new GridLayoutManager(this, 3));
-            list_view.setAdapter(new TattooRecyclerViewAdapter(mListener, this, list_view, token));
+            list_view.setAdapter(new TattooRecyclerViewAdapter(null, this, list_view, token));
             Server.search(SearchActivity.this, token, by, what,
                     new Response.Listener<JSONObject>() {
                     @Override

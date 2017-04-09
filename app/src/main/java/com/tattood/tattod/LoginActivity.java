@@ -195,7 +195,7 @@ public class LoginActivity extends AppCompatActivity implements
     }
 
     private void signIn() {
-        if (!Server.isOnline(this)) {
+        if (Server.isOffline(this)) {
             Toast.makeText(this, "No Internet Connection!", Toast.LENGTH_LONG).show();
             return;
         }

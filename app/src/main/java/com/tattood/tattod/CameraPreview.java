@@ -2,6 +2,7 @@ package com.tattood.tattod;
 
 import android.content.Context;
 import android.hardware.Camera;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -13,6 +14,13 @@ import java.io.IOException;
 public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
     private SurfaceHolder mHolder;
     private Camera mCamera;
+
+    public CameraPreview(Context context) {
+        super(context);
+    }
+    public CameraPreview(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
 
     public CameraPreview(Context context, Camera camera) {
         super(context);

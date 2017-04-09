@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 
 public class TagItemAdapter extends BaseAdapter implements ListAdapter {
-    public ArrayList<String> list = new ArrayList<String>();
+    public ArrayList<String> list = new ArrayList<>();
     private Context context;
     private Tattoo tattoo;
     private String token;
@@ -49,7 +49,7 @@ public class TagItemAdapter extends BaseAdapter implements ListAdapter {
         View view = convertView;
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.tag_edit_layout, null);
+            view = inflater.inflate(R.layout.tag_edit_layout, parent, false);
         }
 
         //Handle TextView and display string from your list

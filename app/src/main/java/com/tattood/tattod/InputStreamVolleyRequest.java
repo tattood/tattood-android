@@ -1,10 +1,10 @@
 package com.tattood.tattod;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.HttpHeaderParser;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,8 +16,6 @@ public class InputStreamVolleyRequest extends Request<byte[]> {
 
     public InputStreamVolleyRequest(int post, String mUrl, Response.Listener<byte[]> listener,
                                     Response.ErrorListener errorListener, HashMap<String, String> params) {
-        // TODO Auto-generated constructor stub
-
         super(post, mUrl, errorListener);
         // this request would never use cache.
         setShouldCache(false);

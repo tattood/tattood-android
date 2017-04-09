@@ -18,10 +18,10 @@ import android.widget.Button;
 
 import com.android.volley.Response;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import static android.app.Activity.RESULT_OK;
+import static com.tattood.tattod.R.id.signout_button;
 import static com.tattood.tattod.SplashActivity.PREFS_NAME;
 
 public class ProfileFragment extends Fragment {
@@ -35,21 +35,9 @@ public class ProfileFragment extends Fragment {
     private RecyclerView user_private;
     private RecyclerView user_public;
 
-    private OnListFragmentInteractionListener liked_listener;
-    private OnListFragmentInteractionListener public_listener;
-    private OnListFragmentInteractionListener private_listener;
-
     public ProfileFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment ProfileFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static ProfileFragment newInstance(String token, String username) {
         ProfileFragment fragment = new ProfileFragment();
         Bundle args = new Bundle();
@@ -69,10 +57,8 @@ public class ProfileFragment extends Fragment {
 
     public void refresh_images(View view) {
         user_liked = (RecyclerView) view.findViewById(R.id.user_liked_list);
-//        liked_listener = new OnListFragmentInteractionListener(getContext(), token);
-        liked_listener = null;
         user_liked.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        user_liked.setAdapter(new TattooRecyclerViewAdapter(liked_listener, context, user_liked, token));
+        user_liked.setAdapter(new TattooRecyclerViewAdapter(null, context, user_liked, token));
         user.getLiked(
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -81,9 +67,8 @@ public class ProfileFragment extends Fragment {
                     }
                 });
 
-
         user_public = (RecyclerView) view.findViewById(R.id.user_public_list);
-        public_listener = new OnListFragmentInteractionListener(getContext(), token);
+        OnListFragmentInteractionListener public_listener = new OnListFragmentInteractionListener(getContext(), token);
         user_public.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         user_public.setAdapter(new TattooRecyclerViewAdapter(public_listener, context, user_public, token));
         user.getPublic(
@@ -95,7 +80,7 @@ public class ProfileFragment extends Fragment {
                 });
 
         user_private = (RecyclerView) view.findViewById(R.id.user_private_list);
-        private_listener = new OnListFragmentInteractionListener(getContext(), token);
+        OnListFragmentInteractionListener private_listener = new OnListFragmentInteractionListener(getContext(), token);
         user_private.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         user_private.setAdapter(new TattooRecyclerViewAdapter(private_listener, context, user_private, token));
         user.getPrivate(
@@ -118,9 +103,9 @@ public class ProfileFragment extends Fragment {
         user = new User(context, token, username);
 
         refresh_images(view);
-        Button signout_button = (Button) view.findViewById(R.id.signout_button);
+        Button sign_out_button = (Button) view.findViewById(signout_button);
 
-        signout_button.setOnClickListener(new View.OnClickListener() {
+        sign_out_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Server.logout(context, token, new Response.Listener<JSONObject>() {

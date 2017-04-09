@@ -3,11 +3,11 @@
   + Search Page (Works on clicking from tag/username but there is no dedicated search bar)
   + Upload (Tag, Privacy)
 ** Bug [4/7]
-  + CameraFragment.java gives warning: attempt to use a camera after disconnect()
+  + CameraFragment gives warning: attempt to use a camera after disconnect()
     Most probably onPause()/onResume() related
   + Visual Interface looks horrible
   + [ ] Recursive clicks should lead back to Discovery page (From tattoo? user? all?)
-  + [ ] Change Upload button to FAB (will fix the above bug)
+  + [ ] Change Upload button to FAB
   + [ ] Change Camera button to FAB
   + [ ] Currently, all requests to tattoo-update deletes all tags of a tattoo and reinserts. This,
     doesn't cause much problem since number of tags are quite small, but there might be a better
