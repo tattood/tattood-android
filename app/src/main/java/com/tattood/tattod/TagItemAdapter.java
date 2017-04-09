@@ -16,14 +16,16 @@ import java.util.ArrayList;
  */
 
 public class TagItemAdapter extends BaseAdapter implements ListAdapter {
-    private ArrayList<String> list = new ArrayList<String>();
+    public ArrayList<String> list = new ArrayList<String>();
     private Context context;
+    private Tattoo tattoo;
+    private String token;
 
-
-
-    public TagItemAdapter(ArrayList<String> list, Context context) {
+    public TagItemAdapter(Context context, String token, ArrayList<String> list, Tattoo t) {
         this.list = list;
         this.context = context;
+        this.token = token;
+        this.tattoo = t;
     }
 
     @Override
@@ -39,7 +41,7 @@ public class TagItemAdapter extends BaseAdapter implements ListAdapter {
     @Override
     public long getItemId(int pos) {
 //        return ((Tattoo)(list.get(pos))).tattoo_id;
-        return 0;
+        return pos;
     }
 
     @Override
@@ -63,6 +65,8 @@ public class TagItemAdapter extends BaseAdapter implements ListAdapter {
 //                Server.editTag();
                 list.remove(position); //or some other task
                 notifyDataSetChanged();
+                tattoo.tags = list;
+                Server.updateTattoo(context, token, tattoo);
             }
         });
 

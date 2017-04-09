@@ -20,6 +20,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -35,9 +36,9 @@ import java.util.Map;
  */
 
 public class Server {
-//    public static final String host = "http://localhost:5000";
+    public static final String host = "http://139.179.197.171:5000";
 //    Uncomment below line when running in virtual device
-    public static final String host = "http://192.168.1.26:5000";
+//    public static final String host = "http://192.168.1.26:5000";
     public enum TattooRequest {Liked, Public, Private};
     public enum UserRequest {Followed, Followers};
 
@@ -45,12 +46,17 @@ public class Server {
         try {
             InetAddress ipAddr = InetAddress.getByName(host); //You can replace it with your name
             return !ipAddr.equals("");
-
         } catch (Exception e) {
             return false;
         }
 
     }
+    private static final Response.Listener default_callback =  new Response.Listener() {
+        @Override
+        public void onResponse(Object response) {
+        }
+    };
+
     private static final Response.ErrorListener error_handler =  new Response.ErrorListener() {
         @Override
         public void onErrorResponse(VolleyError error) {
@@ -231,6 +237,24 @@ public class Server {
                               Response.Listener<JSONObject> callback) {
         String url = host + "/search?by=" + by + "&what=" + what + "&token=" + token + "&limit=20";
         request(context, url, null, callback);
+    }
+
+    public static void updateTattoo(Context context, String token, Tattoo tattoo) {
+        String url = host + "/tattoo-update";
+        JSONObject data = new JSONObject();
+        try {
+            data.put("token", token);
+            data.put("id", tattoo.tattoo_id);
+            data.put("tags", new JSONArray(tattoo.tags));
+
+            Log.d("Update", String.valueOf(tattoo.tags.size()));
+            for (int i =0 ; i < tattoo.tags.size(); i++)
+                Log.d("Update", tattoo.tags.get(i));
+            data.put("private", tattoo.priv);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        request(context, url, data, default_callback);
     }
 
     public static void uploadImage(Context context, final Uri path, final String name, final String token,

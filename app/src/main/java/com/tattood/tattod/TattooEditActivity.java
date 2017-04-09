@@ -7,9 +7,9 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -29,6 +29,8 @@ public class TattooEditActivity extends AppCompatActivity {
 
     TagItemAdapter adapter;
     ArrayList<String> tags;
+    Tattoo tattoo;
+    CompoundButton.OnCheckedChangeListener switch_listener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +39,18 @@ public class TattooEditActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         final String token = extras.getString("token");
         final String tattoo_id = extras.getString("tattoo_id");
+        final String owner_id = extras.getString("owner_id");
+        switch_listener = new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                tattoo.priv = isChecked;
+                Server.updateTattoo(TattooEditActivity.this, token, tattoo);
+            }
+        };
+        Switch sw = (Switch) findViewById(R.id.switch_visibility);
+        sw.setOnCheckedChangeListener(switch_listener);
         tags = new ArrayList<>();
+        tattoo = new Tattoo(tattoo_id, owner_id);
         Server.getTattooImage(this, tattoo_id, 1, token,
                 new Server.ResponseCallback() {
                     @Override
@@ -57,23 +70,24 @@ public class TattooEditActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            boolean priv = Boolean.valueOf(response.getString("private"));
-                            Switch sw = (Switch) findViewById(R.id.switch_public);
-                            sw.setChecked(!priv);
+                            boolean priv = response.getString("private").equals("1") ? true : false;
+                            Switch sw = (Switch) findViewById(R.id.switch_visibility);
+                            sw.setOnCheckedChangeListener(null);
+                            sw.setChecked(priv);
+                            sw.setOnCheckedChangeListener(switch_listener);
                             JSONArray tattooJSON = response.getJSONArray("tags");
-                            Log.d("TAGS", String.valueOf(tattooJSON));
                             for (int i = 0; i < tattooJSON.length(); i++)
                                 tags.add(tattooJSON.getString(i));
-                            Log.d("TAGS", ""+tags.size());
+                            tattoo.priv = priv;
+                            tattoo.tags = tags;
                             ListView tag_list = (ListView) findViewById(R.id.tag_list_edit);
-                            adapter = new TagItemAdapter(tags, TattooEditActivity.this);
+                            adapter = new TagItemAdapter(TattooEditActivity.this, token, tags, tattoo);
                             tag_list.setAdapter(adapter);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
                 });
-
         Button add_tag = (Button) findViewById(R.id.add_tag);
         add_tag.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,9 +100,12 @@ public class TattooEditActivity extends AppCompatActivity {
                 builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        tags.add(input.getText().toString());
+                        if (adapter.list == null)
+                            adapter.list = new ArrayList<>();
+                        adapter.list.add(input.getText().toString());
                         adapter.notifyDataSetChanged();
-//                        Server.add_new_tag();
+                        tattoo.tags = tags;
+                        Server.updateTattoo(TattooEditActivity.this, token, tattoo);
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -97,7 +114,6 @@ public class TattooEditActivity extends AppCompatActivity {
                         dialog.cancel();
                     }
                 });
-
                 builder.show();
             }
         });
