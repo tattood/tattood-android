@@ -1,4 +1,4 @@
-package com.tattood.tattod;
+package com.tattood.tattood;
 
 import android.hardware.Camera;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.tattood.tattod;
+package com.tattood.tattood;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,8 +21,8 @@ import com.android.volley.Response;
 import org.json.JSONObject;
 
 import static android.app.Activity.RESULT_OK;
-import static com.tattood.tattod.R.id.signout_button;
-import static com.tattood.tattod.SplashActivity.PREFS_NAME;
+import static com.tattood.tattood.R.id.signout_button;
+import static com.tattood.tattood.SplashActivity.PREFS_NAME;
 
 public class ProfileFragment extends Fragment {
     private static final int RESULT_LOAD_IMAGE = 200;

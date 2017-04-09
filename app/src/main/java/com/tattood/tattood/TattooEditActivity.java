@@ -1,4 +1,4 @@
-package com.tattood.tattod;
+package com.tattood.tattood;
 
 import android.content.DialogInterface;
 import android.graphics.Bitmap;

@@ -1,4 +1,4 @@
-package com.tattood.tattod;
+package com.tattood.tattood;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;

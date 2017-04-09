@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.tattood.tattod">
+          package="com.tattood.tattood">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
@@ -23,17 +23,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".LoginActivity"
+            android:name="com.tattood.tattood.LoginActivity"
             android:noHistory="true"
             android:label="@string/app_name">
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="com.tattood.tattood.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <!--android:theme="@android:style/Theme.NoDisplay"-->
-        <activity android:name=".SplashActivity"
+        <activity android:name="com.tattood.tattood.SplashActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:noHistory="true"
             android:label="@string/app_name">
@@ -42,34 +42,34 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity">
+        <activity android:name="com.tattood.tattood.RegisterActivity">
         </activity>
         <activity
-            android:name=".SeeMore"
+            android:name="com.tattood.tattood.SeeMore"
             android:label="@string/title_activity_see_more"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".TattooActivity"
+            android:name="com.tattood.tattood.TattooActivity"
             android:label="@string/title_activity_tattoo"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".UserActivity"
+            android:name="com.tattood.tattood.UserActivity"
             android:label="@string/title_activity_user"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".UploadActivity"
+            android:name="com.tattood.tattood.UploadActivity"
             android:label="@string/title_activity_upload"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".SearchActivity"
+            android:name="com.tattood.tattood.SearchActivity"
             android:label="@string/title_activity_search"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".TattooEditActivity">
+        <activity android:name="com.tattood.tattood.TattooEditActivity">
         </activity>
     </application>
 
