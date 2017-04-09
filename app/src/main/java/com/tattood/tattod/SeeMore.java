@@ -25,7 +25,7 @@ public class SeeMore extends AppCompatActivity {
 
         final RecyclerView list_view = (RecyclerView) findViewById(R.id.list_view);
         list_view.setLayoutManager(new GridLayoutManager(this, 3));
-        list_view.setAdapter(new TattooRecyclerViewAdapter(mListener, this, list_view, 100, token));
+        list_view.setAdapter(new TattooRecyclerViewAdapter(mListener, this, list_view, token));
         if (tag.equals("RECENT")) {
             Server.getRecent(this,
                     new Response.Listener<JSONObject>() {

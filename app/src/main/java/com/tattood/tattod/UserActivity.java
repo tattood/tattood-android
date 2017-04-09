@@ -36,7 +36,7 @@ public class UserActivity extends AppCompatActivity {
 //        liked_listener = new OnListFragmentInteractionListener();
         liked_listener = null;
         user_liked.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        user_liked.setAdapter(new TattooRecyclerViewAdapter(liked_listener, this, user_liked, 25, token));
+        user_liked.setAdapter(new TattooRecyclerViewAdapter(liked_listener, this, user_liked, token));
         user.getLiked(
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -49,7 +49,7 @@ public class UserActivity extends AppCompatActivity {
 //        public_listener = new OnListFragmentInteractionListener();
         public_listener = null;
         user_public.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        user_public.setAdapter(new TattooRecyclerViewAdapter(public_listener, this, user_public, 25, token));
+        user_public.setAdapter(new TattooRecyclerViewAdapter(public_listener, this, user_public, token));
         user.getPublic(
                 new Response.Listener<JSONObject>() {
                     @Override

@@ -28,15 +28,15 @@ import java.util.Iterator;
 public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecyclerViewAdapter.ViewHolder>
         implements View.OnClickListener {
 
-    private final Tattoo mValues[];
+    private Tattoo mValues[];
     private final OnListFragmentInteractionListener mListener;
     private final Context mContext;
     private final RecyclerView mRecyclerView;
     private final String token;
 
     public TattooRecyclerViewAdapter(OnListFragmentInteractionListener listener,
-                                     Context context, RecyclerView recyclerView, int count, String t) {
-        mValues = new Tattoo[count];
+                                     Context context, RecyclerView recyclerView, String t) {
+        mValues = null;
         mListener = listener;
         mContext = context;
         mRecyclerView = recyclerView;
@@ -94,7 +94,7 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
 
     @Override
     public int getItemCount() {
-        return mValues.length;
+        return (mValues == null) ? 0 : mValues.length;
     }
 
     @Override
@@ -124,8 +124,9 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
 
     public void set_data(String token, JSONObject obj) {
         try {
-//            JSONArray arr;
+
             obj = obj.getJSONObject("data");
+            mValues = new Tattoo[obj.length()];
             Iterator<String> keys = obj.keys();
             while( keys.hasNext() ) {
                 String key = keys.next();

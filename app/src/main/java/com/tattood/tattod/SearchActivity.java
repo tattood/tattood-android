@@ -40,7 +40,7 @@ public class SearchActivity extends AppCompatActivity {
 //            mListener = new OnListFragmentInteractionListener(this);
             mListener = null;
             list_view.setLayoutManager(new GridLayoutManager(this, 3));
-            list_view.setAdapter(new TattooRecyclerViewAdapter(mListener, this, list_view, 100, token));
+            list_view.setAdapter(new TattooRecyclerViewAdapter(mListener, this, list_view, token));
             Server.search(SearchActivity.this, token, by, what,
                     new Response.Listener<JSONObject>() {
                     @Override

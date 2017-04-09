@@ -13,7 +13,6 @@ import android.widget.Button;
 
 import com.android.volley.Response;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -60,32 +59,22 @@ public class DiscoveryFragment extends Fragment implements View.OnClickListener 
 
         final RecyclerView popular_view = (RecyclerView) view.findViewById(R.id.popular_list);
         popular_view.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        popular_view.setAdapter(new TattooRecyclerViewAdapter(mListener, context, popular_view, token));
         Server.getPopular(context,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        try {
-                            JSONObject obj = response.getJSONObject("data");
-                            popular_view.setAdapter(new TattooRecyclerViewAdapter(mListener, context, popular_view, obj.length(), token));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
                         ((TattooRecyclerViewAdapter) popular_view.getAdapter()).set_data(token, response);
                     }
                 });
 
         final RecyclerView recent_view = (RecyclerView) view.findViewById(R.id.recent_list);
         recent_view.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        recent_view.setAdapter(new TattooRecyclerViewAdapter(mListener, context, recent_view, token));
         Server.getRecent(context,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        try {
-                            JSONObject obj = response.getJSONObject("data");
-                            recent_view.setAdapter(new TattooRecyclerViewAdapter(mListener, context, recent_view, obj.length(), token));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
                         ((TattooRecyclerViewAdapter) recent_view.getAdapter()).set_data(token, response);
                     }
                 });
