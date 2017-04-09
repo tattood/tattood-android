@@ -6,8 +6,6 @@ import com.android.volley.Response;
 
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
 /**
  * Created by eksi on 13/02/17.
  */
@@ -17,11 +15,6 @@ public class User {
 //    private String email;
     private final String username;
     private final String token;
-    private ArrayList<Tattoo> liked = null;
-    private ArrayList<Tattoo> upload_public = null;
-    private ArrayList<Tattoo> upload_private = null;
-//    private ArrayList<User> followed = null;
-//    private ArrayList<User> followers = null;
     private final Context context;
 
     public User(Context context, String t, String u) {

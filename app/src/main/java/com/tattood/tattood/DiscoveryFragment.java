@@ -26,14 +26,6 @@ public class DiscoveryFragment extends Fragment implements View.OnClickListener 
     private OnListFragmentInteractionListener mListener;
     private String token;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
-    public DiscoveryFragment() {
-    }
-
-    // TODO: Customize parameter initialization
     public static DiscoveryFragment newInstance(String token) {
         DiscoveryFragment fragment = new DiscoveryFragment();
         Bundle args = new Bundle();

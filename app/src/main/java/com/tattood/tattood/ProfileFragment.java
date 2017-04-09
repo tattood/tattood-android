@@ -152,15 +152,13 @@ public class ProfileFragment extends Fragment {
 
             cursor.moveToFirst();
             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-
-            if(columnIndex < 0) // no column index
-                return; // DO YOUR ERROR HANDLING
+            if(columnIndex < 0)
+                return;
 
             String picturePath = cursor.getString(columnIndex);
-
             cursor.close(); // close cursor
             Log.d("Upload", picturePath);
-            Server.uploadImage(context, selectedImage, "1.png", token, false,
+            Server.uploadImage(context, selectedImage, picturePath, token, false,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
