@@ -12,7 +12,7 @@
 
         <TextView
             android:text="Recent"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/textView"
             android:layout_weight="1"/>
@@ -37,7 +37,7 @@
 
         <TextView
             android:text="Popular"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/textView2"
             android:layout_weight="1"/>
