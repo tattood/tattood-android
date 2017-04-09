@@ -15,6 +15,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <Button
+                android:id="@+id/extract_img_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="extract_img_button" />
+
             <TextView
                 android:text="@string/private_tattoos"
                 android:layout_width="match_parent"

@@ -36,12 +36,11 @@ import java.util.Map;
  */
 
 public class Server {
-    public static final String host = "http://139.179.197.171:5000";
+    public static final String host = "http://139.179.224.169:5000";
 //    Uncomment below line when running in virtual device
 //    public static final String host = "http://192.168.1.26:5000";
     public enum TattooRequest {Liked, Public, Private}
 //    public enum UserRequest {Followed, Followers}
-
     public static boolean isInternetAvailable() {
         try {
             InetAddress ip = InetAddress.getByName(host); //You can replace it with your name

@@ -21,7 +21,6 @@ import com.android.volley.Response;
 import org.json.JSONObject;
 
 import static android.app.Activity.RESULT_OK;
-import static com.tattood.tattood.R.id.signout_button;
 import static com.tattood.tattood.SplashActivity.PREFS_NAME;
 
 public class ProfileFragment extends Fragment {
@@ -103,7 +102,7 @@ public class ProfileFragment extends Fragment {
         user = new User(context, token, username);
 
         refresh_images(view);
-        Button sign_out_button = (Button) view.findViewById(signout_button);
+        Button sign_out_button = (Button) view.findViewById(R.id.signout_button);
 
         sign_out_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,7 +132,18 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+
+        Button extract_img_button = (Button) view.findViewById(R.id.extract_img_button);
+
+        extract_img_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(getActivity(), ExtractImage.class);
+                startActivity(myIntent);
+            }
+        });
         return view;
+
     }
 
     @Override
@@ -167,6 +177,8 @@ public class ProfileFragment extends Fragment {
                         }
             });
         }
+
+
     }
 
 }
