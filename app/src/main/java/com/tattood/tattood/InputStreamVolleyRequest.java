@@ -5,27 +5,22 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.HttpHeaderParser;
 
-import java.util.HashMap;
 import java.util.Map;
+
+import static com.tattood.tattod.Server.error_handler;
 
 public class InputStreamVolleyRequest extends Request<byte[]> {
     private final Response.Listener<byte[]> mListener;
-    private Map<String, String> mParams;
-    //create a static map for directly accessing headers
-    public Map<String, String> responseHeaders;
 
-    public InputStreamVolleyRequest(int post, String mUrl, Response.Listener<byte[]> listener,
-                                    Response.ErrorListener errorListener, HashMap<String, String> params) {
-        super(post, mUrl, errorListener);
-        // this request would never use cache.
+    public InputStreamVolleyRequest(String mUrl, Response.Listener<byte[]> listener) {
+        super(Method.GET, mUrl, error_handler);
         setShouldCache(false);
         mListener = listener;
-        mParams = params;
     }
 
     @Override
     protected Map<String, String> getParams() throws com.android.volley.AuthFailureError {
-        return mParams;
+        return null;
     }
 
     @Override
@@ -35,7 +30,6 @@ public class InputStreamVolleyRequest extends Request<byte[]> {
 
     @Override
     protected Response<byte[]> parseNetworkResponse(NetworkResponse response) {
-        responseHeaders = response.headers;
         return Response.success(response.data, HttpHeaderParser.parseCacheHeaders(response));
     }
 }

@@ -15,14 +15,14 @@ import java.util.ArrayList;
 public class User {
 
 //    private String email;
-    private String username;
-    private String token;
+    private final String username;
+    private final String token;
     private ArrayList<Tattoo> liked = null;
     private ArrayList<Tattoo> upload_public = null;
     private ArrayList<Tattoo> upload_private = null;
 //    private ArrayList<User> followed = null;
 //    private ArrayList<User> followers = null;
-    private Context context;
+    private final Context context;
 
     public User(Context context, String t, String u) {
         token = t;
@@ -30,25 +30,18 @@ public class User {
         this.context = context;
     }
 
-    public ArrayList<Tattoo> getLiked(Response.Listener<JSONObject> callback) {
-        if (liked == null)
-            Server.getTattooList(context, token, Server.TattooRequest.Liked, username, callback);
-        return liked;
+    public void getLiked(Response.Listener<JSONObject> callback) {
+        Server.getTattooList(context, token, Server.TattooRequest.Liked, username, callback);
     }
 
-    public ArrayList<Tattoo> getPublic(Response.Listener<JSONObject> callback) {
-        if (upload_public == null)
-            Server.getTattooList(context, token, Server.TattooRequest.Public, username, callback);
-        return upload_public;
+    public void getPublic(Response.Listener<JSONObject> callback) {
+        Server.getTattooList(context, token, Server.TattooRequest.Public, username, callback);
     }
 
-    public ArrayList<Tattoo> getPrivate(Response.Listener<JSONObject> callback) {
-        if (upload_private == null)
-            Server.getTattooList(context, token, Server.TattooRequest.Private, username, callback);
-        return upload_private;
+    public void getPrivate(Response.Listener<JSONObject> callback) {
+        Server.getTattooList(context, token, Server.TattooRequest.Private, username, callback);
     }
 
-    //
 //    public ArrayList<User> getFollowers(Response.Listener<JSONObject> callback) {
 //        if (followers == null)
 //            Server.getUserList(context, token, Server.UserRequest.Followers, callback);

@@ -17,9 +17,9 @@ import java.util.ArrayList;
 
 public class TagItemAdapter extends BaseAdapter implements ListAdapter {
     public ArrayList<String> list = new ArrayList<>();
-    private Context context;
-    private Tattoo tattoo;
-    private String token;
+    private final Context context;
+    private final Tattoo tattoo;
+    private final String token;
 
     public TagItemAdapter(Context context, String token, ArrayList<String> list, Tattoo t) {
         this.list = list;

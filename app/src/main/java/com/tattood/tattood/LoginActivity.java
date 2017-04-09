@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity implements
 
     private static final String PREFS_NAME = "LoginPreferences";
     private GoogleApiClient mGoogleApiClient;
-    private static int RC_SIGN_IN = 100;
+    private static final int RC_SIGN_IN = 100;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 

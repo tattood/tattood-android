@@ -57,7 +57,7 @@ public class Server {
         }
     };
 
-    private static final Response.ErrorListener error_handler =  new Response.ErrorListener() {
+    public static final Response.ErrorListener error_handler =  new Response.ErrorListener() {
         @Override
         public void onErrorResponse(VolleyError error) {
             Log.d("Connection", "ERROR");
@@ -188,7 +188,7 @@ public class Server {
     public static void getTattooImage(final Context context, final String id, final int item_id,
                                       final String token, final ResponseCallback callback) {
         final String url = host + "/tattoo?id="+id+"&token="+token;
-        InputStreamVolleyRequest request = new InputStreamVolleyRequest(Request.Method.GET, url,
+        InputStreamVolleyRequest request = new InputStreamVolleyRequest(url,
                 new Response.Listener<byte[]>() {
                     @Override
                     public void onResponse(byte[] response) {
@@ -205,7 +205,7 @@ public class Server {
                             callback.run(id, item_id);
                         }
                     }
-                }, error_handler, null);
+                });
         RequestQueue mRequestQueue = Volley.newRequestQueue(context, new HurlStack());
         mRequestQueue.add(request);
     }

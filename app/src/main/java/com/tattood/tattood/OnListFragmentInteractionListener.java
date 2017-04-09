@@ -10,8 +10,8 @@ import android.view.View;
  */
 
 public class OnListFragmentInteractionListener implements View.OnClickListener {
-    private Context context;
-    private String token;
+    private final Context context;
+    private final String token;
     public OnListFragmentInteractionListener(Context c, String t) {
         context = c;
         token = t;

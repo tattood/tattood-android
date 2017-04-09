@@ -1,6 +1,5 @@
 package com.tattood.tattod;
 
-import android.content.Context;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,17 +15,8 @@ public class CameraFragment extends Fragment {
     private CameraPreview mPreview;
     private View view;
 
-    public CameraFragment() {
-        // Required empty public constructor
-    }
-
     public static CameraFragment newInstance() {
         return new CameraFragment();
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -70,11 +60,6 @@ public class CameraFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_camera, container, false);
         initCamera();
         return view;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
     }
 
     @Override

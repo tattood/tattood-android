@@ -70,15 +70,15 @@ public class TattooEditActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            boolean priv = response.getString("private").equals("1") ? true : false;
+                            boolean is_private = response.getString("private").equals("1");
                             Switch sw = (Switch) findViewById(R.id.switch_visibility);
                             sw.setOnCheckedChangeListener(null);
-                            sw.setChecked(priv);
+                            sw.setChecked(is_private);
                             sw.setOnCheckedChangeListener(switch_listener);
                             JSONArray tattooJSON = response.getJSONArray("tags");
                             for (int i = 0; i < tattooJSON.length(); i++)
                                 tags.add(tattooJSON.getString(i));
-                            tattoo.is_private = priv;
+                            tattoo.is_private = is_private;
                             tattoo.tags = tags;
                             ListView tag_list = (ListView) findViewById(R.id.tag_list_edit);
                             adapter = new TagItemAdapter(TattooEditActivity.this, token, tags, tattoo);
