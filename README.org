@@ -2,14 +2,14 @@
 ** Missing
   + Search Page (Works on clicking from tag/username but there is no dedicated search bar)
   + Upload (Tag, Privacy)
-** Bug
-  + See-More page shows empty entries
-  + tattoos should be saved using tattoo id not using loop index. (index might cause collision)
+** Bug [1/1]
+  + [ ] See-More page shows empty entries
+  + [ ] tattoos should be saved using tattoo id not using loop index. (index might cause collision)
   + CameraFragment.java gives warning: attempt to use a camera after disconnect()
     Most probably onPause()/onResume() related
   + Visual Interface looks horrible
-  + Recursive clicks should lead back to Discovery page (From tattoo? user? all?)
-  + Images should use fixed size
+  + [ ] Recursive clicks should lead back to Discovery page (From tattoo? user? all?)
+  + [X] Images should use fixed size
   + Login/Register requires a rework:
     + [X] Tokens change from time-to-time (maybe on uninstall). Server needs to adapt (Server code
       is updated to update token, but needs investigation, when/why token changes? or does it
@@ -25,11 +25,11 @@
     + [X] Whether via back-button or something else, user should never be able to reach back the login screen
           :nohistory should fix this
   + Upload button does not appear in Profile Fragment
-  + Change Upload button to FAB (will fix the above bug)
-  + Change Camera button to FAB
+  + [ ] Change Upload button to FAB (will fix the above bug)
+  + [ ] Change Camera button to FAB
   + Fix tattoo tags
-    + [ ] It should be a relation in the database instead of pipe separated lists
-    + [ ] Server must handle newly added tags
+    + [X] It should be a relation in the database instead of pipe separated lists
+    + [X] Server must handle newly added tags
     + [ ] Currently, all requests to tattoo-update deletes all tags of a tattoo and reinserts. This,
       doesn't cause much problem since number of tags are quite small, but there might be a better
       way of doing this.

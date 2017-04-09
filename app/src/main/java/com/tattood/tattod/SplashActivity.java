@@ -1,16 +1,16 @@
 package com.tattood.tattod;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.android.volley.Response;
 
 import org.json.JSONObject;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends Activity {
     public static final String PREFS_NAME = "LoginPreferences";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
