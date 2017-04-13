@@ -4,11 +4,10 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Path;
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.format.Time;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -23,15 +22,15 @@ public class ExtractImage extends AppCompatActivity {
         private ArrayList<ArrayList<float[]>> all_points;
         private ArrayList<float[]> points;
 
-        public DrawView(Context context){
+        public DrawView(Context context, String path){
             super(context);
             paint.setColor(Color.GRAY);
             paint.setStrokeJoin(Paint.Join.ROUND);
             paint.setStrokeWidth(50);
-            //paint.setAlpha(110);
+            setBackground(Drawable.createFromPath(path));
             paint.setStrokeCap(Paint.Cap.ROUND);
             //paint.setShadowLayer(30, 0, 0, Color.RED);
-            all_points = new ArrayList<ArrayList<float[]>>();
+            all_points = new ArrayList<>();
         }
 
         @Override
@@ -44,8 +43,7 @@ public class ExtractImage extends AppCompatActivity {
                             all_points.get(j).get(i)[1], paint);
                 }
             }
-            if (points != null)
-            {
+            if (points != null) {
                 for(int i=1; i<points.size(); i++){
                     canvas.drawLine(points.get(i-1)[0], points.get(i-1)[1], points.get(i)[0], points.get(i)[1], paint);
                 }
@@ -121,12 +119,12 @@ public class ExtractImage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_extract);
-        dview = new DrawView(this);
+//        setContentView(R.layout.activity_extract);
+        String path = getIntent().getExtras().getString("path");
+        dview = new DrawView(this, path);
         dview.setBackgroundColor(Color.argb(255, 0, 0, 0));
         setContentView(dview);
-
-
+//        Bitmap myBitmap = BitmapFactory.decodeFile(path);
     }
 
 }

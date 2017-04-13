@@ -168,14 +168,10 @@ public class ProfileFragment extends Fragment {
             String picturePath = cursor.getString(columnIndex);
             cursor.close(); // close cursor
             Log.d("Upload", picturePath);
-            Server.uploadImage(context, selectedImage, picturePath, token, false,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            Log.d("UPLOAD", "Refresh");
-                            refresh_images(view);
-                        }
-            });
+            Intent myIntent = new Intent(getContext(), UploadActivity.class);
+            myIntent.putExtra("token", token);
+            myIntent.putExtra("path", picturePath);
+            startActivity(myIntent);
         }
 
 

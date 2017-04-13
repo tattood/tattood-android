@@ -36,9 +36,7 @@ import java.util.Map;
  */
 
 public class Server {
-    public static final String host = "http://139.179.224.169:5000";
-//    Uncomment below line when running in virtual device
-//    public static final String host = "http://192.168.1.26:5000";
+    public static final String host = "http://192.168.1.26:5000";
     public enum TattooRequest {Liked, Public, Private}
 //    public enum UserRequest {Followed, Followers}
     public static boolean isInternetAvailable() {
@@ -256,8 +254,8 @@ public class Server {
         request(context, url, data, default_json_callback);
     }
 
-    public static void uploadImage(Context context, final Uri path, final String name, final String token,
-                                   final boolean is_private, final Response.Listener<String> callback) {
+    public static void uploadImage(Context context, final Uri path, final String token,
+                                   final Tattoo tattoo, final Response.Listener<String> callback) {
         //Showing the progress dialog
         final Bitmap bitmap;
         try {
@@ -276,14 +274,10 @@ public class Server {
                 //Creating parameters
                 Map<String,String> params = new Hashtable<>();
 
-                //Adding parameters
-//                Log.d("Upload", image);
-//                Log.d("Upload:name", name);
                 params.put("image", image);
                 params.put("token", token);
-                params.put("private", String.valueOf(is_private));
-                params.put("name", name);
-
+                params.put("private", String.valueOf(tattoo.is_private));
+                params.put("tags", tattoo.tags.get(0));
                 //returning parameters
                 return params;
             }

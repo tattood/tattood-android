@@ -1,8 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.tattood.tattood.UploadActivity">
+    android:layout_height="643dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:layout_editor_absoluteX="8dp"
+    tools:layout_editor_absoluteY="8dp">
+
+    <ImageView
+        android:id="@+id/tattoo_image_upload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal"
+        android:contentDescription="@string/tattoo_description"/>
+
+    <Switch
+        android:id="@+id/switch_visibility"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:showText="true"
+        android:textAlignment="viewStart"
+        android:textOff="@string/sw_public"
+        android:textOn="@string/sw_private"/>
+
+    <Button
+        android:id="@+id/upload_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Upload"/>
+
+    <Button
+        android:id="@+id/add_tag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/new_tag"/>
+
+    <ListView
+        android:id="@+id/tag_list_edit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
+
 </LinearLayout>

@@ -16,10 +16,10 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/extract_img_button"
+                android:id="@+id/upload_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="extract_img_button" />
+                android:text="@string/upload"/>
 
             <TextView
                 android:text="@string/private_tattoos"
@@ -61,10 +61,11 @@
                 android:id="@+id/signout_button"/>
 
             <Button
-                android:id="@+id/upload_button"
+                android:id="@+id/extract_img_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/upload"/>
+                android:text="extract_img_button"/>
+
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
