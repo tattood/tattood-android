@@ -100,8 +100,9 @@ public class Server {
         try {
             if (username != null)
                 data.put("username", username);
+            if (email != null)
+                data.put("email", email);
             data.put("token", token);
-            data.put("email", email);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -266,7 +267,6 @@ public class Server {
         }
         Log.d("PARAMS", String.valueOf(tattoo.tags.size()));
         Log.d("PARAMS", String.valueOf(tattoo.is_private));
-//        final ProgressDialog loading = ProgressDialog.show(context, "Uploading...","Please wait...",false,false);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, host + "/tattoo-upload",
                 callback, error_handler){
             @Override
@@ -285,6 +285,17 @@ public class Server {
         };
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(stringRequest);
+    }
+
+    public static void like(Context context, final String token, final String id, int like,
+                            Response.Listener<JSONObject> callback) {
+        String url = host;
+        if (like == 1) url += "/like";
+        else url += "/unlike";
+        RequestQueue queue = Volley.newRequestQueue(context);
+        JSONObject data = create_json(token, id);
+        JsonObjectRequest request = new JsonObjectRequest(url, data, callback, error_handler);
+        queue.add(request);
     }
 
     public interface ResponseCallback {

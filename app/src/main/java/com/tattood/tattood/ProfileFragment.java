@@ -103,7 +103,6 @@ public class ProfileFragment extends Fragment {
 
         refresh_images(view);
         Button sign_out_button = (Button) view.findViewById(R.id.signout_button);
-
         sign_out_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,7 +121,6 @@ public class ProfileFragment extends Fragment {
         });
 
         Button upload_button = (Button) view.findViewById(R.id.upload_button);
-
         upload_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -132,9 +130,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-
         Button extract_img_button = (Button) view.findViewById(R.id.extract_img_button);
-
         extract_img_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -145,6 +141,14 @@ public class ProfileFragment extends Fragment {
         return view;
 
     }
+
+//        @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        super.setUserVisibleHint(isVisibleToUser);
+//        if (isVisibleToUser && view != null) {
+//            refresh_images(view);
+//        }
+//    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

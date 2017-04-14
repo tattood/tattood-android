@@ -81,7 +81,6 @@ public class UploadActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         adapter.list.add(input.getText().toString());
                         tattoo.tags = adapter.list;
-//                        adapter.list.add(input.getText().toString());
                         adapter.notifyDataSetChanged();
                     }
                 });
