@@ -1,35 +1,50 @@
 package com.tattood.tattood;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.text.format.Time;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 
 public class ExtractImage extends AppCompatActivity {
 
-    public class DrawView extends View {
+    DrawView dview;
+    private ArrayList<ArrayList<float[]>> all_points;
+    private ArrayList<float[]> points;
 
+    public class DrawView extends View {
         Paint paint = new Paint();
-        private ArrayList<ArrayList<float[]>> all_points;
-        private ArrayList<float[]> points;
 
         public DrawView(Context context, String path){
             super(context);
             paint.setColor(Color.GRAY);
             paint.setStrokeJoin(Paint.Join.ROUND);
-            paint.setStrokeWidth(50);
-            setBackground(Drawable.createFromPath(path));
+            paint.setStrokeWidth(25);
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), Uri.parse("file://" + path));
+                Drawable d = new BitmapDrawable(getResources(), bitmap);
+                setBackground(d);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             paint.setStrokeCap(Paint.Cap.ROUND);
-            //paint.setShadowLayer(30, 0, 0, Color.RED);
             all_points = new ArrayList<>();
         }
 
@@ -48,83 +63,66 @@ public class ExtractImage extends AppCompatActivity {
                     canvas.drawLine(points.get(i-1)[0], points.get(i-1)[1], points.get(i)[0], points.get(i)[1], paint);
                 }
             }
-
         }
-
-        public void setPoints(ArrayList<float[]> points){
-            this.points = points;
-        }
-
-
-        //private ArrayList<float[]> xy = new ArrayList<float[]>();
 
         @Override
         public boolean onTouchEvent(MotionEvent e) {
-            // MotionEvent reports input details from the touch screen
-            // and other input controls. In this case, you are only
-            // interested in events where the touch position changed.
-
-
-            Time time = new Time();
-
-            float x_down, y_down, x_up, y_up;
             float[] point = new float[2];
             switch (e.getAction()) {
-
                 case MotionEvent.ACTION_DOWN:
-                    points = new ArrayList<float[]>();
-                    x_down = e.getX();
-                    y_down = e.getY();
-                    point[0] = x_down;
-                    point[1] = y_down;
+                    points = new ArrayList<>();
+                    point[0] = e.getX();
+                    point[1] = e.getY();
                     points.add(point);
                     invalidate();
                     break;
-
                 case MotionEvent.ACTION_MOVE:
-
-                    x_up = e.getX();
-                    y_up = e.getY();
-
-                    point[0] = x_up;
-                    point[1] = y_up;
+                    point[0] = e.getX();
+                    point[1] = e.getY();
                     points.add(point);
                     invalidate();
-
-                    //Log.d("time", time.toString());
                     break;
-
-
                 case MotionEvent.ACTION_UP:
                     all_points.add(points);
                     invalidate();
                     break;
                 default:
                     break;
-
-
             }
-//        for(int i=0; i<xy.size(); i++) {
-//            String str = "";
-//            str = xy.get(i)[0] + " " + xy.get(i)[1];
-//            Log.d("xy", str);
-//        }
             return true;
         }
     }
 
-    DrawView dview;
-    private final float TOUCH_SCALE_FACTOR = 180.0f / 320;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_extract);
         String path = getIntent().getExtras().getString("path");
         dview = new DrawView(this, path);
-        dview.setBackgroundColor(Color.argb(255, 0, 0, 0));
         setContentView(dview);
-//        Bitmap myBitmap = BitmapFactory.decodeFile(path);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.extract_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.submit) {
+            Intent resultIntent = new Intent();
+            float[] x_points = new float[points.size()];
+            float[] y_points = new float[points.size()];
+            for (int i = 0; i < points.size(); i++) {
+                x_points[i] = points.get(i)[0];
+                y_points[i] = points.get(i)[1];
+            }
+            resultIntent.putExtra("x_points", x_points);
+            resultIntent.putExtra("y_points", y_points);
+            setResult(Activity.RESULT_OK, resultIntent);
+            finish();
+        }
+        return true;
+    }
 }

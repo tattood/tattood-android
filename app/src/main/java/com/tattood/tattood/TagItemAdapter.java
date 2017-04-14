@@ -62,14 +62,12 @@ public class TagItemAdapter extends BaseAdapter implements ListAdapter {
         tag_delete.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-//                Server.editTag();
                 list.remove(position); //or some other task
                 notifyDataSetChanged();
                 tattoo.tags = list;
-                Server.updateTattoo(context, token, tattoo);
+//                Server.updateTattoo(context, token, tattoo);
             }
         });
-
         return view;
     }
 }

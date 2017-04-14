@@ -12,3 +12,4 @@
   + [ ] Currently, all requests to tattoo-update deletes all tags of a tattoo and reinserts. This,
     doesn't cause much problem since number of tags are quite small, but there might be a better
     way of doing this.
+  + [ ] TagItemAdapter tag_delete should not send Request

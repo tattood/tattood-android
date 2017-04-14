@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:weightSum="1">
 
+
     <ImageView
         android:id="@+id/extract_img_view"
         android:layout_width="match_parent"

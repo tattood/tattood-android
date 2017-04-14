@@ -261,32 +261,29 @@ public class Server {
         try {
             bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), path);
         } catch (IOException ex) {
+            ex.printStackTrace();
             return;
         }
+        Log.d("PARAMS", String.valueOf(tattoo.tags.size()));
+        Log.d("PARAMS", String.valueOf(tattoo.is_private));
 //        final ProgressDialog loading = ProgressDialog.show(context, "Uploading...","Please wait...",false,false);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, host + "/tattoo-upload",
                 callback, error_handler){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                //Converting Bitmap to String
                 String image = getStringImage(bitmap);
-
-                //Creating parameters
                 Map<String,String> params = new Hashtable<>();
-
                 params.put("image", image);
                 params.put("token", token);
                 params.put("private", String.valueOf(tattoo.is_private));
-                params.put("tags", tattoo.tags.get(0));
-                //returning parameters
+                params.put("tag_count", String.valueOf(tattoo.tags.size()));
+                for (int i = 0; i < tattoo.tags.size(); i++) {
+                    params.put("tag"+i, tattoo.tags.get(i));
+                }
                 return params;
             }
         };
-
-        //Creating a Request Queue
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-
-        //Adding request to the queue
         requestQueue.add(stringRequest);
     }
 
