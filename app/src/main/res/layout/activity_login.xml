@@ -8,20 +8,50 @@
               android:paddingLeft="@dimen/activity_horizontal_margin"
               android:paddingRight="@dimen/activity_horizontal_margin"
               android:paddingTop="@dimen/activity_vertical_margin"
-              tools:context="com.tattood.tattood.LoginActivity">
+              android:background="@drawable/background"
+              tools:context="com.tattood.tattood.LoginActivity"
+    android:weightSum="1">
 
-    <!-- Login progress -->
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="308dp"
+        android:layout_height="135dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginRight="0dp"
+        android:layout_weight="0.11"
+        android:src="@drawable/tattood_logo4" />
 
-    <Button
+
+    <TextView
+        android:id="@+id/link_signup"
+        android:layout_width="134dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="15dp"
+        android:text="Sign up with"
+        android:textColor="@color/colorWhite"
+        android:textSize="20dip"
+        android:textStyle="bold" />
+
+    <ImageButton
         android:id="@+id/login_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/common_signin_button_text_long" />
+        android:layout_width="256dp"
+        android:layout_height="79dp"
+        android:layout_column="1"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_row="0"
+        android:background="@drawable/google_button_shape"
+        android:src="@drawable/signup_google_button" />
 
+    <!-- delete this button! -->
     <Button
-        android:text="@string/sign_out"
+        android:id="@+id/signout_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/signout_button"/>
+        android:text="@string/sign_out" />
 
 </LinearLayout>
+

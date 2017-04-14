@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -54,7 +55,7 @@ public class LoginActivity extends AppCompatActivity implements
         initLogin();
         askForPermission();
         setContentView(R.layout.activity_login);
-        Button login_button = (Button) findViewById(R.id.login_button);
+        ImageButton login_button = (ImageButton) findViewById(R.id.login_button);
         login_button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {

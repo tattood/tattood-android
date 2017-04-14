@@ -10,7 +10,7 @@
     <string name="title_activity_upload">UploadActivity</string>
     <string name="title_activity_search">SearchActivity</string>
     <string name="sign_out">Sign Out</string>
-    <string name="user_name">User Name</string>
+    <string name="user_name">Select a user name!</string>
     <string name="register">Register</string>
     <string name="no_result_found">No Result Found</string>
     <string name="tattoo_description">Image of the Tattoo</string>
