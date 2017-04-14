@@ -2,6 +2,7 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
              tools:context="com.tattood.tattood.ProfileFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -14,12 +15,6 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/upload_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/upload"/>
 
             <TextView
                 android:text="@string/private_tattoos"
@@ -50,23 +45,22 @@
                 android:id="@+id/label_user_liked"/>
 
             <android.support.v7.widget.RecyclerView
+                android:id="@+id/user_liked_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/user_liked_list"/>
+                android:layout_height="match_parent">
 
-            <Button
-                android:text="@string/sign_out"
+            </android.support.v7.widget.RecyclerView>
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_upload"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/signout_button"/>
-
-            <Button
-                android:id="@+id/extract_img_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="extract_img_button"/>
+                android:layout_gravity="end|bottom"
+                android:layout_margin="@dimen/fab_margin"
+                android:src="@drawable/ic_add_black_24dp"/>
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
+
 
 </FrameLayout>

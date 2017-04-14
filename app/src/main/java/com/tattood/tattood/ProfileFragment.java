@@ -2,11 +2,11 @@ package com.tattood.tattood;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,14 +14,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.android.volley.Response;
 
 import org.json.JSONObject;
 
 import static android.app.Activity.RESULT_OK;
-import static com.tattood.tattood.SplashActivity.PREFS_NAME;
 
 public class ProfileFragment extends Fragment {
     private static final int RESULT_LOAD_IMAGE = 200;
@@ -102,40 +100,13 @@ public class ProfileFragment extends Fragment {
         user = new User(context, token, username);
 
         refresh_images(view);
-        Button sign_out_button = (Button) view.findViewById(R.id.signout_button);
-        sign_out_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Server.logout(context, token, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        SharedPreferences.Editor editor = context.getSharedPreferences(PREFS_NAME, 0).edit();
-                        editor.remove("username");
-                        editor.apply();
-                        Log.d("Logout", "|HERE");
-                        Intent myIntent = new Intent(context, LoginActivity.class);
-                        startActivity(myIntent);
-                    }
-                });
-            }
-        });
 
-        Button upload_button = (Button) view.findViewById(R.id.upload_button);
-        upload_button.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab_upload);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("Upload", "Clicked");
                 Intent i = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(i, RESULT_LOAD_IMAGE);
-            }
-        });
-
-        Button extract_img_button = (Button) view.findViewById(R.id.extract_img_button);
-        extract_img_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent myIntent = new Intent(getActivity(), ExtractImage.class);
-                startActivity(myIntent);
             }
         });
         return view;
