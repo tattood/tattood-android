@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.android.volley.Response;
 
@@ -21,7 +22,7 @@ import org.json.JSONObject;
 
 import static android.app.Activity.RESULT_OK;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements View.OnClickListener {
     private static final int RESULT_LOAD_IMAGE = 200;
     private User user;
     private String token;
@@ -90,6 +91,20 @@ public class ProfileFragment extends Fragment {
     }
 
     @Override
+    public void onClick(View v) {
+        Intent myIntent = new Intent(this.getContext(), SeeMore.class);
+        if (v.getId() == R.id.see_more_private) {
+            myIntent.putExtra("TAG", "PRIVATE");
+        } else if (v.getId() == R.id.see_more_public) {
+            myIntent.putExtra("TAG", "PUBLIC");
+        } else if (v.getId() == R.id.see_more_liked) {
+            myIntent.putExtra("TAG", "LIKED");
+        }
+        myIntent.putExtra("token", token);
+        getContext().startActivity(myIntent);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -109,6 +124,12 @@ public class ProfileFragment extends Fragment {
                 startActivityForResult(i, RESULT_LOAD_IMAGE);
             }
         });
+        Button see_more = (Button) view.findViewById(R.id.see_more_private);
+        see_more.setOnClickListener(this);
+        see_more = (Button) view.findViewById(R.id.see_more_public);
+        see_more.setOnClickListener(this);
+        see_more = (Button) view.findViewById(R.id.see_more_liked);
+        see_more.setOnClickListener(this);
         return view;
 
     }

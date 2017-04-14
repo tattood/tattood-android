@@ -16,33 +16,72 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:text="@string/private_tattoos"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/label_user_private"/>
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/label_user_private"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/private_tattoos"/>
+
+                <Button
+                    android:text="@string/see_more"
+                    android:layout_width="159dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/see_more_private"/>
+            </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/user_private_list"/>
 
-            <TextView
-                android:text="@string/public_tattoos"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/label_user_public"/>
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/label_user_public"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/public_tattoos"/>
+
+                <Button
+                    android:text="@string/see_more"
+                    android:layout_width="159dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/see_more_public"/>
+            </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/user_public_list"/>
 
-            <TextView
-                android:text="@string/liked_tattoos"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/label_user_liked"/>
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/label_user_liked"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/liked_tattoos"/>
+
+                <Button
+                    android:text="@string/see_more"
+                    android:layout_width="159dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/see_more_liked"/>
+            </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/user_liked_list"
