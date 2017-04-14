@@ -10,6 +10,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -17,7 +18,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    aaptOptions {
+/*    aaptOptions {
         noCompress 'KARMarker'
         noCompress 'armodel'
     }
@@ -29,11 +30,14 @@ android {
             include 'x86', 'armeabi-v7a'
             universalApk true
         }
-    }
+    }*/
 }
 
 dependencies {
+    compile(name: 'wikitude-native-sdk', ext: 'aar')
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.google.android:flexbox:0.2.5'
+
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -46,5 +50,12 @@ dependencies {
     compile 'com.google.android.gms:play-services-auth:10.2.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
+
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
 }
 apply plugin: 'com.google.gms.google-services'
