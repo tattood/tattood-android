@@ -27,12 +27,13 @@ import java.util.ArrayList;
 
 public class TattooActivity extends AppCompatActivity {
 
+    int is_liked;
+    int like_count;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tattoo);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
         Bundle extras = getIntent().getExtras();
         final String token = extras.getString("token");
         final String tattoo_id = extras.getString("tid");
@@ -86,14 +87,11 @@ public class TattooActivity extends AppCompatActivity {
                                     startActivity(myIntent);
                                 }
                             });
-                            int like_count = response.getInt("like_count");
-                            final TextView like_label = (TextView) findViewById(R.id.like_count);
-                            like_label.setText("Likes:" + like_count);
-                            int is_liked = response.getInt("is_liked");
+                            like_count = response.getInt("like_count");
+                            is_liked = response.getInt("is_liked");
+                            Log.d("LIKE", String.valueOf(is_liked));
+                            refreshLikeButton();
                             final Button like_button = (Button) findViewById(R.id.like_button);
-                            if (is_liked == 1) {
-                                like_button.setText("Unlike");
-                            }
                             like_button.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -102,19 +100,9 @@ public class TattooActivity extends AppCompatActivity {
                                     Response.Listener<JSONObject> callback = new Response.Listener<JSONObject>(){
                                         @Override
                                         public void onResponse(JSONObject response) {
-                                            String test = String.valueOf(like_button.getText());
-                                            String label = String.valueOf(like_label.getText());
-                                            int like_count = Integer.parseInt(label.substring(6));
-                                            Log.d("Like", test);
-                                            if (test.equals("Like")) {
-                                                like_button.setText("Unlike");
-                                                like_count++;
-                                            }
-                                            else {
-                                                like_button.setText("Like");
-                                                like_count--;
-                                            }
-                                            like_label.setText("Likes:" + like_count);
+                                            like_count += is_liked == 1 ? -1 : 1;
+                                            is_liked = 1 - is_liked;
+                                            refreshLikeButton();
                                         }
                                     };
                                     Server.like(TattooActivity.this, token, tattoo_id, text.equals("Like") ? 1 : 0, callback);
@@ -134,5 +122,16 @@ public class TattooActivity extends AppCompatActivity {
                 startActivity(myIntent);
             }
         });
+    }
+
+    private void refreshLikeButton() {
+        final Button like_button = (Button) findViewById(R.id.like_button);
+        final TextView like_label = (TextView) findViewById(R.id.like_count);
+        if (is_liked == 1) {
+            like_button.setText("Unlike");
+        } else {
+            like_button.setText("Like");
+        }
+        like_label.setText("Likes:" + like_count);
     }
 }
