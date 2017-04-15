@@ -2,11 +2,11 @@ package com.tattood.tattood;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,9 +21,8 @@ import com.android.volley.Response;
 import org.json.JSONObject;
 
 import static android.app.Activity.RESULT_OK;
-import static com.tattood.tattood.SplashActivity.PREFS_NAME;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements View.OnClickListener {
     private static final int RESULT_LOAD_IMAGE = 200;
     private User user;
     private String token;
@@ -92,6 +91,22 @@ public class ProfileFragment extends Fragment {
     }
 
     @Override
+    public void onClick(View v) {
+        Intent myIntent = new Intent(this.getContext(), SeeMore.class);
+        Log.d("SEE-MORE", "CLICKED");
+        if (v.getId() == R.id.see_more_private) {
+            myIntent.putExtra("TAG", "PRIVATE");
+        } else if (v.getId() == R.id.see_more_public) {
+            myIntent.putExtra("TAG", "PUBLIC");
+        } else if (v.getId() == R.id.see_more_liked) {
+            myIntent.putExtra("TAG", "LIKED");
+        }
+        myIntent.putExtra("token", token);
+        myIntent.putExtra("username", user.username);
+        getContext().startActivity(myIntent);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -102,42 +117,21 @@ public class ProfileFragment extends Fragment {
         user = new User(context, token, username);
 
         refresh_images(view);
-        Button sign_out_button = (Button) view.findViewById(R.id.signout_button);
-        sign_out_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Server.logout(context, token, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        SharedPreferences.Editor editor = context.getSharedPreferences(PREFS_NAME, 0).edit();
-                        editor.remove("username");
-                        editor.apply();
-                        Log.d("Logout", "|HERE");
-                        Intent myIntent = new Intent(context, LoginActivity.class);
-                        startActivity(myIntent);
-                    }
-                });
-            }
-        });
 
-        Button upload_button = (Button) view.findViewById(R.id.upload_button);
-        upload_button.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab_upload);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("Upload", "Clicked");
                 Intent i = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(i, RESULT_LOAD_IMAGE);
             }
         });
-
-        Button extract_img_button = (Button) view.findViewById(R.id.extract_img_button);
-        extract_img_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent myIntent = new Intent(getActivity(), ExtractImage.class);
-                startActivity(myIntent);
-            }
-        });
+        Button see_more = (Button) view.findViewById(R.id.see_more_private);
+        see_more.setOnClickListener(this);
+        see_more = (Button) view.findViewById(R.id.see_more_public);
+        see_more.setOnClickListener(this);
+        see_more = (Button) view.findViewById(R.id.see_more_liked);
+        see_more.setOnClickListener(this);
         return view;
 
     }

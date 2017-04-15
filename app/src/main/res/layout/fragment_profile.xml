@@ -2,6 +2,7 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
              tools:context="com.tattood.tattood.ProfileFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -15,58 +16,90 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <Button
-                android:id="@+id/upload_button"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/upload"/>
+                android:orientation="horizontal">
 
-            <TextView
-                android:text="@string/private_tattoos"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/label_user_private"/>
+                <TextView
+                    android:id="@+id/label_user_private"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/private_tattoos"/>
+
+                <Button
+                    android:text="@string/see_more"
+                    android:layout_width="159dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/see_more_private"/>
+            </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/user_private_list"/>
 
-            <TextView
-                android:text="@string/public_tattoos"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/label_user_public"/>
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/label_user_public"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/public_tattoos"/>
+
+                <Button
+                    android:text="@string/see_more"
+                    android:layout_width="159dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/see_more_public"/>
+            </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/user_public_list"/>
 
-            <TextView
-                android:text="@string/liked_tattoos"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/label_user_liked"/>
-
-            <android.support.v7.widget.RecyclerView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/user_liked_list"/>
+                android:orientation="horizontal">
 
-            <Button
-                android:text="@string/sign_out"
+                <TextView
+                    android:id="@+id/label_user_liked"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/liked_tattoos"/>
+
+                <Button
+                    android:text="@string/see_more"
+                    android:layout_width="159dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/see_more_liked"/>
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/user_liked_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_upload"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/signout_button"/>
-
-            <Button
-                android:id="@+id/extract_img_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="extract_img_button"/>
+                android:layout_gravity="end|bottom"
+                android:layout_margin="@dimen/fab_margin"
+                android:src="@drawable/ic_add_black_24dp"/>
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
+
 
 </FrameLayout>

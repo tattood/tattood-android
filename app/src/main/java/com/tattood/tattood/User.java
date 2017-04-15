@@ -13,7 +13,7 @@ import org.json.JSONObject;
 public class User {
 
 //    private String email;
-    private final String username;
+    public final String username;
     private final String token;
     private final Context context;
 
@@ -24,15 +24,26 @@ public class User {
     }
 
     public void getLiked(Response.Listener<JSONObject> callback) {
-        Server.getTattooList(context, token, Server.TattooRequest.Liked, username, callback);
+        getLiked(callback, 20);
+    }
+
+    public void getLiked(Response.Listener<JSONObject> callback, int limit) {
+        Server.getTattooList(context, token, Server.TattooRequest.Liked, username, callback, limit);
     }
 
     public void getPublic(Response.Listener<JSONObject> callback) {
-        Server.getTattooList(context, token, Server.TattooRequest.Public, username, callback);
+        getPublic(callback, 20);
+    }
+    public void getPublic(Response.Listener<JSONObject> callback, int limit) {
+        Server.getTattooList(context, token, Server.TattooRequest.Public, username, callback, limit);
     }
 
     public void getPrivate(Response.Listener<JSONObject> callback) {
-        Server.getTattooList(context, token, Server.TattooRequest.Private, username, callback);
+        getPrivate(callback, 20);
+    }
+
+    public void getPrivate(Response.Listener<JSONObject> callback, int limit) {
+        Server.getTattooList(context, token, Server.TattooRequest.Private, username, callback, limit);
     }
 
 //    public ArrayList<User> getFollowers(Response.Listener<JSONObject> callback) {

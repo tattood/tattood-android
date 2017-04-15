@@ -9,6 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/background"
     tools:context="com.tattood.tattood.RegisterActivity">
 
     <EditText
@@ -16,18 +17,23 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:hint="@string/user_name"
+        android:textColorHint="@color/colorWhite"
         android:ems="10"
         android:id="@+id/editText_username"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:text="@string/register"
+        android:textStyle="italic"
+        android:textColor="@color/colorWhite"
+        android:backgroundTint="@color/colorPurple"
+        android:alpha="0.8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/button_register"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/editText_username"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="40dp"
-        android:layout_alignParentEnd="true"/>
+        android:layout_marginTop="12dp"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>
