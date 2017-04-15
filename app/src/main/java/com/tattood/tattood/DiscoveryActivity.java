@@ -24,30 +24,11 @@ public class DiscoveryActivity extends AppCompatActivity implements View.OnClick
     private OnListFragmentInteractionListener mListener;
     private String token;
     private String username;
-//
-//    public static DiscoveryActivity newInstance(String token) {
-//        DiscoveryActivity fragment = new DiscoveryActivity();
-//        Bundle args = new Bundle();
-//        args.putString("token", token);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
-//
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        token = getIntent().getExtras().getString("token");
-////        if (getIntent().getArguments() != null) {
-////            token = getArguments().getString("token");
-////        }
-//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discovery);
-//        final View view = inflater.inflate(R.layout.fragment_item_list, container, false);
-//        final Context context = view.getContext();
         token = getIntent().getExtras().getString("token");
         username = getIntent().getExtras().getString("username");
 
@@ -89,13 +70,6 @@ public class DiscoveryActivity extends AppCompatActivity implements View.OnClick
             }
         });
     }
-
-//
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        mListener = null;
-//    }
 
     @Override
     public void onClick(View v) {

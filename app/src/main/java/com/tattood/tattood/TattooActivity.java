@@ -130,8 +130,8 @@ public class TattooActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d("CAMERA", "Clicked");
-//                Intent i = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//                startActivityForResult(i, RESULT_LOAD_IMAGE);
+                Intent myIntent = new Intent(TattooActivity.this, CameraActivity.class);
+                startActivity(myIntent);
             }
         });
     }

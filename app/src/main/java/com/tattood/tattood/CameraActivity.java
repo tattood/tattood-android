@@ -2,22 +2,14 @@ package com.tattood.tattood;
 
 import android.hardware.Camera;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 @SuppressWarnings("deprecation")
-public class CameraFragment extends Fragment {
+public class CameraActivity extends AppCompatActivity {
     private Camera mCamera;
     private CameraPreview mPreview;
-    private View view;
-
-    public static CameraFragment newInstance() {
-        return new CameraFragment();
-    }
 
     @Override
     public void onPause() {
@@ -34,8 +26,8 @@ public class CameraFragment extends Fragment {
     public void initCamera() {
         mCamera = getCameraInstance();
         mCamera.setPreviewCallback(null);
-        mPreview = new CameraPreview(getContext(), mCamera);
-        FrameLayout preview = (FrameLayout) view.findViewById(R.id.camera_preview);
+        mPreview = new CameraPreview(this, mCamera);
+        FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
         preview.addView(mPreview);
         mCamera.startPreview();
     }
@@ -55,16 +47,15 @@ public class CameraFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_camera, container, false);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_camera);
         initCamera();
-        return view;
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    public void onStop() {
+        super.onStop();
         destroyCamera();
     }
 
