@@ -18,6 +18,7 @@ import org.json.JSONObject;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
@@ -28,7 +29,7 @@ import java.util.Iterator;
 public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecyclerViewAdapter.ViewHolder>
         implements View.OnClickListener {
 
-    private Tattoo mValues[];
+    private ArrayList<Tattoo> mValues;
     private final OnListFragmentInteractionListener mListener;
     private final Context mContext;
     private final RecyclerView mRecyclerView;
@@ -52,22 +53,23 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
     }
 
     private Bitmap getTattooImage(int index) {
-        Tattoo t = mValues[index];
+        if (index >= mValues.size())
+            return null;
+        Tattoo t = mValues.get(index);
         if (t == null || t.getImage() == null) {
             return null;
-//            return BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.ic_launcher);
         }
         return t.getImage();
     }
 
     public void setTattooImage(int index, Bitmap image) {
-        if (mValues[index] == null)
+        if (index >= mValues.size() || mValues.get(index) == null)
             return;
-        mValues[index].setImage(image);
+        mValues.get(index).setImage(image);
     }
 
     public void setTattoo(int index, Tattoo t) {
-        mValues[index] = t;
+        mValues.set(index, t);
     }
 
     @Override
@@ -81,12 +83,12 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
                     Log.d("TATTOO-edit", "HERE");
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(mValues[pos]);
+                    mListener.onListFragmentInteraction(mValues.get(pos));
                 } else {
                     Log.d("Tattoo", "Discovery Page");
                     Intent myIntent = new Intent(mContext, TattooActivity.class);
                     myIntent.putExtra("token", token);
-                    myIntent.putExtra("tid",   mValues[pos].tattoo_id);
+                    myIntent.putExtra("tid",   mValues.get(pos).tattoo_id);
                     mContext.startActivity(myIntent);
                 }
             }
@@ -95,14 +97,14 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
 
     @Override
     public int getItemCount() {
-        return (mValues == null) ? 0 : mValues.length;
+        return (mValues == null) ? 0 : mValues.size();
     }
 
     @Override
     public void onClick(View v) {
         int itemPosition = mRecyclerView.getChildLayoutPosition(v);
         Log.d("Tattoo", "onCLick()");
-        Tattoo item = mValues[itemPosition];
+        Tattoo item = mValues.get(itemPosition);
         Toast.makeText(mContext, item.toString(), Toast.LENGTH_LONG).show();
     }
 
@@ -126,11 +128,15 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
         try {
 
             obj = obj.getJSONObject("data");
-            mValues = new Tattoo[obj.length()];
+            mValues = new ArrayList<>(obj.length());
+            Log.d("TATTOO", String.valueOf(obj.length()));
+            for (int i = 0; i < obj.length(); i++)
+                mValues.add(null);
             Iterator<String> keys = obj.keys();
             while( keys.hasNext() ) {
                 String key = keys.next();
                 int i = Integer.parseInt(key);
+                Log.d("TATTOO-", String.valueOf(i));
                 JSONArray tattooJSON = obj.getJSONArray(key);
                 String tattoo_id = tattooJSON.getString(0);
                 String owner_id = tattooJSON.getString(1);
@@ -155,5 +161,10 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
         } catch(JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public void addTattoo(Tattoo t) {
+        mValues.add(t);
+        notifyDataSetChanged();
     }
 }

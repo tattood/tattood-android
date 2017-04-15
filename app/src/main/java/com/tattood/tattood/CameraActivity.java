@@ -49,7 +49,7 @@ public class CameraActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_camera);
+        setContentView(R.layout.activity_camera);
         initCamera();
     }
 

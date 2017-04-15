@@ -19,10 +19,7 @@ public class SeeMore extends AppCompatActivity {
         final String token = extras.getString("token");
         final String tag = extras.getString("TAG");
         final String username = extras.getString("username");
-        User user = null;
-        if (username != null) {
-            user = new User(this, token, username);
-        }
+        User user = User.getInstance();
         final RecyclerView list_view = (RecyclerView) findViewById(R.id.list_view);
         list_view.setLayoutManager(new GridLayoutManager(this, 3));
         list_view.setAdapter(new TattooRecyclerViewAdapter(null, this, list_view, token));
@@ -44,29 +41,11 @@ public class SeeMore extends AppCompatActivity {
                             }
                         }, 100);
             } else if (user != null && tag.equals("PRIVATE")) {
-                user.getPrivate(
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                ((TattooRecyclerViewAdapter) list_view.getAdapter()).set_data(token, response);
-                            }
-                        }, 100);
+                user.setPrivateView(this, list_view, 100);
             } else if (user != null && tag.equals("PUBLIC")) {
-                user.getPublic(
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                ((TattooRecyclerViewAdapter) list_view.getAdapter()).set_data(token, response);
-                            }
-                        }, 100);
+                user.setPublicView(this, list_view, 100);
             } else if (user != null && tag.equals("LIKED")) {
-                user.getLiked(
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                ((TattooRecyclerViewAdapter) list_view.getAdapter()).set_data(token, response);
-                            }
-                        }, 100);
+                user.setLikedView(this, list_view, 100);
             }
         }
     }

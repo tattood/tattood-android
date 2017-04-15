@@ -13,12 +13,6 @@ import com.android.volley.Response;
 
 import org.json.JSONObject;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
- */
 public class DiscoveryActivity extends AppCompatActivity implements View.OnClickListener {
 
     private OnListFragmentInteractionListener mListener;
@@ -31,7 +25,7 @@ public class DiscoveryActivity extends AppCompatActivity implements View.OnClick
         setContentView(R.layout.activity_discovery);
         token = getIntent().getExtras().getString("token");
         username = getIntent().getExtras().getString("username");
-
+        User.setInstance(token, username);
         final RecyclerView popular_view = (RecyclerView) findViewById(R.id.popular_list);
         popular_view.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         popular_view.setAdapter(new TattooRecyclerViewAdapter(mListener, this, popular_view, token));
