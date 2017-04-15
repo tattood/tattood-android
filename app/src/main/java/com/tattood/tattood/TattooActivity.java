@@ -37,6 +37,7 @@ public class TattooActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         final String token = extras.getString("token");
         final String tattoo_id = extras.getString("tid");
+        final Tattoo tattoo = new Tattoo(tattoo_id, null);
         Server.getTattooImage(this, tattoo_id, 1, token,
                 new Server.ResponseCallback() {
                     @Override
@@ -45,8 +46,9 @@ public class TattooActivity extends AppCompatActivity {
                             String name = id + ".jpg";
                             FileInputStream stream = openFileInput(name);
                             Bitmap img = BitmapFactory.decodeStream(stream);
-                            ImageView tattoo = (ImageView)findViewById(R.id.tattoo_image);
-                            tattoo.setImageBitmap(img);
+                            ImageView tattoo_img = (ImageView)findViewById(R.id.tattoo_image);
+                            tattoo_img.setImageBitmap(img);
+                            tattoo.image = img;
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
                         }
@@ -57,9 +59,11 @@ public class TattooActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         try {
                             final String username = response.getString("owner");
+                            final String owner_id = response.getString("owner_id");
                             TextView owner = (TextView) findViewById(R.id.owner_name);
                             owner.setText(username);
                             Log.d("Tattoo", username);
+                            tattoo.owner_id = owner_id;
                             owner.setOnClickListener( new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -75,6 +79,7 @@ public class TattooActivity extends AppCompatActivity {
                                 if (!t.isEmpty())
                                     tags.add(t);
                             }
+                            tattoo.tags = tags;
                             ListView tag_list = (ListView) findViewById(R.id.tag_list);
                             tag_list.setAdapter(new ArrayAdapter<>(TattooActivity.this, android.R.layout.simple_list_item_1, tags));
                             tag_list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -102,6 +107,7 @@ public class TattooActivity extends AppCompatActivity {
                                         public void onResponse(JSONObject response) {
                                             like_count += is_liked == 1 ? -1 : 1;
                                             is_liked = 1 - is_liked;
+                                            User.getInstance().addLike(tattoo);
                                             refreshLikeButton();
                                         }
                                     };

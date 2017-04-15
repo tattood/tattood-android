@@ -46,6 +46,7 @@ public class UploadActivity extends AppCompatActivity {
         try {
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), path);
             image.setImageBitmap(bitmap);
+            tattoo.image = bitmap;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -98,7 +99,11 @@ public class UploadActivity extends AppCompatActivity {
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-                                Log.d("UPLOAD", "Refresh");
+                                Log.d("Upload", String.valueOf(sw.isChecked()));
+                                if (sw.isChecked())
+                                    User.getInstance().addPrivate(tattoo);
+                                else
+                                    User.getInstance().addPublic(tattoo);
                                 finish();
                             }
                         });

@@ -106,6 +106,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             myIntent.putExtra("token", token);
             myIntent.putExtra("path", picturePath);
             startActivity(myIntent);
+            User.getInstance().private_view.getAdapter().notifyDataSetChanged();
+            User.getInstance().public_view.getAdapter().notifyDataSetChanged();
         }
     }
 

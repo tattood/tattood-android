@@ -18,9 +18,9 @@ public class User {
     public final String username;
     private final String token;
 
-    private RecyclerView liked_view;
-    private RecyclerView public_view;
-    private RecyclerView private_view;
+    public RecyclerView liked_view;
+    public RecyclerView public_view;
+    public RecyclerView private_view;
 
     private User(String t, String u) {
         username = u;
@@ -81,8 +81,16 @@ public class User {
                 }, limit);
     }
 
-    public void like(Context context, Tattoo t) {
+    public void addLike(Tattoo t) {
         ((TattooRecyclerViewAdapter)liked_view.getAdapter()).addTattoo(t);
+    }
+
+    public void addPublic(Tattoo t) {
+        ((TattooRecyclerViewAdapter)public_view.getAdapter()).addTattoo(t);
+    }
+
+    public void addPrivate(Tattoo t) {
+        ((TattooRecyclerViewAdapter)private_view.getAdapter()).addTattoo(t);
     }
 
     public int like_count() {
