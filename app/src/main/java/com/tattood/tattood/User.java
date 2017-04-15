@@ -2,6 +2,7 @@ package com.tattood.tattood;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.android.volley.Response;
 
@@ -25,6 +26,9 @@ public class User {
     private User(String t, String u) {
         username = u;
         token = t;
+        public_view = null;
+        private_view = null;
+        liked_view = null;
     }
 
     public static User getInstance() {
@@ -41,14 +45,18 @@ public class User {
     }
 
     public void setLikedView(Context context, final RecyclerView list_view, int limit) {
-        liked_view = list_view;
-        Server.getTattooList(context, token, Server.TattooRequest.Liked, username,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        ((TattooRecyclerViewAdapter) list_view.getAdapter()).set_data(token, response);
-                    }
-                }, limit);
+        if (liked_view == null) {
+            liked_view = list_view;
+            Server.getTattooList(context, token, Server.TattooRequest.Liked, username,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            ((TattooRecyclerViewAdapter) list_view.getAdapter()).set_data(token, response);
+                        }
+                    }, limit);
+        } else {
+            changeView(liked_view, list_view);
+        }
     }
 
     public void setPublicView(Context context, final RecyclerView list_view) {
@@ -56,14 +64,18 @@ public class User {
     }
 
     public void setPublicView(Context context, final RecyclerView list_view, int limit) {
-        public_view = list_view;
-        Server.getTattooList(context, token, Server.TattooRequest.Public, username,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
+        if (public_view == null) {
+            public_view = list_view;
+            Server.getTattooList(context, token, Server.TattooRequest.Public, username,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
                         ((TattooRecyclerViewAdapter) list_view.getAdapter()).set_data(token, response);
-                    }
-                }, limit);
+                        }
+                    }, limit);
+        } else {
+            changeView(public_view, list_view);
+        }
     }
 
     public void setPrivateView(Context context, final RecyclerView list_view) {
@@ -71,14 +83,26 @@ public class User {
     }
 
     public void setPrivateView(Context context, final RecyclerView list_view, int limit) {
-        private_view = list_view;
-        Server.getTattooList(context, token, Server.TattooRequest.Private, username,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        ((TattooRecyclerViewAdapter) list_view.getAdapter()).set_data(token, response);
-                    }
-                }, limit);
+        if (private_view == null) {
+            private_view = list_view;
+            Server.getTattooList(context, token, Server.TattooRequest.Private, username,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            ((TattooRecyclerViewAdapter) list_view.getAdapter()).set_data(token, response);
+                        }
+                    }, limit);
+        } else {
+            changeView(private_view, list_view);
+        }
+    }
+
+    private void changeView(RecyclerView curr, RecyclerView _new) {
+        Log.d("Profile", "CHANGE");
+        TattooRecyclerViewAdapter adapter = (TattooRecyclerViewAdapter) curr.getAdapter();
+        curr = _new;
+        Log.d("Profile", String.valueOf(adapter.getData().size()));
+        ((TattooRecyclerViewAdapter)curr.getAdapter()).setData(adapter.getData());
     }
 
     public void addLike(Tattoo t) {

@@ -29,7 +29,7 @@ import java.util.Iterator;
 public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecyclerViewAdapter.ViewHolder>
         implements View.OnClickListener {
 
-    private ArrayList<Tattoo> mValues;
+    public ArrayList<Tattoo> mValues;
     private final OnListFragmentInteractionListener mListener;
     private final Context mContext;
     private final RecyclerView mRecyclerView;
@@ -166,5 +166,15 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
     public void addTattoo(Tattoo t) {
         mValues.add(t);
         notifyDataSetChanged();
+    }
+
+    public ArrayList<Tattoo> getData() {
+        return mValues;
+    }
+
+    public void setData(ArrayList<Tattoo> data) {
+        mValues = data;
+        for (int i = 0; i < data.size(); i++)
+            setTattooImage(i, data.get(i).image);
     }
 }
