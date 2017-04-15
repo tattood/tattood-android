@@ -34,6 +34,7 @@ public class SplashActivity extends Activity {
         }
         else {
             Intent myIntent = new Intent(this, LoginActivity.class);
+//            myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
             startActivity(myIntent);
         }
     }

@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -76,6 +75,7 @@ public class LoginActivity extends AppCompatActivity implements
 
     private void initLogin() {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestIdToken("876997578175-3mvn4447hcvdpr4nr7vml1otj8ottad6.apps.googleusercontent.com")
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail().build();
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -84,6 +84,7 @@ public class LoginActivity extends AppCompatActivity implements
                 .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
                     @Override
                     public void onConnected(@Nullable Bundle bundle) {
+                        Log.d("Login", "HERE");
                         if (getIntent().hasExtra("logout")) {
                             Log.d("Login", "HERE--Logout");
                             mAuth.signOut();
@@ -106,6 +107,8 @@ public class LoginActivity extends AppCompatActivity implements
                 .build();
         mGoogleApiClient.connect();
         mAuth = FirebaseAuth.getInstance();
+        if (mAuth == null)
+            Log.d("Firebase", "NULL");
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -121,6 +124,7 @@ public class LoginActivity extends AppCompatActivity implements
     public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
+        mGoogleApiClient.connect();
     }
 
     @Override
@@ -133,6 +137,7 @@ public class LoginActivity extends AppCompatActivity implements
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("Signing", "on activityResult");
         super.onActivityResult(requestCode, resultCode, data);
         Log.d("Signing", "on activityResult");
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
@@ -175,6 +180,7 @@ public class LoginActivity extends AppCompatActivity implements
                                     Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
                                     myIntent.putExtra("token", acct.getIdToken());
                                     startActivity(myIntent);
+                                    finish();
                                 }
                             }, new ErrorListener() {
                                 @Override
@@ -185,6 +191,7 @@ public class LoginActivity extends AppCompatActivity implements
                                         myIntent.putExtra("email", acct.getEmail());
                                         myIntent.putExtra("token", acct.getIdToken());
                                         startActivity(myIntent);
+                                        finish();
                                     } else {
                                         Log.d("Network-Error", "" + response);
                                     }
@@ -201,8 +208,11 @@ public class LoginActivity extends AppCompatActivity implements
             return;
         }
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        Log.d("Signing", "method signIn:");
+        Log.d("Signing", "method signIn 2:");
+        if (signInIntent == null)
+            Log.d("Signing", "method signIn null:");
         startActivityForResult(signInIntent, RC_SIGN_IN);
+        Log.d("Signing", "method signIn 3:");
     }
 
     @Override
