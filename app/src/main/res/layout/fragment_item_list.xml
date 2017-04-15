@@ -1,57 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:text="@string/recent"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView"
-            android:layout_weight="1"/>
+            <TextView
+                android:text="@string/recent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView"
+                android:layout_weight="1"/>
 
-        <Button
-            android:text="@string/see_more"
-            android:layout_width="159dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/see_more_recent"
-            />
-    </LinearLayout>
+            <Button
+                android:text="@string/see_more"
+                android:layout_width="159dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/see_more_recent"
+                />
+        </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recent_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recent_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:text="@string/popular"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView2"
-            android:layout_weight="1"/>
+            <TextView
+                android:text="@string/popular"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView2"
+                android:layout_weight="1"/>
 
-        <Button
-            android:text="@string/see_more"
-            android:layout_width="159dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/see_more_popular"
-            />
-    </LinearLayout>
+            <Button
+                android:text="@string/see_more"
+                android:layout_width="159dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/see_more_popular"
+                />
+        </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/popular_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/popular_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
 </LinearLayout>

@@ -75,6 +75,15 @@ public class DiscoveryFragment extends Fragment implements View.OnClickListener 
         see_more.setOnClickListener(this);
         see_more = (Button) view.findViewById(R.id.see_more_popular);
         see_more.setOnClickListener(this);
+//
+//        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab_profile);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent i = new Intent(this, ProfileFragment.class);
+//                startActivity(i);
+//            }
+//        });
         return view;
     }
 
