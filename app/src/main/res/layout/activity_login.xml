@@ -20,6 +20,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginBottom="2dp"
         android:layout_marginRight="0dp"
+        android:background="@android:color/transparent"
         android:layout_weight="0.11"
         android:src="@drawable/tattood_logo4" />
 

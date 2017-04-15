@@ -10,14 +10,11 @@ import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -28,8 +25,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
-import java.util.Hashtable;
-import java.util.Map;
 
 /**
  * Created by eksi on 08/02/17.
@@ -231,7 +226,7 @@ public class Server {
 
     public static String getStringImage(Bitmap bmp){
         ByteArrayOutputStream byte_stream = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 100, byte_stream);
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, byte_stream);
         byte[] imageBytes = byte_stream.toByteArray();
         return Base64.encodeToString(imageBytes, Base64.DEFAULT);
     }
@@ -261,7 +256,7 @@ public class Server {
     }
 
     public static void uploadImage(Context context, final Uri path, final String token,
-                                   final Tattoo tattoo, final Response.Listener<String> callback) {
+                                   final Tattoo tattoo, final Response.Listener<JSONObject> callback) {
         //Showing the progress dialog
         final Bitmap bitmap;
         try {
@@ -270,26 +265,24 @@ public class Server {
             ex.printStackTrace();
             return;
         }
+        JSONObject data = new JSONObject();
+        try {
+            data.put("token", token);
+            data.put("private", String.valueOf(tattoo.is_private));
+            data.put("tag_count", String.valueOf(tattoo.tags.size()));
+            for (int i = 0; i < tattoo.tags.size(); i++) {
+                data.put("tag"+i, tattoo.tags.get(i));
+            }
+            data.put("image", getStringImage(bitmap));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         Log.d("PARAMS", String.valueOf(tattoo.tags.size()));
         Log.d("PARAMS", String.valueOf(tattoo.is_private));
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, host + "/tattoo-upload",
-                callback, error_handler){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                String image = getStringImage(bitmap);
-                Map<String,String> params = new Hashtable<>();
-                params.put("image", image);
-                params.put("token", token);
-                params.put("private", String.valueOf(tattoo.is_private));
-                params.put("tag_count", String.valueOf(tattoo.tags.size()));
-                for (int i = 0; i < tattoo.tags.size(); i++) {
-                    params.put("tag"+i, tattoo.tags.get(i));
-                }
-                return params;
-            }
-        };
+        JsonObjectRequest request = new JsonObjectRequest(host + "/tattoo-upload", data,
+                callback, error_handler);
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        requestQueue.add(stringRequest);
+        requestQueue.add(request);
     }
 
     public static void like(Context context, final String token, final String id, int like,

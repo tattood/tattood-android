@@ -10,5 +10,6 @@
         android:id="@+id/extract_img_view"
         android:layout_width="match_parent"
         android:layout_height="336dp"
+        android:background="@android:color/transparent"
         app:srcCompat="@android:drawable/stat_sys_phone_call_forward" />
 </LinearLayout>

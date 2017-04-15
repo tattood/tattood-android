@@ -21,6 +21,9 @@ import android.widget.Switch;
 
 import com.android.volley.Response;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -96,10 +99,15 @@ public class UploadActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Server.uploadImage(UploadActivity.this, path, token, tattoo,
-                        new Response.Listener<String>() {
+                        new Response.Listener<JSONObject>() {
                             @Override
-                            public void onResponse(String response) {
-                                Log.d("Upload", String.valueOf(sw.isChecked()));
+                            public void onResponse(JSONObject response) {
+                                try {
+                                    String id = response.getString("id");
+                                    tattoo.tattoo_id = id;
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                                 if (sw.isChecked())
                                     User.getInstance().addPrivate(tattoo);
                                 else

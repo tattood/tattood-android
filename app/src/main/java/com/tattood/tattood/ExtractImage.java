@@ -39,6 +39,7 @@ public class ExtractImage extends AppCompatActivity {
             paint.setStrokeWidth(25);
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), Uri.parse("file://" + path));
+                bitmap.setHasAlpha(true);
                 Drawable d = new BitmapDrawable(getResources(), bitmap);
                 setBackground(d);
             } catch (IOException e) {

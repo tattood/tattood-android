@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class Tattoo implements Serializable {
     public String owner_id;
-    public final String tattoo_id;
+    public String tattoo_id;
     public ArrayList<String> tags;
     public boolean is_private;
 //    private String path;
