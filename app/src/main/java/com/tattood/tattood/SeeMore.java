@@ -50,7 +50,7 @@ public class SeeMore extends AppCompatActivity {
                             public void onResponse(JSONObject response) {
                                 ((TattooRecyclerViewAdapter) list_view.getAdapter()).set_data(token, response);
                             }
-                        });
+                        }, 100);
             } else if (user != null && tag.equals("PUBLIC")) {
                 user.getPublic(
                         new Response.Listener<JSONObject>() {
@@ -58,7 +58,7 @@ public class SeeMore extends AppCompatActivity {
                             public void onResponse(JSONObject response) {
                                 ((TattooRecyclerViewAdapter) list_view.getAdapter()).set_data(token, response);
                             }
-                        });
+                        }, 100);
             } else if (user != null && tag.equals("LIKED")) {
                 user.getLiked(
                         new Response.Listener<JSONObject>() {
@@ -66,7 +66,7 @@ public class SeeMore extends AppCompatActivity {
                             public void onResponse(JSONObject response) {
                                 ((TattooRecyclerViewAdapter) list_view.getAdapter()).set_data(token, response);
                             }
-                        });
+                        }, 100);
             }
         }
     }

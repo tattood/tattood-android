@@ -209,7 +209,7 @@ public class Server {
     }
 
     public static void getTattooList(Context context, String token, TattooRequest r, String username,
-                                     Response.Listener<JSONObject> callback) {
+                                     Response.Listener<JSONObject> callback, int limit) {
         String url;
         if (r == TattooRequest.Liked) {
             url = host + "/user-likes?";
@@ -219,9 +219,14 @@ public class Server {
             else
                 url = host + "/user-tattoo?private=1";
         }
-        url += "&token=" + token + "&user=" + username;
+        url += "&token=" + token + "&user=" + username + "&limit=" + limit;
         Log.d("User-tattoo", url);
         request(context, url, null, callback);
+    }
+
+    public static void getTattooList(Context context, String token, TattooRequest r, String username,
+                                     Response.Listener<JSONObject> callback) {
+        getTattooList(context, token, r, username, callback, 20);
     }
 
     public static String getStringImage(Bitmap bmp){

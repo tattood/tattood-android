@@ -16,7 +16,7 @@ public class SplashActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        String user = settings.getString("username", null);
+        final String user = settings.getString("username", null);
         if (user != null) {
             final String token = settings.getString("token", null);
             final String email = settings.getString("email", null);
@@ -26,6 +26,7 @@ public class SplashActivity extends Activity {
                         public void onResponse(JSONObject response) {
                             Intent myIntent = new Intent(SplashActivity.this, MainActivity.class);
                             myIntent.putExtra("token", token);
+                            myIntent.putExtra("username", user);
                             SplashActivity.this.startActivity(myIntent);
                         }
                     }

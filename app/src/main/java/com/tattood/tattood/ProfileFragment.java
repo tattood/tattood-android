@@ -93,6 +93,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         Intent myIntent = new Intent(this.getContext(), SeeMore.class);
+        Log.d("SEE-MORE", "CLICKED");
         if (v.getId() == R.id.see_more_private) {
             myIntent.putExtra("TAG", "PRIVATE");
         } else if (v.getId() == R.id.see_more_public) {
@@ -101,6 +102,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             myIntent.putExtra("TAG", "LIKED");
         }
         myIntent.putExtra("token", token);
+        myIntent.putExtra("username", user.username);
         getContext().startActivity(myIntent);
     }
 
