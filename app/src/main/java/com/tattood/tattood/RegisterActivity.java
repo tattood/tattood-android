@@ -38,7 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, 0);
                                 SharedPreferences.Editor editor = sharedPref.edit();
                                 editor.putString("username", username);
-                                Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
+                                Intent myIntent = new Intent(getBaseContext(), DiscoveryActivity.class);
                                 String token = getIntent().getStringExtra("token");
                                 myIntent.putExtra("token", token);
                                 editor.putString("token", token);
