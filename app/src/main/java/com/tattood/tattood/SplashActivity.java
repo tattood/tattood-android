@@ -24,7 +24,7 @@ public class SplashActivity extends Activity {
             Server.signIn(SplashActivity.this, token, email, new Response.Listener<JSONObject>(){
                         @Override
                         public void onResponse(JSONObject response) {
-                            Intent myIntent = new Intent(SplashActivity.this, MainActivity.class);
+                            Intent myIntent = new Intent(SplashActivity.this, DiscoveryActivity.class);
                             myIntent.putExtra("token", token);
                             myIntent.putExtra("username", user);
                             SplashActivity.this.startActivity(myIntent);

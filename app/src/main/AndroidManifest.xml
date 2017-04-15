@@ -38,6 +38,14 @@
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity
+            android:name="com.tattood.tattood.DiscoveryActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name="com.tattood.tattood.ProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <!--android:theme="@android:style/Theme.NoDisplay"-->
         <activity android:name="com.tattood.tattood.SplashActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"

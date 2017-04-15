@@ -177,7 +177,8 @@ public class LoginActivity extends AppCompatActivity implements
                                     editor.putString("email", acct.getEmail());
                                     editor.putString("token", acct.getIdToken());
                                     editor.apply();
-                                    Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
+                                    Intent myIntent = new Intent(getBaseContext(), DiscoveryActivity.class);
+//                                    Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
                                     myIntent.putExtra("token", acct.getIdToken());
                                     startActivity(myIntent);
                                     finish();
