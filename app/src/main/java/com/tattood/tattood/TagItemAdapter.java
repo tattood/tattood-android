@@ -58,7 +58,6 @@ public class TagItemAdapter extends BaseAdapter implements ListAdapter {
 
         //Handle buttons and add onClickListeners
         Button tag_delete = (Button)view.findViewById(R.id.tag_delete);
-
         tag_delete.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
