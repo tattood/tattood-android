@@ -7,8 +7,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SearchView;
 
 import com.android.volley.Response;
 
@@ -66,7 +68,35 @@ public class DiscoveryActivity extends AppCompatActivity implements View.OnClick
                                 android.R.anim.slide_in_left,
                                 android.R.anim.slide_out_right);
                 startActivity(myIntent, options.toBundle());
-//                startActivity(i);
+            }
+        });
+
+        SearchView search = (SearchView) findViewById(R.id.search_view);
+        search.setOnSearchClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Log.d("Search", "OnSearch");
+            }
+        });
+        search.setOnCloseListener(new SearchView.OnCloseListener(){
+            @Override
+            public boolean onClose() {
+                return false;
+            }
+        });
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Intent myIntent = new Intent(DiscoveryActivity.this, SearchActivity.class);
+                myIntent.putExtra("query", query);
+                myIntent.putExtra("token", token);
+                startActivity(myIntent);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
             }
         });
     }

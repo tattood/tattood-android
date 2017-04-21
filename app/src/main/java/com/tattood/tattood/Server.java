@@ -231,10 +231,15 @@ public class Server {
         return Base64.encodeToString(imageBytes, Base64.DEFAULT);
     }
 
-    public static void search(Context context, String token, String by, String what,
+    public static void search(Context context, String token, String query, int limit,
                               Response.Listener<JSONObject> callback) {
-        String url = host + "/search?by=" + by + "&what=" + what + "&token=" + token + "&limit=20";
+        String url = host + "/search?query=" + query + "&token=" + token + "&limit=" + limit;
         request(context, url, null, callback);
+    }
+
+    public static void search(Context context, String token, String query,
+                              Response.Listener<JSONObject> callback) {
+        search(context, token, query, 20, callback);
     }
 
     public static void updateTattoo(Context context, String token, Tattoo tattoo) {

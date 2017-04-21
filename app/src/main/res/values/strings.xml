@@ -29,4 +29,6 @@
     <string name="by">by</string>
     <string name="user">User</string>
     <string name="extract_submit">Submit</string>
+    <string name="tags">Tags</string>
+    <string name="users">Users</string>
 </resources>
