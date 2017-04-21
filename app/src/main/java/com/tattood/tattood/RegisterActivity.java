@@ -45,6 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 myIntent.putExtra("token", token);
                                 myIntent.putExtra("photo-uri", photo.toString());
                                 editor.putString("token", token);
+                                editor.putString("email", email);
                                 editor.putString("photo-uri", photo.toString());
                                 editor.apply();
                                 startActivity(myIntent);
