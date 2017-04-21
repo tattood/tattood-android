@@ -11,6 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <SearchView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"

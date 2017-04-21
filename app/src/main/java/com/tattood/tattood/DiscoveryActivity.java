@@ -1,5 +1,6 @@
 package com.tattood.tattood;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -57,10 +58,15 @@ public class DiscoveryActivity extends AppCompatActivity implements View.OnClick
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(DiscoveryActivity.this, ProfileActivity.class);
-                i.putExtra("token", token);
-                i.putExtra("username", username);
-                startActivity(i);
+                Intent myIntent = new Intent(DiscoveryActivity.this, ProfileActivity.class);
+                myIntent.putExtra("token", token);
+                myIntent.putExtra("username", username);
+                ActivityOptions options =
+                        ActivityOptions.makeCustomAnimation(DiscoveryActivity.this,
+                                android.R.anim.slide_in_left,
+                                android.R.anim.slide_out_right);
+                startActivity(myIntent, options.toBundle());
+//                startActivity(i);
             }
         });
     }
