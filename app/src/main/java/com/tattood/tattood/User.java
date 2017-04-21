@@ -1,8 +1,8 @@
 package com.tattood.tattood;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.android.volley.Response;
 
@@ -16,6 +16,7 @@ public class User {
 
     private static User user = null;
     private String email;
+    public Uri photo;
     public final String username;
     private final String token;
 
@@ -23,9 +24,10 @@ public class User {
     public RecyclerView public_view;
     public RecyclerView private_view;
 
-    private User(String t, String u) {
+    private User(String t, String u, Uri p) {
         username = u;
         token = t;
+        photo = p;
         public_view = null;
         private_view = null;
         liked_view = null;
@@ -35,9 +37,9 @@ public class User {
         return user;
     }
 
-    public static void setInstance(String t, String u) {
+    public static void setInstance(String t, String u, Uri p) {
         if (user == null)
-            user = new User(t, u);
+            user = new User(t, u, p);
     }
 
     public void setLikedView(Context context, final RecyclerView list_view) {
@@ -98,10 +100,8 @@ public class User {
     }
 
     private void changeView(RecyclerView curr, RecyclerView _new) {
-        Log.d("Profile", "CHANGE");
         TattooRecyclerViewAdapter adapter = (TattooRecyclerViewAdapter) curr.getAdapter();
         curr = _new;
-        Log.d("Profile", String.valueOf(adapter.getData().size()));
         ((TattooRecyclerViewAdapter)curr.getAdapter()).setData(adapter.getData());
     }
 

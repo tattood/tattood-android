@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int RESULT_LOAD_IMAGE = 200;
@@ -58,9 +59,16 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         Bundle extras = getIntent().getExtras();
-        String username = extras.getString("username", null);
         token = extras.getString("token");
         user = User.getInstance();
+//        String username = user.username;
+//        TextView tv = (TextView) findViewById(R.id.tv_username);
+//        tv.setText(username);
+        final ImageView img = (ImageView) findViewById(R.id.user_image);
+        BasicImageDownloader dl = new BasicImageDownloader(img);
+        String url = String.valueOf(user.photo);
+        Log.d("PROFILE1", String.valueOf(url));
+        dl.execute(String.valueOf(url));
 
         refresh_images();
 
@@ -91,7 +99,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             Cursor cursor = this.getContentResolver().query(selectedImage, filePathColumn, null, null, null);
 
             if (cursor == null || cursor.getCount() < 1) {
-                return; // no cursor or no record. DO YOUR ERROR HANDLING
+                return;
             }
 
             cursor.moveToFirst();

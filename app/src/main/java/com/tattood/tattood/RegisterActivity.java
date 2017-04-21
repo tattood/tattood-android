@@ -2,6 +2,7 @@ package com.tattood.tattood;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -31,7 +32,8 @@ public class RegisterActivity extends AppCompatActivity {
                 final String username = tv.getText().toString();
                 final String email = getIntent().getStringExtra("email");
                 final String token = getIntent().getStringExtra("token");
-                Server.register(RegisterActivity.this, email, username, token,
+                final Uri photo = Uri.parse(getIntent().getStringExtra("photo-uri"));
+                Server.register(RegisterActivity.this, email, username, photo, token,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
@@ -41,7 +43,9 @@ public class RegisterActivity extends AppCompatActivity {
                                 Intent myIntent = new Intent(getBaseContext(), DiscoveryActivity.class);
                                 String token = getIntent().getStringExtra("token");
                                 myIntent.putExtra("token", token);
+                                myIntent.putExtra("photo-uri", photo.toString());
                                 editor.putString("token", token);
+                                editor.putString("photo-uri", photo.toString());
                                 editor.apply();
                                 startActivity(myIntent);
                             }

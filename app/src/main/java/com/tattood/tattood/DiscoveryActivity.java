@@ -2,6 +2,7 @@ package com.tattood.tattood;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -28,7 +29,8 @@ public class DiscoveryActivity extends AppCompatActivity implements View.OnClick
         setContentView(R.layout.activity_discovery);
         token = getIntent().getExtras().getString("token");
         username = getIntent().getExtras().getString("username");
-        User.setInstance(token, username);
+        Uri photo = Uri.parse(getIntent().getExtras().getString("photo-uri"));
+        User.setInstance(token, username, photo);
         final RecyclerView popular_view = (RecyclerView) findViewById(R.id.popular_list);
         popular_view.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         popular_view.setAdapter(new TattooRecyclerViewAdapter(mListener, this, popular_view, token));

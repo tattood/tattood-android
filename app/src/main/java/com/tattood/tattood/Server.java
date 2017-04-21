@@ -130,7 +130,7 @@ public class Server {
 //        register(context, email, username, token, callback, error_handler);
 //    }
 
-    public static void register(Context context, String email, String username, String token,
+    public static void register(Context context, String email, String username, Uri photo, String token,
                                 Response.Listener<JSONObject> callback, Response.ErrorListener error_handler) {
         if (Server.isOffline(context)) {
             Toast.makeText(context, "No Internet Connection!", Toast.LENGTH_LONG).show();
@@ -139,6 +139,11 @@ public class Server {
         RequestQueue queue = Volley.newRequestQueue(context);
         String url = host + "/register";
         JSONObject data = create_json(token, email, username);
+        try {
+            data.put("photo", photo.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         Log.d("REGISTER-Body", data.toString());
         JsonObjectRequest request = new JsonObjectRequest(url, data, callback, error_handler) {
             @Override

@@ -128,14 +128,12 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
         try {
             obj = obj.getJSONObject("data");
             mValues = new ArrayList<>(obj.length());
-//            Log.d("TATTOO", String.valueOf(obj.length()));
             for (int i = 0; i < obj.length(); i++)
                 mValues.add(null);
             Iterator<String> keys = obj.keys();
             while( keys.hasNext() ) {
                 String key = keys.next();
                 int i = Integer.parseInt(key);
-//                Log.d("TATTOO-", String.valueOf(i));
                 JSONArray tattooJSON = obj.getJSONArray(key);
                 String tattoo_id = tattooJSON.getString(0);
                 String owner_id = tattooJSON.getString(1);

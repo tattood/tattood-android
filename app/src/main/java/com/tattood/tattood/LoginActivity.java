@@ -176,9 +176,11 @@ public class LoginActivity extends AppCompatActivity implements
                                     editor.putString("username", username);
                                     editor.putString("email", acct.getEmail());
                                     editor.putString("token", acct.getIdToken());
+                                    editor.putString("photo-uri", acct.getPhotoUrl().toString());
                                     editor.apply();
                                     Intent myIntent = new Intent(getBaseContext(), DiscoveryActivity.class);
                                     myIntent.putExtra("token", acct.getIdToken());
+                                    myIntent.putExtra("photo-uri", acct.getPhotoUrl().toString());
                                     startActivity(myIntent);
                                     finish();
                                 }
@@ -190,6 +192,7 @@ public class LoginActivity extends AppCompatActivity implements
                                         Intent myIntent = new Intent(getBaseContext(), RegisterActivity.class);
                                         myIntent.putExtra("email", acct.getEmail());
                                         myIntent.putExtra("token", acct.getIdToken());
+                                        myIntent.putExtra("photo-uri", acct.getPhotoUrl().toString());
                                         startActivity(myIntent);
                                         finish();
                                     } else {
