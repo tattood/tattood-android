@@ -38,7 +38,8 @@ public class UploadActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_upload);
+        setContentView(R.layout.activity_tattoo_edit);
+//        setContentView(R.layout.activity_upload);
         Bundle extras = getIntent().getExtras();
         tattoo = new Tattoo();
         token = extras.getString("token");
