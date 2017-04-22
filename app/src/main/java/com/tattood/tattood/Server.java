@@ -124,14 +124,16 @@ public class Server {
     }
 
     public static void signIn(Context context, String token, String email,
-                              Response.Listener<JSONObject> callback, Response.ErrorListener error_handler) {
+                              Response.Listener<JSONObject> callback,
+                              Response.ErrorListener error_handler) {
         if (Server.isOffline(context)) {
             Toast.makeText(context, "No Internet Connection!", Toast.LENGTH_LONG).show();
             return;
         }
         JSONObject data = create_json(token, email);
         String url = host + "/login";
-        request(context, url, data, callback, error_handler);
+        int timeout = 1000;
+        request(context, url, timeout, data, callback, error_handler);
     }
 
 //    public static void register(Context context, String email, String username, String token,
