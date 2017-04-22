@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -24,13 +25,18 @@ import com.android.volley.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import static android.R.attr.id;
 
 public class UploadActivity extends AppCompatActivity {
 
     TagItemAdapter adapter;
-    ArrayList<String> tags;
+    ArrayList<float[]> x;
+    ArrayList<float[]> y;
     Tattoo tattoo;
 
     @Override
@@ -39,6 +45,8 @@ public class UploadActivity extends AppCompatActivity {
         setContentView(R.layout.activity_upload);
         Bundle extras = getIntent().getExtras();
         tattoo = new Tattoo();
+        x = new ArrayList<>();
+        y = new ArrayList<>();
         final String token = extras.getString("token");
         final Uri path = Uri.parse("file://" + extras.getString("path"));
         Log.d("Upload", String.valueOf(path));
@@ -98,7 +106,7 @@ public class UploadActivity extends AppCompatActivity {
         upload_button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Server.uploadImage(UploadActivity.this, path, token, tattoo,
+                Server.uploadImage(UploadActivity.this, path, token, tattoo, x, y,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
@@ -108,11 +116,24 @@ public class UploadActivity extends AppCompatActivity {
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-                                if (sw.isChecked())
-                                    User.getInstance().addPrivate(tattoo);
-                                else
-                                    User.getInstance().addPublic(tattoo);
-                                finish();
+                                Server.getTattooImage(UploadActivity.this, String.valueOf(id), id, token,
+                                        new Server.ResponseCallback() {
+                                            @Override
+                                            public void run(String id, int item_id) {
+                                                String name = id + ".png";
+                                                try {
+                                                    FileInputStream stream = openFileInput(name);
+                                                    Bitmap img = BitmapFactory.decodeStream(stream);
+                                                    tattoo.setImage(img);
+                                                    if (sw.isChecked())
+                                                        User.getInstance().addPrivate(tattoo);
+                                                    else
+                                                        User.getInstance().addPublic(tattoo);
+                                                } catch (FileNotFoundException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        });
                             }
                         });
             }
@@ -122,12 +143,15 @@ public class UploadActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.d("Upload1", String.valueOf(resultCode));
+        Log.d("Upload2", String.valueOf(Activity.RESULT_OK));
         if (resultCode == Activity.RESULT_OK) {
-//            String returnValue = data.getStringExtra("x_");
-            float[] x = data.getFloatArrayExtra("x_points");
-            float[] y = data.getFloatArrayExtra("y_points");
-            Log.d("Upload", String.valueOf(x.length));
-            Log.d("Upload", String.valueOf(y.length));
+            Log.d("Upload3", "HERE");
+            int size = data.getIntExtra("point_size", 0);
+            for (int i = 0; i < size; i++) {
+                x.add(data.getFloatArrayExtra("x_points"+i));
+                y.add(data.getFloatArrayExtra("y_points"+i));
+            }
         }
     }
 }

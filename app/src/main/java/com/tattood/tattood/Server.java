@@ -25,6 +25,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
+import java.util.ArrayList;
 
 /**
  * Created by eksi on 08/02/17.
@@ -192,7 +193,7 @@ public class Server {
                     public void onResponse(byte[] response) {
                         if (response != null) {
                             FileOutputStream outputStream;
-                            String name = id + ".jpg";
+                            String name = id + ".png";
                             try {
                                 outputStream = context.openFileOutput(name, Context.MODE_PRIVATE);
                                 outputStream.write(response);
@@ -265,8 +266,9 @@ public class Server {
         request(context, url, data, default_json_callback);
     }
 
-    public static void uploadImage(Context context, final Uri path, final String token,
-                                   final Tattoo tattoo, final Response.Listener<JSONObject> callback) {
+    public static void uploadImage(Context context, final Uri path, final String token, final Tattoo tattoo,
+                                   ArrayList<float[]> x, ArrayList<float[]> y,
+                                   final Response.Listener<JSONObject> callback) {
         //Showing the progress dialog
         final Bitmap bitmap;
         try {
@@ -284,6 +286,14 @@ public class Server {
                 data.put("tag"+i, tattoo.tags.get(i));
             }
             data.put("image", getStringImage(bitmap));
+            JSONArray px = new JSONArray();
+            JSONArray py = new JSONArray();
+            for (int i = 0; i < x.size(); i++)
+                px.put(new JSONArray(x.get(i)));
+            for (int i = 0; i < y.size(); i++)
+                py.put(new JSONArray(y.get(i)));
+            data.put("x", px);
+            data.put("y", py);
         } catch (JSONException e) {
             e.printStackTrace();
         }

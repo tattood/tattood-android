@@ -43,7 +43,7 @@ public class TattooActivity extends AppCompatActivity {
                     @Override
                     public void run(String id, int i) {
                         try {
-                            String name = id + ".jpg";
+                            String name = id + ".png";
                             FileInputStream stream = openFileInput(name);
                             Bitmap img = BitmapFactory.decodeStream(stream);
                             ImageView tattoo_img = (ImageView)findViewById(R.id.tattoo_image);

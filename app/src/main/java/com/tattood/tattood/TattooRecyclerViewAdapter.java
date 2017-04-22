@@ -143,7 +143,7 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
                             @Override
                             public void run(String id, int i) {
                                 try {
-                                    String name = id + ".jpg";
+                                    String name = id + ".png";
                                     FileInputStream stream = mContext.openFileInput(name);
                                     Bitmap img = BitmapFactory.decodeStream(stream);
                                     setTattooImage(i, img);
