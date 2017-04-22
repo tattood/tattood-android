@@ -10,8 +10,10 @@ import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -255,7 +257,6 @@ public class Server {
             data.put("token", token);
             data.put("id", tattoo.tattoo_id);
             data.put("tags", new JSONArray(tattoo.tags));
-
             Log.d("Update", String.valueOf(tattoo.tags.size()));
             for (int i =0 ; i < tattoo.tags.size(); i++)
                 Log.d("Update", tattoo.tags.get(i));
@@ -267,9 +268,7 @@ public class Server {
     }
 
     public static void uploadImage(Context context, final Uri path, final String token, final Tattoo tattoo,
-                                   ArrayList<float[]> x, ArrayList<float[]> y,
                                    final Response.Listener<JSONObject> callback) {
-        //Showing the progress dialog
         final Bitmap bitmap;
         try {
             bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), path);
@@ -286,6 +285,29 @@ public class Server {
                 data.put("tag"+i, tattoo.tags.get(i));
             }
             data.put("image", getStringImage(bitmap));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest request = new JsonObjectRequest(host + "/tattoo-upload", data,
+                callback, error_handler);
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(request);
+    }
+
+    public static void extractTags(Context context, final Uri path, final String token,
+                                   ArrayList<float[]> x, ArrayList<float[]> y,
+                                   final Response.Listener<JSONObject> callback) {
+        final Bitmap bitmap;
+        try {
+            bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), path);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return;
+        }
+        JSONObject data = new JSONObject();
+        try {
+            data.put("token", token);
+            data.put("image", getStringImage(bitmap));
             JSONArray px = new JSONArray();
             JSONArray py = new JSONArray();
             for (int i = 0; i < x.size(); i++)
@@ -297,10 +319,13 @@ public class Server {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.d("PARAMS", String.valueOf(tattoo.tags.size()));
-        Log.d("PARAMS", String.valueOf(tattoo.is_private));
-        JsonObjectRequest request = new JsonObjectRequest(host + "/tattoo-upload", data,
+        JsonObjectRequest request = new JsonObjectRequest(host + "/extract-tags", data,
                 callback, error_handler);
+        int socketTimeout = 600000;
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout,
+                1,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        request.setRetryPolicy(policy);
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(request);
     }
