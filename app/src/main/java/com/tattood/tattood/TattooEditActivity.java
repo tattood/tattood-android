@@ -59,7 +59,7 @@ public class TattooEditActivity extends AppCompatActivity {
                             String name = id + ".png";
                             FileInputStream stream = openFileInput(name);
                             Bitmap img = BitmapFactory.decodeStream(stream);
-                            ImageView tattoo = (ImageView)findViewById(R.id.tattoo_image_edit);
+                            ImageView tattoo = (ImageView)findViewById(R.id.tattoo_image);
                             tattoo.setImageBitmap(img);
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
@@ -105,7 +105,7 @@ public class TattooEditActivity extends AppCompatActivity {
                         adapter.list.add(input.getText().toString());
                         adapter.notifyDataSetChanged();
                         tattoo.tags = tags;
-                        Server.updateTattoo(TattooEditActivity.this, token, tattoo);
+//                        Server.updateTattoo(TattooEditActivity.this, token, tattoo);
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -115,6 +115,13 @@ public class TattooEditActivity extends AppCompatActivity {
                     }
                 });
                 builder.show();
+            }
+        });
+        Button upload_button = (Button) findViewById(R.id.edit_finish);
+        upload_button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Server.updateTattoo(TattooEditActivity.this, token, tattoo);
             }
         });
     }

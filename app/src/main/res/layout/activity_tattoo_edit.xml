@@ -1,42 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="643dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/apk/res-auto"
+    xmlns:tools2="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     tools:layout_editor_absoluteX="8dp"
     tools:layout_editor_absoluteY="8dp">
 
-    <ImageView
-        android:id="@+id/tattoo_image_edit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        tools:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal"
-        android:contentDescription="@string/tattoo_description"/>
+        <ImageView
+            android:id="@+id/tattoo_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/tattoo_description"
+            tools:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal"/>
 
-    <Switch
-        android:id="@+id/switch_visibility"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        app:showText="true"
-        android:textAlignment="viewStart"
-        android:textOff="@string/sw_public"
-        android:textOn="@string/sw_private"/>
+        <Switch
+            android:id="@+id/switch_visibility"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:showText="true"
+            android:textAlignment="viewStart"
+            android:textOff="@string/sw_public"
+            android:textOn="@string/sw_private"/>
 
-    <Button
-        android:id="@+id/add_tag"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/new_tag"/>
+        <Button
+            android:id="@+id/edit_finish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit"/>
 
-    <ListView
-        android:id="@+id/tag_list_edit"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </ListView>
+        <Button
+            android:id="@+id/add_tag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/new_tag"/>
+
+        <ListView
+            android:id="@+id/tag_list_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </ListView>
 
 </LinearLayout>

@@ -47,7 +47,7 @@ public class UploadActivity extends AppCompatActivity {
         ListView tag_list = (ListView) findViewById(R.id.tag_list_edit);
         adapter = new TagItemAdapter(this, token, new ArrayList<String>(), tattoo);
         tag_list.setAdapter(adapter);
-        ImageView image = (ImageView) findViewById(R.id.tattoo_image_upload);
+        ImageView image = (ImageView) findViewById(R.id.tattoo_image);
         try {
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), path);
             image.setImageBitmap(bitmap);
@@ -96,7 +96,7 @@ public class UploadActivity extends AppCompatActivity {
                 builder.show();
             }
         });
-        Button upload_button = (Button) findViewById(R.id.upload_button);
+        Button upload_button = (Button) findViewById(R.id.edit_finish);
         upload_button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -109,24 +109,6 @@ public class UploadActivity extends AppCompatActivity {
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-//                                Server.getTattooImage(UploadActivity.this, String.valueOf(id), id, token,
-//                                        new Server.ResponseCallback() {
-//                                            @Override
-//                                            public void run(String id, int item_id) {
-//                                                String name = id + ".png";
-//                                                try {
-//                                                    FileInputStream stream = openFileInput(name);
-//                                                    Bitmap img = BitmapFactory.decodeStream(stream);
-//                                                    tattoo.setImage(img);
-//                                                    if (sw.isChecked())
-//                                                        User.getInstance().addPrivate(tattoo);
-//                                                    else
-//                                                        User.getInstance().addPublic(tattoo);
-//                                                } catch (FileNotFoundException e) {
-//                                                    e.printStackTrace();
-//                                                }
-//                                            }
-//                                        });
                             }
                         });
             }
@@ -154,7 +136,7 @@ public class UploadActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         try {
                             JSONArray arr = response.getJSONArray("data");
-                            Log.d("EXTRACT", String.valueOf(arr.length()));
+                            adapter.list.clear();
                             for(int i = 0; i < arr.length(); i++) {
                                 adapter.list.add(arr.getString(i));
                             }
