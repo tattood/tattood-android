@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 
 import org.json.JSONObject;
 
@@ -15,6 +17,7 @@ public class SplashActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash);
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         final String user = settings.getString("username", null);
         if (user != null) {
@@ -31,6 +34,14 @@ public class SplashActivity extends Activity {
                             myIntent.putExtra("username", user);
                             myIntent.putExtra("photo-uri", photo);
                             SplashActivity.this.startActivity(myIntent);
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.d("LOGIN", "Cannot Connect to server");
+                            Toast.makeText(SplashActivity.this, "Auto-login failed", Toast.LENGTH_SHORT).show();
+                            Intent myIntent = new Intent(SplashActivity.this, LoginActivity.class);
+                            startActivity(myIntent);
                         }
                     }
             );

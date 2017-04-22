@@ -30,7 +30,6 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name="com.tattood.tattood.LoginActivity"
-
             android:label="@string/app_name">
         </activity>
         <activity
@@ -41,9 +40,8 @@
             android:name="com.tattood.tattood.ProfileActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <!--android:theme="@android:style/Theme.NoDisplay"-->
         <activity android:name="com.tattood.tattood.SplashActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:theme="@style/AppTheme.NoActionBar"
             android:noHistory="true"
             android:label="@string/app_name">
             <intent-filter>

@@ -33,6 +33,8 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 import static com.android.volley.Response.ErrorListener;
 
 
@@ -187,16 +189,21 @@ public class LoginActivity extends AppCompatActivity implements
                             }, new ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
+                                    if (error.networkResponse == null) {
+                                        Toast.makeText(LoginActivity.this, "Network Error", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
                                     int response = error.networkResponse.statusCode;
                                     if (response == 464) {
                                         Intent myIntent = new Intent(getBaseContext(), RegisterActivity.class);
                                         myIntent.putExtra("email", acct.getEmail());
                                         myIntent.putExtra("token", acct.getIdToken());
-                                        myIntent.putExtra("photo-uri", acct.getPhotoUrl().toString());
+                                        myIntent.putExtra("photo-uri", Objects.toString(acct.getPhotoUrl(), ""));
                                         startActivity(myIntent);
                                         finish();
                                     } else {
                                         Log.d("Network-Error", "" + response);
+                                        Toast.makeText(LoginActivity.this, "Network Error", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
