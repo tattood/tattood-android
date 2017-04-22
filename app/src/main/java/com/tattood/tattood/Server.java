@@ -34,8 +34,8 @@ import java.util.ArrayList;
  */
 
 public class Server {
-//    public static final String host = "http://139.179.168.150:5000";
-    public static final String host = "http://192.168.1.26:5000";
+    public static final String host = "http://139.179.168.150:5000";
+//    public static final String host = "http://192.168.1.26:5000";
     public enum TattooRequest {Liked, Public, Private}
 //    public enum UserRequest {Followed, Followers}
     public static boolean isInternetAvailable() {

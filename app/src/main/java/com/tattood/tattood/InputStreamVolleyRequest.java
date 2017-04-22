@@ -7,13 +7,13 @@ import com.android.volley.toolbox.HttpHeaderParser;
 
 import java.util.Map;
 
-import static com.tattood.tattood.Server.error_handler;
+import static com.tattood.tattood.Server.default_error_handler;
 
 public class InputStreamVolleyRequest extends Request<byte[]> {
     private final Response.Listener<byte[]> mListener;
 
     public InputStreamVolleyRequest(String mUrl, Response.Listener<byte[]> listener) {
-        super(Method.GET, mUrl, error_handler);
+        super(Method.GET, mUrl, default_error_handler);
         setShouldCache(false);
         mListener = listener;
     }

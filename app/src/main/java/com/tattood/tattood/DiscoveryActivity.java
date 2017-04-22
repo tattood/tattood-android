@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +23,8 @@ public class DiscoveryActivity extends AppCompatActivity implements View.OnClick
     private OnListFragmentInteractionListener mListener;
     private String token;
     private String username;
+    RecyclerView recent_view;
+    RecyclerView popular_view;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,7 +34,7 @@ public class DiscoveryActivity extends AppCompatActivity implements View.OnClick
         username = getIntent().getExtras().getString("username");
         Uri photo = Uri.parse(getIntent().getExtras().getString("photo-uri"));
         User.setInstance(token, username, photo);
-        final RecyclerView popular_view = (RecyclerView) findViewById(R.id.popular_list);
+        popular_view = (RecyclerView) findViewById(R.id.popular_list);
         popular_view.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         popular_view.setAdapter(new TattooRecyclerViewAdapter(mListener, this, popular_view, token));
         Server.getPopular(this,
@@ -42,7 +45,7 @@ public class DiscoveryActivity extends AppCompatActivity implements View.OnClick
                     }
                 });
 
-        final RecyclerView recent_view = (RecyclerView) findViewById(R.id.recent_list);
+        recent_view = (RecyclerView) findViewById(R.id.recent_list);
         recent_view.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recent_view.setAdapter(new TattooRecyclerViewAdapter(mListener, this, recent_view, token));
         Server.getRecent(this,
@@ -101,6 +104,32 @@ public class DiscoveryActivity extends AppCompatActivity implements View.OnClick
                 return false;
             }
         });
+
+        final SwipeRefreshLayout swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Server.getRecent(DiscoveryActivity.this,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                ((TattooRecyclerViewAdapter) recent_view.getAdapter()).set_data(token, response);
+                            }
+                        });
+                Server.getPopular(DiscoveryActivity.this,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                ((TattooRecyclerViewAdapter) popular_view.getAdapter()).set_data(token, response);
+                            }
+                        });
+                swipeContainer.setRefreshing(false);
+            }
+        });
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
     }
 
     @Override
