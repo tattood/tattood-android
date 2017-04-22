@@ -34,6 +34,7 @@ import java.util.ArrayList;
  */
 
 public class Server {
+//    public static final String host = "http://139.179.168.150:5000";
     public static final String host = "http://192.168.1.26:5000";
     public enum TattooRequest {Liked, Public, Private}
 //    public enum UserRequest {Followed, Followers}
@@ -52,13 +53,12 @@ public class Server {
         }
     };
 
-    public static final Response.ErrorListener error_handler =  new Response.ErrorListener() {
+    public static final Response.ErrorListener default_error_handler =  new Response.ErrorListener() {
         @Override
         public void onErrorResponse(VolleyError error) {
             Log.d("Connection", "ERROR");
             Log.d("Connection", String.valueOf(isInternetAvailable()));
             Log.d("Connection", error.toString());
-//            Log.d("Connection", String.valueOf(error.networkResponse.statusCode));
         }
     };
     private Server() {
@@ -71,25 +71,33 @@ public class Server {
         return netInfo == null || !netInfo.isConnectedOrConnecting();
     }
 
-    public static void signIn(Context context, String token, String email, Response.Listener<JSONObject> callback) {
-        signIn(context, token, email, callback, error_handler);
-    }
-
-    public static void logout(Context context, String token, Response.Listener<JSONObject> callback) {
-        RequestQueue queue = Volley.newRequestQueue(context);
-        JSONObject data = create_json(token);
-        JsonObjectRequest request = new JsonObjectRequest(host + "/logout", data, callback, error_handler);
-        queue.add(request);
+    private static void request(Context context, String url, JSONObject data,
+                                Response.Listener<JSONObject> callback) {
+        request(context, url, DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, data, callback, default_error_handler);
     }
 
     private static void request(Context context, String url, JSONObject data,
+                                Response.Listener<JSONObject> callback,
+                                Response.ErrorListener error_handler) {
+        request(context, url, DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, data, callback, error_handler);
+    }
+
+    private static void request(Context context, String url, int timeout, JSONObject data,
                                 Response.Listener<JSONObject> callback) {
+        request(context, url, timeout, data, callback, default_error_handler);
+    }
+
+    private static void request(Context context, String url, int timeout, JSONObject data,
+                                Response.Listener<JSONObject> callback,
+                                Response.ErrorListener error_handler) {
         if (Server.isOffline(context)) {
             Toast.makeText(context, "No Internet Connection!", Toast.LENGTH_LONG).show();
             return;
         }
         RequestQueue queue = Volley.newRequestQueue(context);
         JsonObjectRequest request = new JsonObjectRequest(url, data, callback, error_handler);
+        RetryPolicy policy = new DefaultRetryPolicy(timeout, 1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        request.setRetryPolicy(policy);
         queue.add(request);
     }
 
@@ -122,10 +130,8 @@ public class Server {
             return;
         }
         JSONObject data = create_json(token, email);
-        RequestQueue queue = Volley.newRequestQueue(context);
         String url = host + "/login";
-        JsonObjectRequest request = new JsonObjectRequest(url, data, callback, error_handler);
-        queue.add(request);
+        request(context, url, data, callback, error_handler);
     }
 
 //    public static void register(Context context, String email, String username, String token,
@@ -139,7 +145,6 @@ public class Server {
             Toast.makeText(context, "No Internet Connection!", Toast.LENGTH_LONG).show();
             return;
         }
-        RequestQueue queue = Volley.newRequestQueue(context);
         String url = host + "/register";
         JSONObject data = create_json(token, email, username);
         try {
@@ -147,14 +152,7 @@ public class Server {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.d("REGISTER-Body", data.toString());
-        JsonObjectRequest request = new JsonObjectRequest(url, data, callback, error_handler) {
-            @Override
-            public String getBodyContentType() {
-                return "application/json";
-            }
-        };
-        queue.add(request);
+        request(context, url, data, callback, error_handler);
     }
 
 //    public static void getUserList(Context context, String token, UserRequest r,
@@ -270,6 +268,7 @@ public class Server {
     public static void uploadImage(Context context, final Uri path, final String token, final Tattoo tattoo,
                                    final Response.Listener<JSONObject> callback) {
         final Bitmap bitmap;
+        final String url = host + "/tattoo-upload";
         try {
             bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), path);
         } catch (IOException ex) {
@@ -288,16 +287,14 @@ public class Server {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        JsonObjectRequest request = new JsonObjectRequest(host + "/tattoo-upload", data,
-                callback, error_handler);
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
-        requestQueue.add(request);
+        request(context, url, data, callback);
     }
 
     public static void extractTags(Context context, final Uri path, final String token,
                                    ArrayList<float[]> x, ArrayList<float[]> y,
                                    final Response.Listener<JSONObject> callback) {
         final Bitmap bitmap;
+        final String url = host + "/extract-tags";
         try {
             bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), path);
         } catch (IOException ex) {
@@ -319,15 +316,8 @@ public class Server {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        JsonObjectRequest request = new JsonObjectRequest(host + "/extract-tags", data,
-                callback, error_handler);
-        int socketTimeout = 600000;
-        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout,
-                1,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-        request.setRetryPolicy(policy);
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
-        requestQueue.add(request);
+        int timeout = 600000;
+        request(context, url, timeout, data, callback);
     }
 
     public static void like(Context context, final String token, final String id, int like,
@@ -335,10 +325,8 @@ public class Server {
         String url = host;
         if (like == 1) url += "/like";
         else url += "/unlike";
-        RequestQueue queue = Volley.newRequestQueue(context);
         JSONObject data = create_json(token, id);
-        JsonObjectRequest request = new JsonObjectRequest(url, data, callback, error_handler);
-        queue.add(request);
+        request(context, url, data, callback);
     }
 
     public interface ResponseCallback {
