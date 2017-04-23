@@ -122,10 +122,6 @@ public class Server {
     public static void signIn(Context context, String token, String email,
                               Response.Listener<JSONObject> callback,
                               Response.ErrorListener error_handler) {
-        if (Server.isOffline(context)) {
-            Toast.makeText(context, "No Internet Connection!", Toast.LENGTH_LONG).show();
-            return;
-        }
         JSONObject data = create_json(token, email);
         int timeout = 1000;
         request(context, "/login", timeout, data, callback, error_handler);
@@ -133,10 +129,6 @@ public class Server {
 
     public static void register(Context context, String email, String username, Uri photo, String token,
                                 Response.Listener<JSONObject> callback, Response.ErrorListener error_handler) {
-        if (Server.isOffline(context)) {
-            Toast.makeText(context, "No Internet Connection!", Toast.LENGTH_LONG).show();
-            return;
-        }
         JSONObject data = create_json(token, email, username);
         try {
             data.put("photo", photo.toString());
@@ -225,53 +217,46 @@ public class Server {
         search(context, query, 20, callback);
     }
 
-    public static void updateTattoo(Context context, Tattoo tattoo) {
+    private static void updateOrUpload(Context context, final Uri path, final Tattoo tattoo,
+                                       final Response.Listener<JSONObject> callback) {
+        final Bitmap bitmap = path == null ? null : loadImage(context, path);
+        final String url = bitmap == null ? "/tattoo-update" : "/tattoo-upload";
         JSONObject data = new JSONObject();
         try {
             data.put("token", User.getInstance().token);
             data.put("id", tattoo.tattoo_id);
             data.put("tags", new JSONArray(tattoo.tags));
             data.put("private", tattoo.is_private);
+            if (bitmap != null)
+                data.put("image", getStringImage(bitmap));
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        request(context, "/tattoo-update", data, default_json_callback);
+        request(context, url, data, callback);
+    }
+
+    public static void updateTattoo(Context context, Tattoo tattoo) {
+        updateOrUpload(context, null, tattoo, default_json_callback);
+    }
+
+    private static Bitmap loadImage(Context context, final Uri path) {
+        try {
+            return MediaStore.Images.Media.getBitmap(context.getContentResolver(), path);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 
     public static void uploadImage(Context context, final Uri path, final Tattoo tattoo,
                                    final Response.Listener<JSONObject> callback) {
-        final Bitmap bitmap;
-        try {
-            bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), path);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return;
-        }
-        JSONObject data = new JSONObject();
-        try {
-            data.put("token", User.getInstance().token);
-            data.put("private", String.valueOf(tattoo.is_private));
-            data.put("tag_count", String.valueOf(tattoo.tags.size()));
-            for (int i = 0; i < tattoo.tags.size(); i++) {
-                data.put("tag"+i, tattoo.tags.get(i));
-            }
-            data.put("image", getStringImage(bitmap));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        request(context, "/tattoo-upload", data, callback);
+        updateOrUpload(context, path, tattoo, callback);
     }
 
     public static void extractTags(Context context, final Uri path,
                                    ArrayList<float[]> x, ArrayList<float[]> y,
                                    final Response.Listener<JSONObject> callback) {
-        final Bitmap bitmap;
-        try {
-            bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), path);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return;
-        }
+        final Bitmap bitmap = loadImage(context, path);
         JSONObject data = new JSONObject();
         try {
             data.put("token", User.getInstance().token);
