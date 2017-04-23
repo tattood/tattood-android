@@ -1,9 +1,12 @@
 package com.tattood.tattood;
 
+import android.app.SearchManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -62,6 +65,7 @@ public class SearchActivity extends AppCompatActivity {
                         }
                     }
                 });
+        handleIntent(getIntent());
     }
 
     public boolean empty(JSONObject obj) {
@@ -70,6 +74,18 @@ public class SearchActivity extends AppCompatActivity {
             return obj.length() == 0;
         } catch (JSONException e) {
             return true;
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        handleIntent(intent);
+    }
+
+    private void handleIntent(Intent intent) {
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            Log.d("SEARCH", query);
         }
     }
 }

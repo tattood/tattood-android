@@ -25,7 +25,7 @@ public class SplashActivity extends Activity {
             final String email = settings.getString("email", null);
             final String photo = settings.getString("photo-uri", null);
             Log.d("Login", "Already logged in with "+user);
-            Log.d("LOGIN", email);
+            Log.d("Login", "token: "+token);
             Server.signIn(SplashActivity.this, token, email, new Response.Listener<JSONObject>(){
                         @Override
                         public void onResponse(JSONObject response) {
@@ -47,6 +47,7 @@ public class SplashActivity extends Activity {
             );
         }
         else {
+            Log.d("Login", "user is null");
             Intent myIntent = new Intent(this, LoginActivity.class);
             startActivity(myIntent);
         }

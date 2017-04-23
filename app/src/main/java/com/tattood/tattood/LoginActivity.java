@@ -168,21 +168,24 @@ public class LoginActivity extends AppCompatActivity implements
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         } else {
+                            final SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, 0);
+                            final SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.putString("email", acct.getEmail());
+                            editor.putString("token", acct.getIdToken());
+                            final String url = acct.getPhotoUrl() == null ? "" : acct.getPhotoUrl().toString();
+                            editor.putString("photo-uri", url);
+                            editor.apply();
+                            Log.d("Login", acct.getIdToken());
                             Server.signIn(LoginActivity.this, acct.getIdToken(), acct.getEmail(),
                                     new Response.Listener<JSONObject>() {
                                 @Override
                                 public void onResponse(JSONObject response) {
                                     String username = response.optString("username");
-                                    SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, 0);
-                                    SharedPreferences.Editor editor = sharedPref.edit();
                                     editor.putString("username", username);
-                                    editor.putString("email", acct.getEmail());
-                                    editor.putString("token", acct.getIdToken());
-                                    editor.putString("photo-uri", acct.getPhotoUrl().toString());
                                     editor.apply();
                                     Intent myIntent = new Intent(getBaseContext(), DiscoveryActivity.class);
                                     myIntent.putExtra("token", acct.getIdToken());
-                                    myIntent.putExtra("photo-uri", acct.getPhotoUrl().toString());
+                                    myIntent.putExtra("photo-uri", url);
                                     startActivity(myIntent);
                                     finish();
                                 }

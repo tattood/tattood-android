@@ -4,3 +4,4 @@
         android:id="@+id/submit"
         android:title="@string/extract_submit"/>
 </menu>
+

@@ -3,7 +3,6 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="com.tattood.tattood">
 
-    <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -26,63 +25,71 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar"
+        android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name="com.tattood.tattood.LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar"
             android:label="@string/app_name">
         </activity>
         <activity
             android:name="com.tattood.tattood.DiscoveryActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:label="@string/title_discovery">
+            <meta-data android:name="android.app.default_searchable"
+                       android:value=".SearchActivity" />
         </activity>
         <activity
             android:name="com.tattood.tattood.ProfileActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:label="@string/title_profile">
         </activity>
-        <activity android:name="com.tattood.tattood.SplashActivity"
-            android:theme="@style/AppTheme.NoActionBar"
+        <activity
+            android:name="com.tattood.tattood.SplashActivity"
             android:noHistory="true"
+            android:theme="@style/AppTheme.NoActionBar"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.tattood.tattood.RegisterActivity">
+        <activity
+            android:name="com.tattood.tattood.RegisterActivity"
+            android:label="@string/title_register">
         </activity>
         <activity
             android:name="com.tattood.tattood.SeeMore"
-            android:label="@string/title_activity_see_more"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:label="@string/title_activity_see_more">
         </activity>
         <activity
             android:name="com.tattood.tattood.TattooActivity"
-            android:label="@string/title_activity_tattoo"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:label="@string/title_activity_tattoo">
         </activity>
         <activity
             android:name="com.tattood.tattood.UserActivity"
-            android:label="@string/title_activity_user"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:label="@string/title_activity_user">
         </activity>
         <activity
-            android:name="com.tattood.tattood.CameraActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:name="com.tattood.tattood.CameraActivity">
         </activity>
         <activity
             android:name="com.tattood.tattood.UploadActivity"
-            android:label="@string/title_activity_upload"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:label="@string/title_activity_upload">
         </activity>
         <activity
             android:name="com.tattood.tattood.SearchActivity"
-            android:label="@string/title_activity_search"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:label="@string/title_activity_search">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data android:name="android.app.searchable"
+                       android:resource="@xml/searchable" />
         </activity>
-        <activity android:name="com.tattood.tattood.TattooEditActivity">
+        <activity
+            android:name="com.tattood.tattood.TattooEditActivity"
+            android:label="@string/title_edit">
         </activity>
-        <activity android:name=".ExtractImage">
+        <activity
+            android:name=".ExtractImage">
         </activity>
     </application>
 </manifest>

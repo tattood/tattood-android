@@ -40,14 +40,10 @@ public class RegisterActivity extends AppCompatActivity {
                                 SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, 0);
                                 SharedPreferences.Editor editor = sharedPref.edit();
                                 editor.putString("username", username);
+                                editor.apply();
                                 Intent myIntent = new Intent(getBaseContext(), DiscoveryActivity.class);
-                                String token = getIntent().getStringExtra("token");
                                 myIntent.putExtra("token", token);
                                 myIntent.putExtra("photo-uri", photo.toString());
-                                editor.putString("token", token);
-                                editor.putString("email", email);
-                                editor.putString("photo-uri", photo.toString());
-                                editor.apply();
                                 startActivity(myIntent);
                             }
                         }, new Response.ErrorListener() {

@@ -1,6 +1,8 @@
 package com.tattood.tattood;
 
 import android.app.ActivityOptions;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,10 +11,11 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.support.v7.widget.SearchView;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.SearchView;
 
 import com.android.volley.Response;
 
@@ -76,34 +79,34 @@ public class DiscoveryActivity extends AppCompatActivity implements View.OnClick
             }
         });
 
-        SearchView search = (SearchView) findViewById(R.id.search_view);
-        search.setOnSearchClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                Log.d("Search", "OnSearch");
-            }
-        });
-        search.setOnCloseListener(new SearchView.OnCloseListener(){
-            @Override
-            public boolean onClose() {
-                return false;
-            }
-        });
-        search.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                Intent myIntent = new Intent(DiscoveryActivity.this, SearchActivity.class);
-                myIntent.putExtra("query", query);
-                myIntent.putExtra("token", token);
-                startActivity(myIntent);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
+//        SearchView search = (SearchView) findViewById(R.id.search_view);
+//        search.setOnSearchClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View view) {
+//                Log.d("Search", "OnSearch");
+//            }
+//        });
+//        search.setOnCloseListener(new SearchView.OnCloseListener(){
+//            @Override
+//            public boolean onClose() {
+//                return false;
+//            }
+//        });
+//        search.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                Intent myIntent = new Intent(DiscoveryActivity.this, SearchActivity.class);
+//                myIntent.putExtra("query", query);
+//                myIntent.putExtra("token", token);
+//                startActivity(myIntent);
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                return false;
+//            }
+//        });
 
         final SwipeRefreshLayout swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -143,4 +146,15 @@ public class DiscoveryActivity extends AppCompatActivity implements View.OnClick
         myIntent.putExtra("token", token);
         startActivity(myIntent);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        return true;
+    }
+
 }
