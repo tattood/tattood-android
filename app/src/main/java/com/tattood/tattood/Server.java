@@ -95,7 +95,7 @@ public class Server {
             return;
         }
         RequestQueue queue = Volley.newRequestQueue(context);
-        JsonObjectRequest request = new JsonObjectRequest(url, data, callback, error_handler);
+        JsonObjectRequest request = new JsonObjectRequest(host + url, data, callback, error_handler);
         RetryPolicy policy = new DefaultRetryPolicy(timeout, 1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         request.setRetryPolicy(policy);
         queue.add(request);
@@ -119,10 +119,6 @@ public class Server {
         return create_json(token, email, null);
     }
 
-    public static JSONObject create_json(String token) {
-        return create_json(token, null, null);
-    }
-
     public static void signIn(Context context, String token, String email,
                               Response.Listener<JSONObject> callback,
                               Response.ErrorListener error_handler) {
@@ -131,9 +127,8 @@ public class Server {
             return;
         }
         JSONObject data = create_json(token, email);
-        String url = host + "/login";
         int timeout = 1000;
-        request(context, url, timeout, data, callback, error_handler);
+        request(context, "/login", timeout, data, callback, error_handler);
     }
 
     public static void register(Context context, String email, String username, Uri photo, String token,
@@ -142,20 +137,17 @@ public class Server {
             Toast.makeText(context, "No Internet Connection!", Toast.LENGTH_LONG).show();
             return;
         }
-        String url = host + "/register";
         JSONObject data = create_json(token, email, username);
         try {
             data.put("photo", photo.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        request(context, url, data, callback, error_handler);
+        request(context, "/register", data, callback, error_handler);
     }
 
     public static void getPopular(Context context, Response.Listener<JSONObject> callback, int limit) {
-        final String url = host + "/popular?limit=" + limit;
-        Log.d("POPULAR", "" + limit);
-        request(context, url, null, callback);
+        request(context, "/popular?limit=" + limit, null, callback);
     }
 
     public static void getPopular(Context context, Response.Listener<JSONObject> callback) {
@@ -163,8 +155,7 @@ public class Server {
     }
 
     public static void getRecent(Context context, Response.Listener<JSONObject> callback, int limit) {
-        final String url = host + "/recent?limit=" + limit;
-        request(context, url, null, callback);
+        request(context, "/recent?limit=" + limit, null, callback);
     }
 
     public static void getRecent(Context context, Response.Listener<JSONObject> callback) {
@@ -173,13 +164,13 @@ public class Server {
 
     public static void getTattooData(final Context context, final String id,
                                      Response.Listener<JSONObject> callback) {
-        final String url = host + "/tattoo-data?id="+id+"&token="+User.getInstance().token;
+        final String url = "/tattoo-data?id="+id+"&token="+User.getInstance().token;
         request(context, url, null, callback);
     }
 
     public static void getTattooImage(final Context context, final String id, final int item_id,
                                       final ResponseCallback callback) {
-        final String url = host + "/tattoo?id="+id+"&token="+User.getInstance().token;
+        final String url = "/tattoo?id="+id+"&token="+User.getInstance().token;
         InputStreamVolleyRequest request = new InputStreamVolleyRequest(url,
                 new Response.Listener<byte[]>() {
                     @Override
@@ -206,12 +197,12 @@ public class Server {
                                      Response.Listener<JSONObject> callback, int limit) {
         String url;
         if (r == TattooRequest.Liked) {
-            url = host + "/user-likes?";
+            url = "/user-likes?";
         } else {
             if (r == TattooRequest.Public)
-                url = host + "/user-tattoo?private=0";
+                url = "/user-tattoo?private=0";
             else
-                url = host + "/user-tattoo?private=1";
+                url = "/user-tattoo?private=1";
         }
         url += "&token=" + User.getInstance().token + "&user=" + username + "&limit=" + limit;
         Log.d("User-tattoo", url);
@@ -226,7 +217,7 @@ public class Server {
     }
 
     public static void search(Context context, String query, int limit, Response.Listener<JSONObject> callback) {
-        String url = host + "/search?query=" + query + "&token=" + User.getInstance().token + "&limit=" + limit;
+        String url = "/search?query=" + query + "&token=" + User.getInstance().token + "&limit=" + limit;
         request(context, url, null, callback);
     }
 
@@ -235,7 +226,6 @@ public class Server {
     }
 
     public static void updateTattoo(Context context, Tattoo tattoo) {
-        String url = host + "/tattoo-update";
         JSONObject data = new JSONObject();
         try {
             data.put("token", User.getInstance().token);
@@ -245,13 +235,12 @@ public class Server {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        request(context, url, data, default_json_callback);
+        request(context, "/tattoo-update", data, default_json_callback);
     }
 
     public static void uploadImage(Context context, final Uri path, final Tattoo tattoo,
                                    final Response.Listener<JSONObject> callback) {
         final Bitmap bitmap;
-        final String url = host + "/tattoo-upload";
         try {
             bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), path);
         } catch (IOException ex) {
@@ -270,14 +259,13 @@ public class Server {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        request(context, url, data, callback);
+        request(context, "/tattoo-upload", data, callback);
     }
 
     public static void extractTags(Context context, final Uri path,
                                    ArrayList<float[]> x, ArrayList<float[]> y,
                                    final Response.Listener<JSONObject> callback) {
         final Bitmap bitmap;
-        final String url = host + "/extract-tags";
         try {
             bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), path);
         } catch (IOException ex) {
@@ -300,16 +288,13 @@ public class Server {
             e.printStackTrace();
         }
         int timeout = 600000;
-        request(context, url, timeout, data, callback);
+        request(context, "/extract-tags", timeout, data, callback);
     }
 
-    public static void like(Context context, final String id, int like,
+    public static void like(Context context, final String id, boolean likes,
                             Response.Listener<JSONObject> callback) {
-        String url = host;
-        if (like == 1) url += "/like";
-        else url += "/unlike";
         JSONObject data = create_json(User.getInstance().token, id);
-        request(context, url, data, callback);
+        request(context, likes ? "/like" : "/unlike", data, callback);
     }
 
     public interface ResponseCallback {

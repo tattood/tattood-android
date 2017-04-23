@@ -109,7 +109,7 @@ public class TattooActivity extends AppCompatActivity {
                                             refreshLikeButton();
                                         }
                                     };
-                                    Server.like(TattooActivity.this, tattoo_id, text.equals("Like") ? 1 : 0, callback);
+                                    Server.like(TattooActivity.this, tattoo_id, text.equals("Like"), callback);
                                 }
                             });
                         } catch (JSONException e) {
