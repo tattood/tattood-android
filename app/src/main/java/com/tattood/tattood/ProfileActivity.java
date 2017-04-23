@@ -17,24 +17,23 @@ import android.widget.ImageView;
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int RESULT_LOAD_IMAGE = 200;
     private User user;
-    private String token;
 
     public void refresh_images() {
         RecyclerView user_liked = (RecyclerView) findViewById(R.id.user_liked_list);
         user_liked.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        user_liked.setAdapter(new TattooRecyclerViewAdapter(null, this, user_liked, token));
+        user_liked.setAdapter(new TattooRecyclerViewAdapter(null, this, user_liked));
         user.setLikedView(this, user_liked);
 
         RecyclerView user_public = (RecyclerView) findViewById(R.id.user_public_list);
-        OnListFragmentInteractionListener public_listener = new OnListFragmentInteractionListener(this, token);
+        OnListFragmentInteractionListener public_listener = new OnListFragmentInteractionListener(this);
         user_public.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        user_public.setAdapter(new TattooRecyclerViewAdapter(public_listener, this, user_public, token));
+        user_public.setAdapter(new TattooRecyclerViewAdapter(public_listener, this, user_public));
         user.setPublicView(this, user_public);
 
         RecyclerView user_private = (RecyclerView) findViewById(R.id.user_private_list);
-        OnListFragmentInteractionListener private_listener = new OnListFragmentInteractionListener(this, token);
+        OnListFragmentInteractionListener private_listener = new OnListFragmentInteractionListener(this);
         user_private.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        user_private.setAdapter(new TattooRecyclerViewAdapter(private_listener, this, user_private, token));
+        user_private.setAdapter(new TattooRecyclerViewAdapter(private_listener, this, user_private));
         user.setPrivateView(this, user_private);
     }
 
@@ -49,8 +48,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         } else if (v.getId() == R.id.see_more_liked) {
             myIntent.putExtra("TAG", "LIKED");
         }
-        myIntent.putExtra("token", token);
-        myIntent.putExtra("username", user.username);
         startActivity(myIntent);
     }
 
@@ -58,12 +55,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        Bundle extras = getIntent().getExtras();
-        token = extras.getString("token");
         user = User.getInstance();
-//        String username = user.username;
-//        TextView tv = (TextView) findViewById(R.id.tv_username);
-//        tv.setText(username);
         final ImageView img = (ImageView) findViewById(R.id.user_image);
         BasicImageDownloader dl = new BasicImageDownloader(img);
         String url = String.valueOf(user.photo);
@@ -111,7 +103,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             cursor.close(); // close cursor
             Log.d("Upload", picturePath);
             Intent myIntent = new Intent(this, UploadActivity.class);
-            myIntent.putExtra("token", token);
             myIntent.putExtra("path", picturePath);
             startActivity(myIntent);
             User.getInstance().private_view.getAdapter().notifyDataSetChanged();

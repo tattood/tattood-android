@@ -37,21 +37,20 @@ public class TattooEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tattoo_edit);
         Bundle extras = getIntent().getExtras();
-        final String token = extras.getString("token");
         final String tattoo_id = extras.getString("tattoo_id");
         final String owner_id = extras.getString("owner_id");
         switch_listener = new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 tattoo.is_private = isChecked;
-                Server.updateTattoo(TattooEditActivity.this, token, tattoo);
+                Server.updateTattoo(TattooEditActivity.this, tattoo);
             }
         };
         Switch sw = (Switch) findViewById(R.id.switch_visibility);
         sw.setOnCheckedChangeListener(switch_listener);
         tags = new ArrayList<>();
         tattoo = new Tattoo(tattoo_id, owner_id);
-        Server.getTattooImage(this, tattoo_id, 1, token,
+        Server.getTattooImage(this, tattoo_id, 1,
                 new Server.ResponseCallback() {
                     @Override
                     public void run(String id, int i) {
@@ -65,7 +64,7 @@ public class TattooEditActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }});
-        Server.getTattooData(this, tattoo_id, token,
+        Server.getTattooData(this, tattoo_id,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -81,7 +80,7 @@ public class TattooEditActivity extends AppCompatActivity {
                             tattoo.is_private = is_private;
                             tattoo.tags = tags;
                             ListView tag_list = (ListView) findViewById(R.id.tag_list_edit);
-                            adapter = new TagItemAdapter(TattooEditActivity.this, token, tags, tattoo);
+                            adapter = new TagItemAdapter(TattooEditActivity.this, tags, tattoo);
                             tag_list.setAdapter(adapter);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -105,7 +104,6 @@ public class TattooEditActivity extends AppCompatActivity {
                         adapter.list.add(input.getText().toString());
                         adapter.notifyDataSetChanged();
                         tattoo.tags = tags;
-//                        Server.updateTattoo(TattooEditActivity.this, token, tattoo);
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -121,7 +119,7 @@ public class TattooEditActivity extends AppCompatActivity {
         upload_button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Server.updateTattoo(TattooEditActivity.this, token, tattoo);
+                Server.updateTattoo(TattooEditActivity.this, tattoo);
             }
         });
     }

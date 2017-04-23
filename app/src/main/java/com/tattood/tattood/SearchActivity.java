@@ -22,20 +22,16 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //        setSupportActionBar(toolbar);
         Bundle extras = getIntent().getExtras();
         final String query = extras.getString("query");
-        final String token= extras.getString("token");
         final RecyclerView tag_list = (RecyclerView) findViewById(R.id.tag_list);
-//        tag_list.setLayoutManager(new GridLayoutManager(this, 3));
         tag_list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        tag_list.setAdapter(new TattooRecyclerViewAdapter(null, this, tag_list, token));
+        tag_list.setAdapter(new TattooRecyclerViewAdapter(null, this, tag_list));
         final RecyclerView user_list = (RecyclerView) findViewById(R.id.user_list);
         user_list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 //        user_list.setLayoutManager(new GridLayoutManager(this, 3));
-        user_list.setAdapter(new TattooRecyclerViewAdapter(null, this, user_list, token));
-        Server.search(SearchActivity.this, token, query,
+        user_list.setAdapter(new TattooRecyclerViewAdapter(null, this, user_list));
+        Server.search(SearchActivity.this, query,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -43,7 +39,7 @@ public class SearchActivity extends AppCompatActivity {
                             JSONObject tags = response.getJSONObject("tags");
                             JSONObject users = response.getJSONObject("users");
                             if (!empty(users))
-                                ((TattooRecyclerViewAdapter) user_list.getAdapter()).set_data(token, users);
+                                ((TattooRecyclerViewAdapter) user_list.getAdapter()).set_data(users);
                             else {
                                 TextView tv = (TextView) findViewById(R.id.text_user);
                                 tv.setVisibility(View.INVISIBLE);
@@ -52,7 +48,7 @@ public class SearchActivity extends AppCompatActivity {
                                 user_list.setVisibility(View.INVISIBLE);
                             }
                             if (!empty(tags))
-                                ((TattooRecyclerViewAdapter) tag_list.getAdapter()).set_data(token, tags);
+                                ((TattooRecyclerViewAdapter) tag_list.getAdapter()).set_data(tags);
                             else {
                                 TextView tv = (TextView) findViewById(R.id.text_tag);
                                 tv.setVisibility(View.INVISIBLE);

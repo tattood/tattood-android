@@ -136,11 +136,6 @@ public class Server {
         request(context, url, timeout, data, callback, error_handler);
     }
 
-//    public static void register(Context context, String email, String username, String token,
-//                                Response.Listener<JSONObject> callback) {
-//        register(context, email, username, token, callback, error_handler);
-//    }
-
     public static void register(Context context, String email, String username, Uri photo, String token,
                                 Response.Listener<JSONObject> callback, Response.ErrorListener error_handler) {
         if (Server.isOffline(context)) {
@@ -156,10 +151,6 @@ public class Server {
         }
         request(context, url, data, callback, error_handler);
     }
-
-//    public static void getUserList(Context context, String token, UserRequest r,
-//                                     Response.Listener<JSONObject> callback) {
-//    }
 
     public static void getPopular(Context context, Response.Listener<JSONObject> callback, int limit) {
         final String url = host + "/popular?limit=" + limit;
@@ -181,14 +172,14 @@ public class Server {
     }
 
     public static void getTattooData(final Context context, final String id,
-                                     final String token, Response.Listener<JSONObject> callback) {
-        final String url = host + "/tattoo-data?id="+id+"&token="+token;
+                                     Response.Listener<JSONObject> callback) {
+        final String url = host + "/tattoo-data?id="+id+"&token="+User.getInstance().token;
         request(context, url, null, callback);
     }
 
     public static void getTattooImage(final Context context, final String id, final int item_id,
-                                      final String token, final ResponseCallback callback) {
-        final String url = host + "/tattoo?id="+id+"&token="+token;
+                                      final ResponseCallback callback) {
+        final String url = host + "/tattoo?id="+id+"&token="+User.getInstance().token;
         InputStreamVolleyRequest request = new InputStreamVolleyRequest(url,
                 new Response.Listener<byte[]>() {
                     @Override
@@ -211,7 +202,7 @@ public class Server {
         mRequestQueue.add(request);
     }
 
-    public static void getTattooList(Context context, String token, TattooRequest r, String username,
+    public static void getTattooList(Context context, TattooRequest r, String username,
                                      Response.Listener<JSONObject> callback, int limit) {
         String url;
         if (r == TattooRequest.Liked) {
@@ -222,14 +213,9 @@ public class Server {
             else
                 url = host + "/user-tattoo?private=1";
         }
-        url += "&token=" + token + "&user=" + username + "&limit=" + limit;
+        url += "&token=" + User.getInstance().token + "&user=" + username + "&limit=" + limit;
         Log.d("User-tattoo", url);
         request(context, url, null, callback);
-    }
-
-    public static void getTattooList(Context context, String token, TattooRequest r, String username,
-                                     Response.Listener<JSONObject> callback) {
-        getTattooList(context, token, r, username, callback, 20);
     }
 
     public static String getStringImage(Bitmap bmp){
@@ -239,27 +225,22 @@ public class Server {
         return Base64.encodeToString(imageBytes, Base64.DEFAULT);
     }
 
-    public static void search(Context context, String token, String query, int limit,
-                              Response.Listener<JSONObject> callback) {
-        String url = host + "/search?query=" + query + "&token=" + token + "&limit=" + limit;
+    public static void search(Context context, String query, int limit, Response.Listener<JSONObject> callback) {
+        String url = host + "/search?query=" + query + "&token=" + User.getInstance().token + "&limit=" + limit;
         request(context, url, null, callback);
     }
 
-    public static void search(Context context, String token, String query,
-                              Response.Listener<JSONObject> callback) {
-        search(context, token, query, 20, callback);
+    public static void search(Context context, String query, Response.Listener<JSONObject> callback) {
+        search(context, query, 20, callback);
     }
 
-    public static void updateTattoo(Context context, String token, Tattoo tattoo) {
+    public static void updateTattoo(Context context, Tattoo tattoo) {
         String url = host + "/tattoo-update";
         JSONObject data = new JSONObject();
         try {
-            data.put("token", token);
+            data.put("token", User.getInstance().token);
             data.put("id", tattoo.tattoo_id);
             data.put("tags", new JSONArray(tattoo.tags));
-            Log.d("Update", String.valueOf(tattoo.tags.size()));
-            for (int i =0 ; i < tattoo.tags.size(); i++)
-                Log.d("Update", tattoo.tags.get(i));
             data.put("private", tattoo.is_private);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -267,7 +248,7 @@ public class Server {
         request(context, url, data, default_json_callback);
     }
 
-    public static void uploadImage(Context context, final Uri path, final String token, final Tattoo tattoo,
+    public static void uploadImage(Context context, final Uri path, final Tattoo tattoo,
                                    final Response.Listener<JSONObject> callback) {
         final Bitmap bitmap;
         final String url = host + "/tattoo-upload";
@@ -279,7 +260,7 @@ public class Server {
         }
         JSONObject data = new JSONObject();
         try {
-            data.put("token", token);
+            data.put("token", User.getInstance().token);
             data.put("private", String.valueOf(tattoo.is_private));
             data.put("tag_count", String.valueOf(tattoo.tags.size()));
             for (int i = 0; i < tattoo.tags.size(); i++) {
@@ -292,7 +273,7 @@ public class Server {
         request(context, url, data, callback);
     }
 
-    public static void extractTags(Context context, final Uri path, final String token,
+    public static void extractTags(Context context, final Uri path,
                                    ArrayList<float[]> x, ArrayList<float[]> y,
                                    final Response.Listener<JSONObject> callback) {
         final Bitmap bitmap;
@@ -305,7 +286,7 @@ public class Server {
         }
         JSONObject data = new JSONObject();
         try {
-            data.put("token", token);
+            data.put("token", User.getInstance().token);
             data.put("image", getStringImage(bitmap));
             JSONArray px = new JSONArray();
             JSONArray py = new JSONArray();
@@ -322,12 +303,12 @@ public class Server {
         request(context, url, timeout, data, callback);
     }
 
-    public static void like(Context context, final String token, final String id, int like,
+    public static void like(Context context, final String id, int like,
                             Response.Listener<JSONObject> callback) {
         String url = host;
         if (like == 1) url += "/like";
         else url += "/unlike";
-        JSONObject data = create_json(token, id);
+        JSONObject data = create_json(User.getInstance().token, id);
         request(context, url, data, callback);
     }
 

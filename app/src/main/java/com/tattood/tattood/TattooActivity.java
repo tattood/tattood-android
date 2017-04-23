@@ -35,10 +35,9 @@ public class TattooActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tattoo);
         Bundle extras = getIntent().getExtras();
-        final String token = extras.getString("token");
         final String tattoo_id = extras.getString("tid");
         final Tattoo tattoo = new Tattoo(tattoo_id, null);
-        Server.getTattooImage(this, tattoo_id, 1, token,
+        Server.getTattooImage(this, tattoo_id, 1,
                 new Server.ResponseCallback() {
                     @Override
                     public void run(String id, int i) {
@@ -53,7 +52,7 @@ public class TattooActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }});
-        Server.getTattooData(this, tattoo_id, token,
+        Server.getTattooData(this, tattoo_id,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -68,7 +67,6 @@ public class TattooActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View view) {
                                     Intent myIntent = new Intent(TattooActivity.this, UserActivity.class);
-                                    myIntent.putExtra("token", token);
                                     myIntent.putExtra("username", username);
                                     startActivity(myIntent);
                                 }});
@@ -111,7 +109,7 @@ public class TattooActivity extends AppCompatActivity {
                                             refreshLikeButton();
                                         }
                                     };
-                                    Server.like(TattooActivity.this, token, tattoo_id, text.equals("Like") ? 1 : 0, callback);
+                                    Server.like(TattooActivity.this, tattoo_id, text.equals("Like") ? 1 : 0, callback);
                                 }
                             });
                         } catch (JSONException e) {

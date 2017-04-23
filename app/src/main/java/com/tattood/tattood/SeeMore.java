@@ -16,20 +16,18 @@ public class SeeMore extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_see_more);
         Bundle extras = getIntent().getExtras();
-        final String token = extras.getString("token");
         final String tag = extras.getString("TAG");
-        final String username = extras.getString("username");
         User user = User.getInstance();
         final RecyclerView list_view = (RecyclerView) findViewById(R.id.list_view);
         list_view.setLayoutManager(new GridLayoutManager(this, 3));
-        list_view.setAdapter(new TattooRecyclerViewAdapter(null, this, list_view, token));
+        list_view.setAdapter(new TattooRecyclerViewAdapter(null, this, list_view));
         if (tag != null) {
             if (tag.equals("RECENT")) {
                 Server.getRecent(this,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
-                                ((TattooRecyclerViewAdapter) list_view.getAdapter()).set_data(token, response);
+                                ((TattooRecyclerViewAdapter) list_view.getAdapter()).set_data(response);
                             }
                         }, 100);
             } else if (tag.equals("POPULAR")) {
@@ -37,7 +35,7 @@ public class SeeMore extends AppCompatActivity {
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
-                                ((TattooRecyclerViewAdapter) list_view.getAdapter()).set_data(token, response);
+                                ((TattooRecyclerViewAdapter) list_view.getAdapter()).set_data(response);
                             }
                         }, 100);
             } else if (user != null && tag.equals("PRIVATE")) {

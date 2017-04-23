@@ -15,11 +15,10 @@ import org.json.JSONObject;
 public class User {
 
     private static User user = null;
-    private String email;
+    public String email;
     public Uri photo;
     public final String username;
-    private final String token;
-
+    public final String token;
     public RecyclerView liked_view;
     public RecyclerView public_view;
     public RecyclerView private_view;
@@ -49,11 +48,11 @@ public class User {
     public void setLikedView(Context context, final RecyclerView list_view, int limit) {
         if (liked_view == null) {
             liked_view = list_view;
-            Server.getTattooList(context, token, Server.TattooRequest.Liked, username,
+            Server.getTattooList(context, Server.TattooRequest.Liked, username,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            ((TattooRecyclerViewAdapter) list_view.getAdapter()).set_data(token, response);
+                            ((TattooRecyclerViewAdapter) list_view.getAdapter()).set_data(response);
                         }
                     }, limit);
         } else {
@@ -68,11 +67,11 @@ public class User {
     public void setPublicView(Context context, final RecyclerView list_view, int limit) {
         if (public_view == null) {
             public_view = list_view;
-            Server.getTattooList(context, token, Server.TattooRequest.Public, username,
+            Server.getTattooList(context, Server.TattooRequest.Public, username,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-                        ((TattooRecyclerViewAdapter) list_view.getAdapter()).set_data(token, response);
+                        ((TattooRecyclerViewAdapter) list_view.getAdapter()).set_data(response);
                         }
                     }, limit);
         } else {
@@ -87,11 +86,11 @@ public class User {
     public void setPrivateView(Context context, final RecyclerView list_view, int limit) {
         if (private_view == null) {
             private_view = list_view;
-            Server.getTattooList(context, token, Server.TattooRequest.Private, username,
+            Server.getTattooList(context, Server.TattooRequest.Private, username,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            ((TattooRecyclerViewAdapter) list_view.getAdapter()).set_data(token, response);
+                            ((TattooRecyclerViewAdapter) list_view.getAdapter()).set_data(response);
                         }
                     }, limit);
         } else {

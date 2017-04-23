@@ -19,12 +19,10 @@ public class TagItemAdapter extends BaseAdapter implements ListAdapter {
     public ArrayList<String> list = new ArrayList<>();
     private final Context context;
     private final Tattoo tattoo;
-    private final String token;
 
-    public TagItemAdapter(Context context, String token, ArrayList<String> list, Tattoo t) {
+    public TagItemAdapter(Context context, ArrayList<String> list, Tattoo t) {
         this.list = list;
         this.context = context;
-        this.token = token;
         this.tattoo = t;
     }
 
@@ -40,7 +38,6 @@ public class TagItemAdapter extends BaseAdapter implements ListAdapter {
 
     @Override
     public long getItemId(int pos) {
-//        return ((Tattoo)(list.get(pos))).tattoo_id;
         return pos;
     }
 
@@ -51,20 +48,15 @@ public class TagItemAdapter extends BaseAdapter implements ListAdapter {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.tag_edit_layout, parent, false);
         }
-
-        //Handle TextView and display string from your list
         TextView listItemText = (TextView)view.findViewById(R.id.tag_name);
         listItemText.setText(list.get(position));
-
-        //Handle buttons and add onClickListeners
         Button tag_delete = (Button)view.findViewById(R.id.tag_delete);
         tag_delete.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                list.remove(position); //or some other task
+                list.remove(position);
                 notifyDataSetChanged();
                 tattoo.tags = list;
-//                Server.updateTattoo(context, token, tattoo);
             }
         });
         return view;

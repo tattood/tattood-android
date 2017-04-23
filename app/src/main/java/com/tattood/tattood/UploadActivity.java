@@ -33,20 +33,17 @@ public class UploadActivity extends AppCompatActivity {
     TagItemAdapter adapter;
     Tattoo tattoo;
     Uri path = null;
-    String token = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tattoo_edit);
-//        setContentView(R.layout.activity_upload);
         Bundle extras = getIntent().getExtras();
         tattoo = new Tattoo();
-        token = extras.getString("token");
         path = Uri.parse("file://" + extras.getString("path"));
         Log.d("Upload", String.valueOf(path));
         ListView tag_list = (ListView) findViewById(R.id.tag_list_edit);
-        adapter = new TagItemAdapter(this, token, new ArrayList<String>(), tattoo);
+        adapter = new TagItemAdapter(this, new ArrayList<String>(), tattoo);
         tag_list.setAdapter(adapter);
         ImageView image = (ImageView) findViewById(R.id.tattoo_image);
         try {
@@ -101,7 +98,7 @@ public class UploadActivity extends AppCompatActivity {
         upload_button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Server.uploadImage(UploadActivity.this, path, token, tattoo,
+                Server.uploadImage(UploadActivity.this, path, tattoo,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
@@ -131,7 +128,7 @@ public class UploadActivity extends AppCompatActivity {
                 y.add(data.getFloatArrayExtra("y_points"+i));
             }
         }
-        Server.extractTags(UploadActivity.this, path, token, x, y,
+        Server.extractTags(UploadActivity.this, path, x, y,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {

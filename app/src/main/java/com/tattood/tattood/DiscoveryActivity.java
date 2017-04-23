@@ -23,39 +23,37 @@ import org.json.JSONObject;
 
 public class DiscoveryActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private OnListFragmentInteractionListener mListener;
-    private String token;
-    private String username;
     RecyclerView recent_view;
     RecyclerView popular_view;
+    OnListFragmentInteractionListener mListener;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discovery);
-        token = getIntent().getExtras().getString("token");
-        username = getIntent().getExtras().getString("username");
+        String token = getIntent().getExtras().getString("token");
+        String username = getIntent().getExtras().getString("username");
         Uri photo = Uri.parse(getIntent().getExtras().getString("photo-uri"));
         User.setInstance(token, username, photo);
         popular_view = (RecyclerView) findViewById(R.id.popular_list);
         popular_view.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        popular_view.setAdapter(new TattooRecyclerViewAdapter(mListener, this, popular_view, token));
+        popular_view.setAdapter(new TattooRecyclerViewAdapter(mListener, this, popular_view));
         Server.getPopular(this,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        ((TattooRecyclerViewAdapter) popular_view.getAdapter()).set_data(token, response);
+                        ((TattooRecyclerViewAdapter) popular_view.getAdapter()).set_data(response);
                     }
                 });
 
         recent_view = (RecyclerView) findViewById(R.id.recent_list);
         recent_view.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        recent_view.setAdapter(new TattooRecyclerViewAdapter(mListener, this, recent_view, token));
+        recent_view.setAdapter(new TattooRecyclerViewAdapter(mListener, this, recent_view));
         Server.getRecent(this,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        ((TattooRecyclerViewAdapter) recent_view.getAdapter()).set_data(token, response);
+                        ((TattooRecyclerViewAdapter) recent_view.getAdapter()).set_data(response);
                     }
                 });
 
@@ -69,8 +67,6 @@ public class DiscoveryActivity extends AppCompatActivity implements View.OnClick
             @Override
             public void onClick(View view) {
                 Intent myIntent = new Intent(DiscoveryActivity.this, ProfileActivity.class);
-                myIntent.putExtra("token", token);
-                myIntent.putExtra("username", username);
                 ActivityOptions options =
                         ActivityOptions.makeCustomAnimation(DiscoveryActivity.this,
                                 android.R.anim.slide_in_left,
@@ -78,35 +74,6 @@ public class DiscoveryActivity extends AppCompatActivity implements View.OnClick
                 startActivity(myIntent, options.toBundle());
             }
         });
-
-//        SearchView search = (SearchView) findViewById(R.id.search_view);
-//        search.setOnSearchClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View view) {
-//                Log.d("Search", "OnSearch");
-//            }
-//        });
-//        search.setOnCloseListener(new SearchView.OnCloseListener(){
-//            @Override
-//            public boolean onClose() {
-//                return false;
-//            }
-//        });
-//        search.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                Intent myIntent = new Intent(DiscoveryActivity.this, SearchActivity.class);
-//                myIntent.putExtra("query", query);
-//                myIntent.putExtra("token", token);
-//                startActivity(myIntent);
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                return false;
-//            }
-//        });
 
         final SwipeRefreshLayout swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -116,14 +83,14 @@ public class DiscoveryActivity extends AppCompatActivity implements View.OnClick
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
-                                ((TattooRecyclerViewAdapter) recent_view.getAdapter()).set_data(token, response);
+                                ((TattooRecyclerViewAdapter) recent_view.getAdapter()).set_data(response);
                             }
                         });
                 Server.getPopular(DiscoveryActivity.this,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
-                                ((TattooRecyclerViewAdapter) popular_view.getAdapter()).set_data(token, response);
+                                ((TattooRecyclerViewAdapter) popular_view.getAdapter()).set_data(response);
                             }
                         });
                 swipeContainer.setRefreshing(false);
@@ -143,7 +110,6 @@ public class DiscoveryActivity extends AppCompatActivity implements View.OnClick
         } else if (v.getId() == R.id.see_more_popular) {
             myIntent.putExtra("TAG", "POPULAR");
         }
-        myIntent.putExtra("token", token);
         startActivity(myIntent);
     }
 

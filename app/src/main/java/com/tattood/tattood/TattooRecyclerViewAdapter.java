@@ -33,15 +33,13 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
     private final OnListFragmentInteractionListener mListener;
     private final Context mContext;
     private final RecyclerView mRecyclerView;
-    private final String token;
 
     public TattooRecyclerViewAdapter(OnListFragmentInteractionListener listener,
-                                     Context context, RecyclerView recyclerView, String t) {
+                                     Context context, RecyclerView recyclerView) {
         mValues = null;
         mListener = listener;
         mContext = context;
         mRecyclerView = recyclerView;
-        token = t;
     }
 
     @Override
@@ -81,13 +79,10 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
             public void onClick(View v) {
                 if (null != mListener) {
                     Log.d("TATTOO-edit", "HERE");
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
                     mListener.onListFragmentInteraction(mValues.get(pos));
                 } else {
                     Log.d("Tattoo", "Discovery Page");
                     Intent myIntent = new Intent(mContext, TattooActivity.class);
-                    myIntent.putExtra("token", token);
                     myIntent.putExtra("tid",   mValues.get(pos).tattoo_id);
                     mContext.startActivity(myIntent);
                 }
@@ -124,7 +119,7 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
         }
     }
 
-    public void set_data(String token, JSONObject obj) {
+    public void set_data(JSONObject obj) {
         try {
             obj = obj.getJSONObject("data");
             mValues = new ArrayList<>(obj.length());
@@ -138,7 +133,7 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
                 String tattoo_id = tattooJSON.getString(0);
                 String owner_id = tattooJSON.getString(1);
                 this.setTattoo(i, new Tattoo(tattoo_id, owner_id));
-                Server.getTattooImage(mContext, tattoo_id, i, token,
+                Server.getTattooImage(mContext, tattoo_id, i,
                         new Server.ResponseCallback() {
                             @Override
                             public void run(String id, int i) {
