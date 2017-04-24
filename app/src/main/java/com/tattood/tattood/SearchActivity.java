@@ -39,23 +39,30 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                         try {
                             JSONObject tags = response.getJSONObject("tags");
                             JSONObject users = response.getJSONObject("users");
-                            if (!empty(users))
-                                ((TattooRecyclerViewAdapter) user_list.getAdapter()).set_data(users);
-                            else {
+                            boolean not_found = false;
+                            if (!empty(users)) {
                                 TextView tv = (TextView) findViewById(R.id.text_user);
-                                tv.setVisibility(View.INVISIBLE);
+                                tv.setVisibility(View.VISIBLE);
                                 Button button = (Button) findViewById(R.id.see_more_user);
-                                button.setVisibility(View.INVISIBLE);
-                                user_list.setVisibility(View.INVISIBLE);
+                                button.setVisibility(View.VISIBLE);
+                                user_list.setVisibility(View.VISIBLE);
+                                ((TattooRecyclerViewAdapter) user_list.getAdapter()).set_data(users);
                             }
-                            if (!empty(tags))
-                                ((TattooRecyclerViewAdapter) tag_list.getAdapter()).set_data(tags);
                             else {
+                                not_found = true;
+                            }
+                            if (!empty(tags)) {
                                 TextView tv = (TextView) findViewById(R.id.text_tag);
-                                tv.setVisibility(View.INVISIBLE);
+                                tv.setVisibility(View.VISIBLE);
                                 Button button = (Button) findViewById(R.id.see_more_tag);
-                                button.setVisibility(View.INVISIBLE);
-                                tag_list.setVisibility(View.INVISIBLE);
+                                button.setVisibility(View.VISIBLE);
+                                tag_list.setVisibility(View.VISIBLE);
+                                ((TattooRecyclerViewAdapter) tag_list.getAdapter()).set_data(tags);
+                            }
+                            else {
+                                if (not_found) {
+                                    findViewById(R.id.tv_no_results).setVisibility(View.VISIBLE);
+                                }
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

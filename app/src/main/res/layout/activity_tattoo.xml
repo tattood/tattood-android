@@ -94,9 +94,9 @@
                     android:id="@+id/like_count"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_gravity="start|center"
-                    android:text="Likes:"/>
+                    android:layout_weight="1"
+                    />
 
                 <android.support.design.widget.FloatingActionButton
                     android:id="@+id/fab_camera"

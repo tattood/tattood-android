@@ -16,23 +16,26 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:text="@string/tags"
+                android:id="@+id/text_tag"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/text_tag"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:text="@string/tags"
+                android:visibility="invisible"/>
 
             <Button
-                android:text="@string/see_more"
+                android:id="@+id/see_more_tag"
                 android:layout_width="159dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/see_more_tag"/>
+                android:text="@string/see_more"
+                android:visibility="invisible"/>
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/tag_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:visibility="invisible"/>
 
         <LinearLayout
             android:orientation="horizontal"
@@ -40,23 +43,33 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:text="@string/users"
+                android:id="@+id/text_user"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/text_user"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:text="@string/users"
+                android:visibility="invisible"/>
 
             <Button
-                android:text="@string/see_more"
+                android:id="@+id/see_more_user"
                 android:layout_width="159dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/see_more_user"
-                />
+                android:text="@string/see_more"
+                android:visibility="invisible"/>
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/user_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:id="@+id/tv_no_results"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="No results found..."
+            android:visibility="invisible"/>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

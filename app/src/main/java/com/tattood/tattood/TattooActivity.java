@@ -136,6 +136,6 @@ public class TattooActivity extends AppCompatActivity {
 
     private void refreshLikeButton() {
         final TextView like_label = (TextView) findViewById(R.id.like_count);
-        like_label.setText("Likes:" + like_count);
+        like_label.setText(like_count + " likes");
     }
 }
