@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -122,4 +123,17 @@ public class DiscoveryActivity extends AppCompatActivity implements View.OnClick
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.profile) {
+            Intent myIntent = new Intent(DiscoveryActivity.this, ProfileActivity.class);
+            ActivityOptions options =
+                    ActivityOptions.makeCustomAnimation(DiscoveryActivity.this,
+                            android.R.anim.slide_in_left,
+                            android.R.anim.slide_out_right);
+            startActivity(myIntent, options.toBundle());
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
