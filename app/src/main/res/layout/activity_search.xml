@@ -26,8 +26,7 @@
                 android:text="@string/see_more"
                 android:layout_width="159dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/see_more_tag"
-                />
+                android:id="@+id/see_more_tag"/>
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView

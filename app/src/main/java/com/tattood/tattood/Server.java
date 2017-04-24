@@ -34,7 +34,7 @@ import java.util.ArrayList;
  */
 
 public class Server {
-    public static final String host = "http://192.168.122.1:5000";
+    public static final String host = "http://139.179.211.114:5000";
 //    public static final String host = "http://192.168.1.26:5000";
     public enum TattooRequest {Liked, Public, Private}
 //    public enum UserRequest {Followed, Followers}
@@ -210,13 +210,14 @@ public class Server {
         return Base64.encodeToString(imageBytes, Base64.DEFAULT);
     }
 
-    public static void search(Context context, String query, int limit, Response.Listener<JSONObject> callback) {
+    public static void search(Context context, String query, Response.Listener<JSONObject> callback,
+                              int limit) {
         String url = "/search?query=" + query + "&token=" + User.getInstance().token + "&limit=" + limit;
         request(context, url, null, callback);
     }
 
     public static void search(Context context, String query, Response.Listener<JSONObject> callback) {
-        search(context, query, 20, callback);
+        search(context, query, callback, 20);
     }
 
     private static void updateOrUpload(Context context, final Uri path, final Tattoo tattoo,

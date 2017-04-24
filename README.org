@@ -2,3 +2,58 @@
 ** Missing
   + Search Page (Works on clicking from tag/username but there is no dedicated search bar)
   + AR Camera
+
+* TODO
+** Discovery [5/5]
++ [X] Discovery Page Profile Button
++ [X] Pull-swipe longer animation
++ [X] Toolbar color / transparent with background
++ [X] Background color
++ [X] Discovery Page list view Align and increase size
+** Search [2/4]
++ [X] [BUG] Search See More inactive
++ [X] [BUG] Tattoo Tag Search
++ [ ] Search User-Name should list users
++ [ ] Show label when there are no results
+** See more [1/5]
++ [X] See more changes to single row
++ [ ] Auto load at the bottom of the page
++ [ ] Change See More button
++ [ ] See more Card layout grid
++ [ ] See more: disappearing toolbar
+** Tattoo Page [2/4]
++ [X] Increase size
++ [X] Add margin
++ [ ] Change like button
++ [-] From top to bottom:
+  + [X] Profile photo
+  + [X] Name
+  + [X] Tattoo
+  + [ ] Like button (HEART)
+  + [ ] #of likes
+  + [ ] Camera button
+** Profile Page [0/5]
++ [ ] Profile page list alignment
++ [ ] Profile page upload button bottom
++ [ ] Profile page move toolbar inside the view
++ [ ] If list view is not available show label instead of 'see more'
++ [ ] [DESIGN] Profile photo in the middle, public/private as tabs
+** Tattoo Edit Page [0/4]
++ [ ] Change public/private switch
++ [ ] Increase tattoo size
++ [ ] Add margin to tattoo
++ [ ] [[https://android-arsenal.com/details/1/2566][The Android Arsenal - Tags - Android TagView]]
+** Upload page [0/6]
++ [ ] Enable crop without clicking image
++ [ ] Revert to original
++ [ ] Change Add tag button to textinput and move to bottom
++ [ ] Crop icon. Finish/Cancel will appear on crop. Revert to original will appear on finish
++ [ ] Move submit to the bottom
++ [ ] Save the original photo to revert back
+** Other User Page [/]
+** Core [0/5]
++ [ ] Cache profile photo
++ [ ] Auto-login fails
++ [ ] Change see more activity
++ [ ] Liking a tattoo before opening profile page fails
++ [ ] Liking a tattoo doesn't update the image in popular list

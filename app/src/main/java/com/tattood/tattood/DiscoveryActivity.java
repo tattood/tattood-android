@@ -6,9 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -39,6 +39,8 @@ public class DiscoveryActivity extends AppCompatActivity implements View.OnClick
         popular_view = (RecyclerView) findViewById(R.id.popular_list);
         popular_view.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         popular_view.setAdapter(new TattooRecyclerViewAdapter(this, popular_view));
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, LinearLayoutManager.HORIZONTAL);
+        popular_view.addItemDecoration(dividerItemDecoration);
         Server.getPopular(this,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -50,6 +52,7 @@ public class DiscoveryActivity extends AppCompatActivity implements View.OnClick
         recent_view = (RecyclerView) findViewById(R.id.recent_list);
         recent_view.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recent_view.setAdapter(new TattooRecyclerViewAdapter(this, recent_view));
+        recent_view.addItemDecoration(dividerItemDecoration);
         Server.getRecent(this,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -63,18 +66,18 @@ public class DiscoveryActivity extends AppCompatActivity implements View.OnClick
         see_more = (Button) findViewById(R.id.see_more_popular);
         see_more.setOnClickListener(this);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_profile);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent myIntent = new Intent(DiscoveryActivity.this, ProfileActivity.class);
-                ActivityOptions options =
-                        ActivityOptions.makeCustomAnimation(DiscoveryActivity.this,
-                                android.R.anim.slide_in_left,
-                                android.R.anim.slide_out_right);
-                startActivity(myIntent, options.toBundle());
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_profile);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent myIntent = new Intent(DiscoveryActivity.this, ProfileActivity.class);
+//                ActivityOptions options =
+//                        ActivityOptions.makeCustomAnimation(DiscoveryActivity.this,
+//                                android.R.anim.slide_in_left,
+//                                android.R.anim.slide_out_right);
+//                startActivity(myIntent, options.toBundle());
+//            }
+//        });
 
         final SwipeRefreshLayout swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -85,6 +88,7 @@ public class DiscoveryActivity extends AppCompatActivity implements View.OnClick
                             @Override
                             public void onResponse(JSONObject response) {
                                 ((TattooRecyclerViewAdapter) recent_view.getAdapter()).set_data(response);
+                                swipeContainer.setRefreshing(false);
                             }
                         });
                 Server.getPopular(DiscoveryActivity.this,
@@ -92,9 +96,9 @@ public class DiscoveryActivity extends AppCompatActivity implements View.OnClick
                             @Override
                             public void onResponse(JSONObject response) {
                                 ((TattooRecyclerViewAdapter) popular_view.getAdapter()).set_data(response);
+                                swipeContainer.setRefreshing(false);
                             }
                         });
-                swipeContainer.setRefreshing(false);
             }
         });
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,

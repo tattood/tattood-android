@@ -16,14 +16,16 @@ import com.android.volley.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private String query = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         Bundle extras = getIntent().getExtras();
-        final String query = extras.getString("query");
+        query = extras.getString("query");
         final RecyclerView tag_list = (RecyclerView) findViewById(R.id.tag_list);
         tag_list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         tag_list.setAdapter(new TattooRecyclerViewAdapter(this, tag_list));
@@ -60,6 +62,10 @@ public class SearchActivity extends AppCompatActivity {
                         }
                     }
                 });
+        Button see_more = (Button) findViewById(R.id.see_more_tag);
+        see_more.setOnClickListener(this);
+        see_more = (Button) findViewById(R.id.see_more_user);
+        see_more.setOnClickListener(this);
         handleIntent(getIntent());
     }
 
@@ -82,5 +88,17 @@ public class SearchActivity extends AppCompatActivity {
             String query = intent.getStringExtra(SearchManager.QUERY);
             Log.d("SEARCH", query);
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+        Intent myIntent = new Intent(this, SeeMore.class);
+        myIntent.putExtra("query", query);
+        if (view.getId() == R.id.see_more_tag) {
+            myIntent.putExtra("TAG", "TAG");
+        } else if (view.getId() == R.id.see_more_user) {
+            myIntent.putExtra("TAG", "USER");
+        }
+        startActivity(myIntent);
     }
 }

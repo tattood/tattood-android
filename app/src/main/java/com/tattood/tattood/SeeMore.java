@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.android.volley.Response;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class SeeMore extends AppCompatActivity {
@@ -44,7 +45,46 @@ public class SeeMore extends AppCompatActivity {
                 user.setPublicView(this, list_view, 100);
             } else if (user != null && tag.equals("LIKED")) {
                 user.setLikedView(this, list_view, 100);
+            } else if (tag.equals("TAG")) {
+                String query = extras.getString("query");
+                Server.search(SeeMore.this, query,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                try {
+                                    JSONObject tags = response.getJSONObject("tags");
+                                    if (!empty(tags))
+                                        ((TattooRecyclerViewAdapter) list_view.getAdapter()).set_data(tags);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }, 100);
+            } else if (tag.equals("USER")) {
+                String query = extras.getString("query");
+                Server.search(SeeMore.this, query,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                try {
+                                    JSONObject tags = response.getJSONObject("users");
+                                    if (!empty(tags))
+                                        ((TattooRecyclerViewAdapter) list_view.getAdapter()).set_data(tags);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }, 100);
             }
+        }
+    }
+
+    private boolean empty(JSONObject obj) {
+        try {
+            obj = obj.getJSONObject("data");
+            return obj.length() == 0;
+        } catch (JSONException e) {
+            return true;
         }
     }
 
