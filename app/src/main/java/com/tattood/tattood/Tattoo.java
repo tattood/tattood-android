@@ -14,7 +14,6 @@ public class Tattoo implements Serializable {
     public String tattoo_id;
     public ArrayList<String> tags;
     public boolean is_private;
-//    private String path;
     public Bitmap image;
 
     public Tattoo() {

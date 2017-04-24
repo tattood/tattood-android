@@ -21,19 +21,19 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     public void refresh_images() {
         RecyclerView user_liked = (RecyclerView) findViewById(R.id.user_liked_list);
         user_liked.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        user_liked.setAdapter(new TattooRecyclerViewAdapter(null, this, user_liked));
+        user_liked.setAdapter(new TattooRecyclerViewAdapter(this, user_liked));
         user.setLikedView(this, user_liked);
 
         RecyclerView user_public = (RecyclerView) findViewById(R.id.user_public_list);
         OnListFragmentInteractionListener public_listener = new OnListFragmentInteractionListener(this);
         user_public.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        user_public.setAdapter(new TattooRecyclerViewAdapter(public_listener, this, user_public));
+        user_public.setAdapter(new TattooRecyclerViewAdapter(this, user_public, public_listener));
         user.setPublicView(this, user_public);
 
         RecyclerView user_private = (RecyclerView) findViewById(R.id.user_private_list);
         OnListFragmentInteractionListener private_listener = new OnListFragmentInteractionListener(this);
         user_private.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        user_private.setAdapter(new TattooRecyclerViewAdapter(private_listener, this, user_private));
+        user_private.setAdapter(new TattooRecyclerViewAdapter(this, user_private, private_listener));
         user.setPrivateView(this, user_private);
     }
 
@@ -61,9 +61,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         String url = String.valueOf(user.photo);
         Log.d("PROFILE1", String.valueOf(url));
         dl.execute(String.valueOf(url));
-
         refresh_images();
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_upload);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,16 +87,13 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             Log.d("Upload", String.valueOf(selectedImage));
             Log.d("Upload", filePathColumn[0]);
             Cursor cursor = this.getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-
             if (cursor == null || cursor.getCount() < 1) {
                 return;
             }
-
             cursor.moveToFirst();
             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
             if(columnIndex < 0)
                 return;
-
             String picturePath = cursor.getString(columnIndex);
             cursor.close(); // close cursor
             Log.d("Upload", picturePath);
@@ -109,5 +104,4 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             User.getInstance().public_view.getAdapter().notifyDataSetChanged();
         }
     }
-
 }

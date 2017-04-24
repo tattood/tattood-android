@@ -34,8 +34,12 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
     private final Context mContext;
     private final RecyclerView mRecyclerView;
 
-    public TattooRecyclerViewAdapter(OnListFragmentInteractionListener listener,
-                                     Context context, RecyclerView recyclerView) {
+    public TattooRecyclerViewAdapter(Context context, RecyclerView recyclerView) {
+        this(context, recyclerView, null);
+    }
+
+    public TattooRecyclerViewAdapter(Context context, RecyclerView recyclerView,
+                                     OnListFragmentInteractionListener listener) {
         mValues = null;
         mListener = listener;
         mContext = context;
@@ -51,13 +55,9 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
     }
 
     private Bitmap getTattooImage(int index) {
-        if (index >= mValues.size())
+        if (index >= mValues.size() || mValues.get(index) == null)
             return null;
-        Tattoo t = mValues.get(index);
-        if (t == null || t.getImage() == null) {
-            return null;
-        }
-        return t.getImage();
+        return mValues.get(index).getImage();
     }
 
     public void setTattooImage(int index, Bitmap image) {
@@ -77,11 +77,9 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null != mListener) {
-                    Log.d("TATTOO-edit", "HERE");
+                if (mListener != null) {
                     mListener.onListFragmentInteraction(mValues.get(pos));
                 } else {
-                    Log.d("Tattoo", "Discovery Page");
                     Intent myIntent = new Intent(mContext, TattooActivity.class);
                     myIntent.putExtra("tid",   mValues.get(pos).tattoo_id);
                     mContext.startActivity(myIntent);
@@ -157,7 +155,12 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
 
     public void addTattoo(Tattoo t) {
         mValues.add(t);
-        notifyDataSetChanged();
+        setData(mValues);
+    }
+
+    public void removeTattoo(Tattoo t) {
+        mValues.remove(t);
+        setData(mValues);
     }
 
     public ArrayList<Tattoo> getData() {
@@ -168,5 +171,6 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
         mValues = data;
         for (int i = 0; i < data.size(); i++)
             setTattooImage(i, data.get(i).image);
+        notifyDataSetChanged();
     }
 }

@@ -3,6 +3,7 @@ package com.tattood.tattood;
 import android.content.Context;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.android.volley.Response;
 
@@ -102,6 +103,18 @@ public class User {
         TattooRecyclerViewAdapter adapter = (TattooRecyclerViewAdapter) curr.getAdapter();
         curr = _new;
         ((TattooRecyclerViewAdapter)curr.getAdapter()).setData(adapter.getData());
+    }
+
+    public void changeTattooVisibility(Tattoo t) {
+        RecyclerView source = private_view;
+        RecyclerView dest = public_view;
+        if (t.is_private) {
+            Log.d("EDIT", "CHANGED22");
+            source = public_view;
+            dest = private_view;
+        }
+        ((TattooRecyclerViewAdapter)source.getAdapter()).removeTattoo(t);
+        ((TattooRecyclerViewAdapter)dest.getAdapter()).addTattoo(t);
     }
 
     public void addLike(Tattoo t) {

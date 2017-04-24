@@ -26,11 +26,10 @@ public class SearchActivity extends AppCompatActivity {
         final String query = extras.getString("query");
         final RecyclerView tag_list = (RecyclerView) findViewById(R.id.tag_list);
         tag_list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        tag_list.setAdapter(new TattooRecyclerViewAdapter(null, this, tag_list));
+        tag_list.setAdapter(new TattooRecyclerViewAdapter(this, tag_list));
         final RecyclerView user_list = (RecyclerView) findViewById(R.id.user_list);
         user_list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-//        user_list.setLayoutManager(new GridLayoutManager(this, 3));
-        user_list.setAdapter(new TattooRecyclerViewAdapter(null, this, user_list));
+        user_list.setAdapter(new TattooRecyclerViewAdapter(this, user_list));
         Server.search(SearchActivity.this, query,
                 new Response.Listener<JSONObject>() {
                     @Override

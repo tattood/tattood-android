@@ -25,7 +25,6 @@ public class DiscoveryActivity extends AppCompatActivity implements View.OnClick
 
     RecyclerView recent_view;
     RecyclerView popular_view;
-    OnListFragmentInteractionListener mListener;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,7 +36,7 @@ public class DiscoveryActivity extends AppCompatActivity implements View.OnClick
         User.setInstance(token, username, photo);
         popular_view = (RecyclerView) findViewById(R.id.popular_list);
         popular_view.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        popular_view.setAdapter(new TattooRecyclerViewAdapter(mListener, this, popular_view));
+        popular_view.setAdapter(new TattooRecyclerViewAdapter(this, popular_view));
         Server.getPopular(this,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -48,7 +47,7 @@ public class DiscoveryActivity extends AppCompatActivity implements View.OnClick
 
         recent_view = (RecyclerView) findViewById(R.id.recent_list);
         recent_view.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        recent_view.setAdapter(new TattooRecyclerViewAdapter(mListener, this, recent_view));
+        recent_view.setAdapter(new TattooRecyclerViewAdapter(this, recent_view));
         Server.getRecent(this,
                 new Response.Listener<JSONObject>() {
                     @Override

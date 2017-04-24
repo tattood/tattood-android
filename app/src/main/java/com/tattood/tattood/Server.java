@@ -235,8 +235,9 @@ public class Server {
         request(context, url, data, callback);
     }
 
-    public static void updateTattoo(Context context, Tattoo tattoo) {
-        updateOrUpload(context, null, tattoo, default_json_callback);
+    public static void updateTattoo(Context context, Tattoo tattoo,
+                                    final Response.Listener<JSONObject> callback) {
+        updateOrUpload(context, null, tattoo, callback);
     }
 
     private static Bitmap loadImage(Context context, final Uri path) {
