@@ -74,7 +74,8 @@ public class TattooActivity extends AppCompatActivity {
                                     Intent myIntent = new Intent(TattooActivity.this, SearchActivity.class);
                                     String entry = (String) adapterView.getItemAtPosition(i);
                                     Log.d("Clicked-Tag", entry);
-                                    myIntent.putExtra("tag", entry);
+                                    myIntent.putExtra("TAG", "TAG");
+                                    myIntent.putExtra("query", entry);
                                     startActivity(myIntent);
                                 }
                             });

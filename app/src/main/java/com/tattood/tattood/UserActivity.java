@@ -1,5 +1,6 @@
 package com.tattood.tattood;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,8 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.net.URI;
 
 public class UserActivity extends AppCompatActivity {
 
@@ -21,8 +20,8 @@ public class UserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user);
         Bundle extras = getIntent().getExtras();
         String username = extras.getString("username");
-        URI url = URI.create(extras.getString("photo-uri"));
         User user = User.getInstance();
+        Uri url = user.photo;
         TextView tv = (TextView) findViewById(R.id.tv_username);
         tv.setText(username);
         final ImageView img = (ImageView) findViewById(R.id.user_image);
