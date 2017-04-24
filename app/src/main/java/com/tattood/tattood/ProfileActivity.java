@@ -2,6 +2,9 @@ package com.tattood.tattood;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -9,10 +12,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int RESULT_LOAD_IMAGE = 200;
@@ -56,11 +59,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         user = User.getInstance();
-        final ImageView img = (ImageView) findViewById(R.id.user_image);
-        BasicImageDownloader dl = new BasicImageDownloader(img);
-        String url = String.valueOf(user.photo);
-        Log.d("PROFILE1", String.valueOf(url));
-        dl.execute(String.valueOf(url));
+//        final ImageView img = (ImageView) findViewById(R.id.user_image);
         refresh_images();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_upload);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +75,19 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         see_more.setOnClickListener(this);
         see_more = (Button) findViewById(R.id.see_more_liked);
         see_more.setOnClickListener(this);
+
+        final Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        myToolbar.setTitle(user.username);
+        String url = String.valueOf(user.photo);
+        BasicImageDownloader dl = new BasicImageDownloader(null) {
+            @Override
+            protected void onPostExecute(Bitmap result) {
+                Drawable drawable = new BitmapDrawable(getResources(), result);
+                myToolbar.setLogo(drawable);
+            }
+        };
+        dl.execute(String.valueOf(url));
+        setSupportActionBar(myToolbar);
     }
 
     @Override
@@ -104,4 +116,15 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             User.getInstance().public_view.getAdapter().notifyDataSetChanged();
         }
     }
+
+//
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.menu_main, menu);
+//        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+//        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+//        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+//        return true;
+//    }
 }

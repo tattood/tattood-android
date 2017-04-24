@@ -19,10 +19,10 @@ public class BasicImageDownloader extends AsyncTask<String, Void, Bitmap> {
     }
 
     protected Bitmap doInBackground(String... urls) {
-        String urldisplay = urls[0];
+        String url = urls[0];
         Bitmap mIcon11 = null;
         try {
-            InputStream in = new java.net.URL(urldisplay).openStream();
+            InputStream in = new java.net.URL(url).openStream();
             mIcon11 = BitmapFactory.decodeStream(in);
         } catch (Exception e) {
             Log.d("PROFILE2", e.getMessage());
@@ -32,7 +32,6 @@ public class BasicImageDownloader extends AsyncTask<String, Void, Bitmap> {
     }
 
     protected void onPostExecute(Bitmap result) {
-        Log.d("PROFILE3", "DONE");
         bmImage.setImageBitmap(result);
     }
 }
