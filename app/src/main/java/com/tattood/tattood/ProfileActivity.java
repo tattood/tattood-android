@@ -2,9 +2,6 @@ package com.tattood.tattood;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -12,10 +9,11 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int RESULT_LOAD_IMAGE = 200;
@@ -59,7 +57,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         user = User.getInstance();
-//        final ImageView img = (ImageView) findViewById(R.id.user_image);
         refresh_images();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_upload);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -76,18 +73,13 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         see_more = (Button) findViewById(R.id.see_more_liked);
         see_more.setOnClickListener(this);
 
-        final Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
-        myToolbar.setTitle(user.username);
         String url = String.valueOf(user.photo);
-        BasicImageDownloader dl = new BasicImageDownloader(null) {
-            @Override
-            protected void onPostExecute(Bitmap result) {
-                Drawable drawable = new BitmapDrawable(getResources(), result);
-                myToolbar.setLogo(drawable);
-            }
-        };
+        ImageView img = (ImageView) findViewById(R.id.user_image);
+        BasicImageDownloader dl = new BasicImageDownloader(img);
         dl.execute(String.valueOf(url));
-        setSupportActionBar(myToolbar);
+
+        TextView tv_user = (TextView) findViewById(R.id.owner_name);
+        tv_user.setText(user.username);
     }
 
     @Override

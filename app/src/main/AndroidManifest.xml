@@ -29,7 +29,6 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name="com.tattood.tattood.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar"
             android:label="@string/app_name">
         </activity>
         <activity

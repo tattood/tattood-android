@@ -22,20 +22,20 @@
 ** Search [3/4]
 + [X] [BUG] Search See More inactive
 + [X] [BUG] Tattoo Tag Search
-+ [ ] Search User-Name should list users
 + [X] Show label when there are no results
++ [ ] Search User-Name should list users
 ** See more [1/5]
 + [X] See more changes to single row
 + [ ] Auto load at the bottom of the page
 + [ ] Change See More button
 + [ ] See more Card layout grid
 + [ ] See more: disappearing toolbar
-** Profile Page [1/6]
+** Profile Page [3/6]
 + [X] Make profile icon circular
-+ [ ] Profile page list alignment
-+ [ ] Profile page upload button bottom
-+ [ ] Profile page move toolbar inside the view
-+ [ ] If list view is not available show label instead of 'see more'
++ [X] Profile page list alignment
++ [X] Profile page move toolbar inside the view
++ [ ] Profile page upload button to top
++ [ ] While scrolling, user photo should disappear and auto-load
 + [ ] [DESIGN] Profile photo in the middle, public/private as tabs
 ** Tattoo Edit Page [0/5]
 + [ ] Change public/private switch
@@ -44,17 +44,17 @@
 + [ ] Add margin to tattoo
 + [ ] [[https://android-arsenal.com/details/1/2566][The Android Arsenal - Tags - Android TagView]]
 ** Upload page [0/6]
++ [ ] Change Add tag button to textinput and move to bottom
 + [ ] Enable crop without clicking image
 + [ ] Revert to original
-+ [ ] Change Add tag button to textinput and move to bottom
 + [ ] Crop icon. Finish/Cancel will appear on crop. Revert to original will appear on finish
 + [ ] Move submit to the bottom
 + [ ] Save the original photo to revert back
+** Other User Page [0/1]
++ [ ] Image size
 ** AR Camera [0/2]
 + [ ] Save
 + [ ] Share
-** Other User Page [0/1]
-+ [ ] Image size
 ** Core [0/6]
 + [ ] Cache profile photo
 + [ ] Auto-login fails
