@@ -3,7 +3,6 @@ package com.tattood.tattood;
 import android.content.Context;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.android.volley.Response;
 
@@ -23,7 +22,6 @@ public class User {
     public RecyclerView liked_view;
     public RecyclerView public_view;
     public RecyclerView private_view;
-
     private User(String t, String u, Uri p) {
         username = u;
         token = t;
@@ -109,16 +107,27 @@ public class User {
         RecyclerView source = private_view;
         RecyclerView dest = public_view;
         if (t.is_private) {
-            Log.d("EDIT", "CHANGED22");
             source = public_view;
             dest = private_view;
         }
+        t = ((TattooRecyclerViewAdapter)source.getAdapter()).getTattoo(t.tattoo_id);
         ((TattooRecyclerViewAdapter)source.getAdapter()).removeTattoo(t);
         ((TattooRecyclerViewAdapter)dest.getAdapter()).addTattoo(t);
     }
 
     public void addLike(Tattoo t) {
         ((TattooRecyclerViewAdapter)liked_view.getAdapter()).addTattoo(t);
+    }
+
+    public Tattoo getTattoo(String tid) {
+        Tattoo t = ((TattooRecyclerViewAdapter)public_view.getAdapter()).getTattoo(tid);
+        if (t != null)
+            return t;
+        t = ((TattooRecyclerViewAdapter)private_view.getAdapter()).getTattoo(tid);
+        if (t != null)
+            return t;
+        t = ((TattooRecyclerViewAdapter)public_view.getAdapter()).getTattoo(tid);
+        return t;
     }
 
     public void addPublic(Tattoo t) {

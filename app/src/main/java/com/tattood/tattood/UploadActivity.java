@@ -39,7 +39,7 @@ public class UploadActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tattoo_edit);
         Bundle extras = getIntent().getExtras();
-        tattoo = new Tattoo();
+        tattoo = new Tattoo(null, null);
         path = Uri.parse("file://" + extras.getString("path"));
         Log.d("Upload", String.valueOf(path));
         ListView tag_list = (ListView) findViewById(R.id.tag_list_edit);

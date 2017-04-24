@@ -141,12 +141,24 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
         }
     }
 
+    public Tattoo getTattoo(String tid) {
+        for (int i = 0; i < mValues.size(); i++)
+            if (mValues.get(i).tattoo_id.equals(tid))
+                return mValues.get(i);
+        return null;
+    }
+
     public void addTattoo(Tattoo t) {
         mValues.add(t);
         setData(mValues);
     }
 
     public void removeTattoo(Tattoo t) {
+        Log.d("REMOVE", String.valueOf(t.tattoo_id));
+        for (int i = 0; i < mValues.size(); i++) {
+            Log.d("REMOVE", String.valueOf(mValues.get(i).tattoo_id));
+            Log.d("REMOVE2", String.valueOf(mValues.get(i) == t));
+        }
         mValues.remove(t);
         setData(mValues);
     }

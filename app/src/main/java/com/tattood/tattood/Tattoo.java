@@ -16,10 +16,6 @@ public class Tattoo implements Serializable {
     public boolean is_private;
     public Bitmap image;
 
-    public Tattoo() {
-        this(null, null);
-    }
-
     public Tattoo(String tid, String oid) {
         tattoo_id = tid;
         owner_id = oid;

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -35,7 +34,6 @@ public class TattooEditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tattoo_edit);
         Bundle extras = getIntent().getExtras();
         final String tattoo_id = extras.getString("tattoo_id");
-        final String owner_id = extras.getString("owner_id");
         switch_listener = new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -46,7 +44,7 @@ public class TattooEditActivity extends AppCompatActivity {
         Switch sw = (Switch) findViewById(R.id.switch_visibility);
         sw.setOnCheckedChangeListener(switch_listener);
         tags = new ArrayList<>();
-        tattoo = new Tattoo(tattoo_id, owner_id);
+        tattoo = User.getInstance().getTattoo(tattoo_id);
         Server.getTattooImage(this, tattoo,
                 new Server.ResponseCallback() {
                     @Override
@@ -112,9 +110,6 @@ public class TattooEditActivity extends AppCompatActivity {
                 Server.updateTattoo(TattooEditActivity.this, tattoo, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("EDIT", "NOTIFIED");
-                        Log.d("POST-EDIT2", String.valueOf(((TattooRecyclerViewAdapter)User.getInstance().private_view.getAdapter()).mValues.size()));
-                        Log.d("POST-EDIT2", String.valueOf(((TattooRecyclerViewAdapter)User.getInstance().public_view.getAdapter()).mValues.size()));
                         User.getInstance().private_view.getAdapter().notifyDataSetChanged();
                         User.getInstance().public_view.getAdapter().notifyDataSetChanged();
                         }
