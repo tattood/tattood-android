@@ -8,12 +8,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.Response;
+import com.like.LikeButton;
+import com.like.OnLikeListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 
 public class TattooActivity extends AppCompatActivity {
 
-    int is_liked;
+    boolean is_liked;
     int like_count;
 
     @Override
@@ -47,9 +48,14 @@ public class TattooActivity extends AppCompatActivity {
                         try {
                             final String username = response.getString("owner");
                             final String owner_id = response.getString("owner_id");
+                            final String url = response.getString("url");
                             TextView owner = (TextView) findViewById(R.id.owner_name);
                             owner.setText(username);
                             Log.d("Tattoo", username);
+                            final ImageView img = (ImageView) findViewById(R.id.user_image);
+                            BasicImageDownloader dl = new BasicImageDownloader(img);
+                            Log.d("PROFILE2", String.valueOf(url));
+                            dl.execute(String.valueOf(url));
                             tattoo.owner_id = owner_id;
                             owner.setOnClickListener( new View.OnClickListener() {
                                 @Override
@@ -80,25 +86,36 @@ public class TattooActivity extends AppCompatActivity {
                                 }
                             });
                             like_count = response.getInt("like_count");
-                            is_liked = response.getInt("is_liked");
+                            is_liked = response.getBoolean("is_liked");
                             Log.d("LIKE", String.valueOf(is_liked));
                             refreshLikeButton();
-                            final Button like_button = (Button) findViewById(R.id.like_button);
-                            like_button.setOnClickListener(new View.OnClickListener() {
+                            final LikeButton like_button = (LikeButton) findViewById(R.id.like_button);
+                            like_button.setLiked(is_liked);
+                            like_button.setOnLikeListener(new OnLikeListener() {
                                 @Override
-                                public void onClick(View view) {
-                                    Button button = (Button) view;
-                                    String text = String.valueOf(button.getText());
+                                public void liked(LikeButton likeButton) {
                                     Response.Listener<JSONObject> callback = new Response.Listener<JSONObject>(){
                                         @Override
                                         public void onResponse(JSONObject response) {
-                                            like_count += is_liked == 1 ? -1 : 1;
-                                            is_liked = 1 - is_liked;
+                                            like_count++;
                                             User.getInstance().addLike(tattoo);
                                             refreshLikeButton();
                                         }
                                     };
-                                    Server.like(TattooActivity.this, tattoo_id, text.equals("Like"), callback);
+                                    Server.like(TattooActivity.this, tattoo_id, true, callback);
+                                }
+
+                                @Override
+                                public void unLiked(LikeButton likeButton) {
+                                    Response.Listener<JSONObject> callback = new Response.Listener<JSONObject>(){
+                                        @Override
+                                        public void onResponse(JSONObject response) {
+                                            like_count--;
+                                            User.getInstance().removeLike(tattoo);
+                                            refreshLikeButton();
+                                        }
+                                    };
+                                    Server.like(TattooActivity.this, tattoo_id, false, callback);
                                 }
                             });
                         } catch (JSONException e) {
@@ -118,13 +135,7 @@ public class TattooActivity extends AppCompatActivity {
     }
 
     private void refreshLikeButton() {
-        final Button like_button = (Button) findViewById(R.id.like_button);
         final TextView like_label = (TextView) findViewById(R.id.like_count);
-        if (is_liked == 1) {
-            like_button.setText("Unlike");
-        } else {
-            like_button.setText("Like");
-        }
         like_label.setText("Likes:" + like_count);
     }
 }

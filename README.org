@@ -32,14 +32,16 @@
   + [ ] Like button (HEART)
   + [ ] #of likes
   + [ ] Camera button
-** Profile Page [0/5]
+** Profile Page [1/6]
++ [X] Make profile icon circular
 + [ ] Profile page list alignment
 + [ ] Profile page upload button bottom
 + [ ] Profile page move toolbar inside the view
 + [ ] If list view is not available show label instead of 'see more'
 + [ ] [DESIGN] Profile photo in the middle, public/private as tabs
-** Tattoo Edit Page [0/4]
+** Tattoo Edit Page [0/5]
 + [ ] Change public/private switch
++ [ ] Put Delete Button
 + [ ] Increase tattoo size
 + [ ] Add margin to tattoo
 + [ ] [[https://android-arsenal.com/details/1/2566][The Android Arsenal - Tags - Android TagView]]
@@ -51,7 +53,7 @@
 + [ ] Move submit to the bottom
 + [ ] Save the original photo to revert back
 ** Other User Page [/]
-** Core [0/5]
+** Core [0/6]
 + [ ] Cache profile photo
 + [ ] Auto-login fails
 + [ ] Change see more activity

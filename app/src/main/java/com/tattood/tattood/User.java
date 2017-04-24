@@ -119,6 +119,10 @@ public class User {
         ((TattooRecyclerViewAdapter)liked_view.getAdapter()).addTattoo(t);
     }
 
+    public void removeLike(Tattoo t) {
+        ((TattooRecyclerViewAdapter)liked_view.getAdapter()).removeTattoo(t);
+    }
+
     public Tattoo getTattoo(String tid) {
         Tattoo t = ((TattooRecyclerViewAdapter)public_view.getAdapter()).getTattoo(tid);
         if (t != null)
