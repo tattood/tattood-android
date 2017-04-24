@@ -2,6 +2,7 @@ package com.tattood.tattood;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -15,7 +16,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -160,28 +160,30 @@ public class Server {
         request(context, url, null, callback);
     }
 
-    public static void getTattooImage(final Context context, final String id, final int item_id,
+    public static void getTattooImage(final Context context, final Tattoo tattoo,
                                       final ResponseCallback callback) {
-        final String url = "/tattoo?id="+id+"&token="+User.getInstance().token;
+        final String url = host + "/tattoo?id="+tattoo.tattoo_id+"&token="+User.getInstance().token;
         InputStreamVolleyRequest request = new InputStreamVolleyRequest(url,
                 new Response.Listener<byte[]>() {
                     @Override
                     public void onResponse(byte[] response) {
                         if (response != null) {
                             FileOutputStream outputStream;
-                            String name = id + ".png";
+                            String name = tattoo.tattoo_id + ".png";
                             try {
                                 outputStream = context.openFileOutput(name, Context.MODE_PRIVATE);
                                 outputStream.write(response);
                                 outputStream.close();
+                                Bitmap img = BitmapFactory.decodeByteArray(response, 0, response.length);
+                                tattoo.image = img;
+                                callback.run();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            callback.run(id, item_id);
                         }
                     }
                 });
-        RequestQueue mRequestQueue = Volley.newRequestQueue(context, new HurlStack());
+        RequestQueue mRequestQueue = Volley.newRequestQueue(context);
         mRequestQueue.add(request);
     }
 
@@ -284,6 +286,6 @@ public class Server {
     }
 
     public interface ResponseCallback {
-        void run(String id, int item_id);
+        void run();
     }
 }

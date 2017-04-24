@@ -1,8 +1,6 @@
 package com.tattood.tattood;
 
 import android.content.DialogInterface;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -22,8 +20,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class TattooEditActivity extends AppCompatActivity {
@@ -51,19 +47,12 @@ public class TattooEditActivity extends AppCompatActivity {
         sw.setOnCheckedChangeListener(switch_listener);
         tags = new ArrayList<>();
         tattoo = new Tattoo(tattoo_id, owner_id);
-        Server.getTattooImage(this, tattoo_id, 1,
+        Server.getTattooImage(this, tattoo,
                 new Server.ResponseCallback() {
                     @Override
-                    public void run(String id, int i) {
-                        try {
-                            String name = id + ".png";
-                            FileInputStream stream = openFileInput(name);
-                            Bitmap img = BitmapFactory.decodeStream(stream);
-                            ImageView tattoo = (ImageView)findViewById(R.id.tattoo_image);
-                            tattoo.setImageBitmap(img);
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        }
+                    public void run() {
+                        ImageView tattoo_img = (ImageView)findViewById(R.id.tattoo_image);
+                        tattoo_img.setImageBitmap(tattoo.image);
                     }});
         Server.getTattooData(this, tattoo_id,
                 new Response.Listener<JSONObject>() {

@@ -3,7 +3,6 @@ package com.tattood.tattood;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,8 +15,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -126,26 +123,17 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
             Iterator<String> keys = obj.keys();
             while( keys.hasNext() ) {
                 String key = keys.next();
-                int i = Integer.parseInt(key);
+                final int index = Integer.parseInt(key);
                 JSONArray tattooJSON = obj.getJSONArray(key);
                 String tattoo_id = tattooJSON.getString(0);
                 String owner_id = tattooJSON.getString(1);
-                this.setTattoo(i, new Tattoo(tattoo_id, owner_id));
-                Server.getTattooImage(mContext, tattoo_id, i,
+                this.setTattoo(index, new Tattoo(tattoo_id, owner_id));
+                Server.getTattooImage(mContext, mValues.get(index),
                         new Server.ResponseCallback() {
                             @Override
-                            public void run(String id, int i) {
-                                try {
-                                    String name = id + ".png";
-                                    FileInputStream stream = mContext.openFileInput(name);
-                                    Bitmap img = BitmapFactory.decodeStream(stream);
-                                    setTattooImage(i, img);
-                                    notifyDataSetChanged();
-                                } catch (FileNotFoundException e) {
-                                    e.printStackTrace();
-                                }
+                            public void run() {
+                                notifyDataSetChanged();
                             }
-
                         });
             }
         } catch(JSONException e) {
