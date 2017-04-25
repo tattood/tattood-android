@@ -16,20 +16,31 @@
 + [X] Toolbar color / transparent with background
 + [X] Background color
 + [X] Discovery Page list view Align and increase size
-** General [0/2]
+** General [0/3]
 + [ ] Change text font
+  + [[http://fontawesome.io][FontAwesome]]
+  + [[https://github.com/Bearded-Hen/Android-Bootstrap][Bootstrap]]
 + [ ] Decide on color scheme
-** Search [3/4]
++ [ ] Animations and transitions:
+  + [[https://developer.android.com/reference/android/transition/package-summary.html][Transitions Library]]
+  + [[https://github.com/castorflex/SmoothProgressBar?utm_source=android-arsenal.com&utm_medium=referral&utm_campaign=370][Progress Bar]]
+  + [[https://github.com/daimajia/AndroidViewAnimations][View Animations]]
+  + [[https://github.com/airbnb/lottie-android?utm_source=android-arsenal.com&utm_medium=referral&utm_campaign=5203][Lottie]] ????
+  + [[https://github.com/rengwuxian/MaterialEditText][MaterialEditText]]
+** Search [3/5]
 + [X] [BUG] Search See More inactive
 + [X] [BUG] Tattoo Tag Search
 + [X] Show label when there are no results
 + [ ] Search User-Name should list users
++ [ ] Add recent searches
 ** See more [1/5]
 + [X] See more changes to single row
 + [ ] Auto load at the bottom of the page
 + [ ] Change See More button
 + [ ] See more Card layout grid
+  Three alternatives: [[https://developer.android.com/training/material/lists-cards.html#cardview][Official]] and [[https://github.com/gabrielemariotti/cardslib][3rd Party]], [[https://github.com/rubensousa/ViewPagerCards][Duolingo-like]]
 + [ ] See more: disappearing toolbar
+  [[https://developer.android.com/reference/android/support/design/widget/CollapsingToolbarLayout.html][CollapsingToolbarLayout | Android Developers]]
 ** Profile Page [3/6]
 + [X] Make profile icon circular
 + [X] Profile page list alignment
@@ -37,12 +48,18 @@
 + [ ] Profile page upload button to top
 + [ ] While scrolling, user photo should disappear and auto-load
 + [ ] [DESIGN] Profile photo in the middle, public/private as tabs
-** Tattoo Edit Page [0/5]
+  + [[https://developer.android.com/training/implementing-navigation/lateral.html][Creating Swipe Views with Tabs | Android Developers]]
+  + [[https://material.io/guidelines/components/tabs.html#tabs-usage][Tabs - Components - Material design guidelines]]
+  + [[https://github.com/florent37/MaterialViewPager?utm_source=android-arsenal.com&utm_medium=referral&utm_campaign=1731][GitHub - florent37/MaterialViewPager: A Material Design ViewPager easy to use...]]
+  + [[https://github.com/H07000223/FlycoTabLayout?utm_source=android-arsenal.com&utm_medium=referral&utm_campaign=2756][GitHub - H07000223/FlycoTabLayout: An Android TabLayout Lib]]
+  + [[https://github.com/rey5137/Material?utm_source=android-arsenal.com&utm_medium=referral&utm_campaign=1685][GitHub - rey5137/material: A library to bring fully animated Material Design ...]]
+** Tattoo Edit Page [4/6]
 + [ ] Change public/private switch
 + [ ] Put Delete Button
-+ [ ] Increase tattoo size
-+ [ ] Add margin to tattoo
-+ [ ] [[https://android-arsenal.com/details/1/2566][The Android Arsenal - Tags - Android TagView]]
++ [X] Increase tattoo size
++ [X] Add margin to tattoo
++ [X] Put whole page in a frame and set background
++ [X] [[https://android-arsenal.com/details/1/2566][The Android Arsenal - Tags - Android TagView]]
 ** Upload page [0/6]
 + [ ] Change Add tag button to textinput and move to bottom
 + [ ] Enable crop without clicking image
@@ -55,9 +72,18 @@
 ** AR Camera [0/2]
 + [ ] Save
 + [ ] Share
-** Core [0/6]
+** Core [0/13]
 + [ ] Cache profile photo
+  Check [[https://github.com/facebook/fresco][Fresco]]
 + [ ] Auto-login fails
-+ [ ] Change see more activity
++ [ ] Change see more activity to adapt different behaviours
 + [ ] Liking a tattoo before opening profile page fails
 + [ ] Liking a tattoo doesn't update the image in popular list
++ [ ] Change Tattoo tag to make use of the library
++ [ ] Tag must be not empty
++ [ ] Tag length
++ [ ] Tag must be unique
++ [ ] Check if PNG
++ [ ] Upload submit should go back to profile page
++ [ ] Tattoo is added to database even if upload function fails
++ [ ] Ask for confirmation to discard changes in TattooEdit

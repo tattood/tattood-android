@@ -7,15 +7,24 @@
     android:layout_height="643dp"
     android:orientation="vertical"
     tools:layout_editor_absoluteX="8dp"
-    tools:layout_editor_absoluteY="8dp">
+    tools:layout_editor_absoluteY="8dp"
+    android:background="@drawable/background">
 
-    <android.support.v4.widget.NestedScrollView
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        card_view:cardCornerRadius="10dp"
+        card_view:cardElevation="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="508dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -27,19 +36,20 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    tools:elevation="12dp"
-                    tools:cardCornerRadius="40dp"
+                    android:layout_marginStart="30dp"
                     android:innerRadius="0dp"
                     android:shape="ring"
-                    android:layout_marginStart="30dp"
-                    android:thicknessRatio="1.9">
+                    android:thicknessRatio="1.9"
+                    tools:cardCornerRadius="40dp"
+                    tools:elevation="12dp">
+
                     <ImageView
-                        android:layout_height="80dp"
-                        android:layout_width="match_parent"
                         android:id="@+id/user_image"
-                        tools:srcCompat="@drawable/common_google_signin_btn_icon_dark_focused"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
                         android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true">
+                        android:layout_centerHorizontal="true"
+                        tools:srcCompat="@drawable/common_google_signin_btn_icon_dark_focused">
                     </ImageView>
                 </android.support.v7.widget.CardView>
 
@@ -47,36 +57,35 @@
                     android:id="@+id/owner_name"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:textAlignment="center"
                     android:gravity="center"
-                    android:text="@string/user"/>
-
+                    android:text="@string/user"
+                    android:textAlignment="center"/>
             </LinearLayout>
 
             <ImageView
                 android:id="@+id/tattoo_image"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:scaleType="fitCenter"
-                android:adjustViewBounds="true"
                 android:layout_margin="5dp"
+                android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
-                tools:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal"
-                android:contentDescription="@string/tattoo_description"/>
+                android:contentDescription="@string/tattoo_description"
+                android:scaleType="fitCenter"
+                tools:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <com.like.LikeButton
                     android:id="@+id/like_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="start|center"
                     app:anim_scale_factor="3"
                     app:icon_size="30dp"
                     app:icon_type="heart"
-                    android:layout_gravity="start|center"
                     app:is_enabled="true"/>
 
                 <TextView
@@ -84,32 +93,39 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start|center"
-                    android:layout_weight="1"
-                    />
+                    android:layout_weight="1"/>
 
-                <android.support.design.widget.FloatingActionButton
+                <!--<android.support.design.widget.FloatingActionButton-->
+                    <!--android:id="@+id/fab_camera"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="end|center"-->
+                    <!--android:layout_margin="@dimen/fab_margin"-->
+                    <!--android:src="@android:drawable/ic_menu_camera"/>-->
+                <!---->
+                <ImageView
                     android:id="@+id/fab_camera"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end|bottom"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="end|center"
                     android:layout_margin="@dimen/fab_margin"
                     android:src="@android:drawable/ic_menu_camera"/>
 
-                <!--<Button-->
-                <!--android:id="@+id/like_button"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="0.1"-->
-                <!--android:text="Like"/>-->
             </LinearLayout>
 
-            <ListView
-                android:id="@+id/tag_list"
+            <com.cunoraz.tagview.TagView
+                android:id="@+id/tag_group"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </ListView>
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                app:lineMargin="5dp"
+                app:tagMargin="5dp"
+                app:textPaddingBottom="5dp"
+                app:textPaddingLeft="8dp"
+                app:textPaddingRight="8dp"
+                app:textPaddingTop="5dp"/>
 
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </android.support.v7.widget.CardView>
 
 </LinearLayout>

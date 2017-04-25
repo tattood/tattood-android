@@ -2,17 +2,15 @@ package com.tattood.tattood;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.Response;
+import com.cunoraz.tagview.Tag;
+import com.cunoraz.tagview.TagView;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 
@@ -72,16 +70,17 @@ public class TattooActivity extends AppCompatActivity {
                                     tags.add(t);
                             }
                             tattoo.tags = tags;
-                            ListView tag_list = (ListView) findViewById(R.id.tag_list);
-                            tag_list.setAdapter(new ArrayAdapter<>(TattooActivity.this, android.R.layout.simple_list_item_1, tags));
-                            tag_list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+                            TagView tagGroup = (TagView) findViewById(R.id.tag_group);
+                            ArrayList<Tag> tag_list = new ArrayList<>();
+                            for (int i = 0; i < tags.size(); i++)
+                                tag_list.add(new Tag(tags.get(i)));
+                            tagGroup.addTags(tag_list);
+                            tagGroup.setOnTagClickListener(new TagView.OnTagClickListener() {
                                 @Override
-                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                public void onTagClick(Tag tag, int position) {
                                     Intent myIntent = new Intent(TattooActivity.this, SearchActivity.class);
-                                    String entry = (String) adapterView.getItemAtPosition(i);
-                                    Log.d("Clicked-Tag", entry);
                                     myIntent.putExtra("TAG", "TAG");
-                                    myIntent.putExtra("query", entry);
+                                    myIntent.putExtra("query", tag.text);
                                     startActivity(myIntent);
                                 }
                             });
@@ -123,7 +122,7 @@ public class TattooActivity extends AppCompatActivity {
                         }
                     }
                 });
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_camera);
+        ImageView fab = (ImageView) findViewById(R.id.fab_camera);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

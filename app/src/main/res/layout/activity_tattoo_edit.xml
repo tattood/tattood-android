@@ -8,15 +8,36 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:layout_editor_absoluteX="8dp"
-    tools:layout_editor_absoluteY="8dp">
+    tools:layout_editor_absoluteY="8dp"
+    android:background="@drawable/background">
 
-        <ImageView
-            android:id="@+id/tattoo_image"
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        card_view:cardCornerRadius="10dp"
+        card_view:cardElevation="10dp">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/tattoo_description"
-            tools:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal"/>
+            android:layout_height="508dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/tattoo_image"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="5dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/tattoo_description"
+                android:scaleType="fitCenter"
+                tools:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal"/>
 
         <Switch
             android:id="@+id/switch_visibility"
@@ -39,10 +60,18 @@
             android:layout_height="wrap_content"
             android:text="@string/new_tag"/>
 
-        <ListView
+        <com.cunoraz.tagview.TagView
+            xmlns:tagview="http://schemas.android.com/apk/res-auto"
             android:id="@+id/tag_list_edit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </ListView>
-
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            tagview:lineMargin="5dp"
+            tagview:tagMargin="5dp"
+            tagview:textPaddingLeft="8dp"
+            tagview:textPaddingTop="5dp"
+            tagview:textPaddingRight="8dp"
+            tagview:textPaddingBottom="5dp" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 </LinearLayout>

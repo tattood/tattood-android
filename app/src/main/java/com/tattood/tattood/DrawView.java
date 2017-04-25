@@ -19,11 +19,12 @@ import java.util.ArrayList;
 
 public class DrawView extends android.support.v7.widget.AppCompatImageView {
     Paint paint = new Paint();
-    private ArrayList<ArrayList<float[]>> all_points;
+    public ArrayList<ArrayList<float[]>> all_points;
     private ArrayList<float[]> points;
     public int wscale = 1;
     public int hscale = 1;
     private int imw = -1, imh = -1;
+    private boolean drawable = true;
     Context context;
 
     public DrawView(Context context, AttributeSet attrs) {
@@ -34,10 +35,6 @@ public class DrawView extends android.support.v7.widget.AppCompatImageView {
         paint.setStrokeJoin(Paint.Join.ROUND);
         paint.setStrokeWidth(25);
         paint.setStrokeCap(Paint.Cap.ROUND);
-    }
-
-    public void setPoints(ArrayList<ArrayList<float[]>> all){
-        all_points = all;
     }
 
     @Override
@@ -59,31 +56,27 @@ public class DrawView extends android.support.v7.widget.AppCompatImageView {
 
     @Override
     public boolean onTouchEvent(MotionEvent e) {
-        float[] point = new float[2];
-        switch (e.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                points = new ArrayList<>();
-            case MotionEvent.ACTION_MOVE:
-                point[0] = e.getX();
-                point[1] = e.getY();
-//                point[0] = e.getX() / wscale;
-//                point[1] = e.getY() / hscale;
-//                Log.d("ASD", String.valueOf(e.getX()));
-//                Log.d("ASD", String.valueOf(wscale));
-//                Log.d("ASD", String.valueOf(imw));
-//                Log.d("ASD", String.valueOf(getWidth()));
-//                Log.d("ASD", String.valueOf(point[0]));
-                points.add(point);
-                invalidate();
-                break;
-            case MotionEvent.ACTION_UP:
-                all_points.add(points);
-                invalidate();
-                break;
-            default:
-                break;
+        if (drawable) {
+            float[] point = new float[2];
+            switch (e.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    points = new ArrayList<>();
+                case MotionEvent.ACTION_MOVE:
+                    point[0] = e.getX();
+                    point[1] = e.getY();
+                    points.add(point);
+                    invalidate();
+                    break;
+                case MotionEvent.ACTION_UP:
+                    all_points.add(points);
+                    invalidate();
+                    break;
+                default:
+                    break;
+            }
+            return true;
         }
-        return true;
+        return false;
     }
 
     @Override
@@ -102,5 +95,9 @@ public class DrawView extends android.support.v7.widget.AppCompatImageView {
         Log.d("setImage", String.valueOf(bitmap.getWidth()));
         imw = bitmap.getWidth();
         imh = bitmap.getHeight();
+    }
+
+    public void setDrawable(boolean d) {
+        drawable = d;
     }
 }

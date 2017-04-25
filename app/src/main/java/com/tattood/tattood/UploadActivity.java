@@ -1,8 +1,6 @@
 package com.tattood.tattood;
 
-import android.app.Activity;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,11 +13,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Switch;
 
 import com.android.volley.Response;
+import com.cunoraz.tagview.Tag;
+import com.cunoraz.tagview.TagView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,37 +28,37 @@ import java.util.ArrayList;
 
 public class UploadActivity extends AppCompatActivity {
 
-    TagItemAdapter adapter;
     Tattoo tattoo;
     Uri path = null;
+    TagView tagGroup;
+    Bitmap bitmap = null;
+    DrawView image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tattoo_edit);
+        setContentView(R.layout.activity_upload);
         Bundle extras = getIntent().getExtras();
         tattoo = new Tattoo(null, null);
         path = Uri.parse("file://" + extras.getString("path"));
         Log.d("Upload", String.valueOf(path));
-        ListView tag_list = (ListView) findViewById(R.id.tag_list_edit);
-        adapter = new TagItemAdapter(this, new ArrayList<String>(), tattoo);
-        tag_list.setAdapter(adapter);
-        ImageView image = (ImageView) findViewById(R.id.tattoo_image);
+        tagGroup = (TagView) findViewById(R.id.tag_list_edit);
+        tagGroup.setOnTagDeleteListener(new TagView.OnTagDeleteListener() {
+            @Override
+            public void onTagDeleted(TagView tagView, Tag tag, int index) {
+                tattoo.tags.remove(index);
+            }
+        });
+        image = (DrawView) findViewById(R.id.tattoo_image);
         try {
-            Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), path);
-            image.setImageBitmap(bitmap);
+            bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), path);
+            image.setImage(bitmap);
+            image.setDrawable(false);
+            Log.d("IMAGE", String.valueOf(path));
             tattoo.image = bitmap;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent myIntent = new Intent(UploadActivity.this, ExtractImage.class);
-                myIntent.putExtra("path", path.toString());
-                startActivityForResult(myIntent, 1);
-            }
-        });
         final Switch sw = (Switch) findViewById(R.id.switch_visibility);
         sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -80,9 +78,11 @@ public class UploadActivity extends AppCompatActivity {
                 builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        adapter.list.add(input.getText().toString());
-                        tattoo.tags = adapter.list;
-                        adapter.notifyDataSetChanged();
+                        String tag = input.getText().toString();
+                        tattoo.tags.add(tag);
+                        Tag ttag = new Tag(tag);
+                        ttag.isDeletable = true;
+                        tagGroup.addTag(ttag);
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -98,6 +98,7 @@ public class UploadActivity extends AppCompatActivity {
         upload_button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                extract();
                 Server.uploadImage(UploadActivity.this, path, tattoo,
                         new Response.Listener<JSONObject>() {
                             @Override
@@ -113,33 +114,39 @@ public class UploadActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.d("Upload1", String.valueOf(resultCode));
-        Log.d("Upload2", String.valueOf(Activity.RESULT_OK));
+    public void extract() {
         ArrayList<float[]> x = new ArrayList<>();
         ArrayList<float[]> y = new ArrayList<>();
-        if (resultCode == Activity.RESULT_OK) {
-            Log.d("Upload3", "HERE");
-            int size = data.getIntExtra("point_size", 0);
-            for (int i = 0; i < size; i++) {
-                x.add(data.getFloatArrayExtra("x_points"+i));
-                y.add(data.getFloatArrayExtra("y_points"+i));
+        float wscale = 1;
+        float hscale = 1;
+        if(bitmap != null) wscale = image.getWidth() / bitmap.getWidth();
+        if(bitmap != null) hscale = image.getHeight() / bitmap.getHeight();
+        for (int i = 0; i < image.all_points.size(); i++) {
+            ArrayList<float[]> points = image.all_points.get(i);
+            float[] x_points = new float[points.size()];
+            float[] y_points = new float[points.size()];
+            for (int j = 0; j < points.size(); j++) {
+                x_points[j] = points.get(j)[0] / wscale;
+                y_points[j] = points.get(j)[1] / hscale;
             }
+            x.add(x_points);
+            y.add(y_points);
         }
+        image.all_points.clear();
         Server.extractTags(UploadActivity.this, path, x, y,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
                             JSONArray arr = response.getJSONArray("data");
-                            adapter.list.clear();
+                            tagGroup.removeAll();
+                            tattoo.tags.clear();
                             for(int i = 0; i < arr.length(); i++) {
-                                adapter.list.add(arr.getString(i));
+                                Tag ttag = new Tag(arr.getString(i));
+                                ttag.isDeletable = true;
+                                tagGroup.addTag(ttag);
+                                tattoo.tags.add(arr.getString(i));
                             }
-                            tattoo.tags = adapter.list;
-                            adapter.notifyDataSetChanged();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
