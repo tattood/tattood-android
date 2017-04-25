@@ -1,4 +1,4 @@
-var defaultScaleValue = 0.3;
+var defaultScaleValue = 1;
 var defaultRotationValue = 0;
 
 var rotationValues = [];
@@ -32,22 +32,91 @@ var World = {
         this.createOverlays();
     },
 
+    image: null,
+
+    initImage: null,
+
+    changeRotation: function changeRotation(angleX, angleY) {
+        initImage.rotate.x = angleY;
+//        initImage.rotate.z = angleX;
+        image.rotate.x = angleY;
+//        image.rotate.z = angleX;
+    },
+
+    changeTattoo: function changeTattooFn(path) {
+        var resource = new AR.ImageResource(path);
+        image = new AR.ImageDrawable(resource, 1.0, {
+            scale: {
+                x: defaultScaleValue,
+                y: defaultScaleValue
+            },
+            onDragBegan: function(x, y) {
+                oneFingerGestureAllowed = true;
+            },
+            onDragChanged: function(relativeX, relativeY, intersectionX, intersectionY) {
+                if (oneFingerGestureAllowed) {
+                    // We recommend setting the entire translate property rather than
+                    // its individual components as the latter would cause several
+                    // call to native, which can potentially lead to performance
+                    // issues on older devices. The same applied to the rotate and
+                    // scale property
+                    this.translate = {x:intersectionX, y:intersectionY};
+                }
+            },
+            onDragEnded: function(x, y) {
+                // react to the drag gesture ending
+            },
+            onRotationBegan: function(angleInDegrees) {
+                // react to the rotation gesture beginning
+            },
+            onRotationChanged: function(angleInDegrees) {
+                this.rotate.z = rotationValues[0] + angleInDegrees;
+            },
+            onRotationEnded: function(angleInDegrees) {
+               rotationValues[0] = this.rotate.z
+            },
+            onScaleBegan: function(scale) {
+                // react to the scale gesture beginning
+            },
+            onScaleChanged: function(scale) {
+                var scaleValue = scaleValues[0] * scale;
+                this.scale = {x: scaleValue, y: scaleValue};
+            },
+            onScaleEnded: function(scale) {
+                scaleValues[0] = this.scale.x;
+            }
+        });
+
+        image.rotate.x = 90;
+
+        this.instantTrackable.drawables.addCamDrawable(image);
+    },
+
+    changeCameraPosition: function changeCameraPositionFn() {
+        if (AR.hardware.camera.position == AR.CONST.CAMERA_POSITION.FRONT) {
+            AR.hardware.camera.position = AR.CONST.CAMERA_POSITION.BACK;
+        } else {
+            AR.hardware.camera.position = AR.CONST.CAMERA_POSITION.FRONT;
+        }
+    },
+
     createOverlays: function createOverlaysFn() {
         var crossHairsRedImage = new AR.ImageResource("assets/crosshairs_red.png");
         var crossHairsRedDrawable = new AR.ImageDrawable(crossHairsRedImage, 1.0);
 
-        var crossHairsBlueImage = new AR.ImageResource("assets/crosshairs_blue.png");
-        var crossHairsBlueDrawable = new AR.ImageDrawable(crossHairsBlueImage, 1.0);
+        initImage = crossHairsRedDrawable;
+
+        initImage.rotate.x = 90;
+
 
         rotationValues.push(defaultRotationValue);
         scaleValues.push(defaultScaleValue);
-
 
         this.tracker = new AR.InstantTracker({
             onChangedState:  function onChangedStateFn(state) {
                 // react to a change in tracking state here
             },
-            deviceHeight: 1.0,
+            deviceHeight: 0.5,
             onError: function(errorMessage) {
                 alert(errorMessage);
             }
@@ -55,7 +124,6 @@ var World = {
         
         this.instantTrackable = new AR.InstantTrackable(this.tracker, {
             drawables: {
-                cam: crossHairsBlueDrawable,
                 initialization: crossHairsRedDrawable
             },
             onTrackingStarted: function onTrackingStartedFn() {
@@ -107,56 +175,6 @@ var World = {
     updatePlaneDrag: function updatePlaneDragFn(xPos, yPos) {
         if (World.requestedModel >= 0) {
             //World.addModel(World.requestedModel, xPos, yPos);
-            var resource = new AR.ImageResource("assets/dickbutt.png");
-            var image = new AR.ImageDrawable(resource, 1.0, {
-                scale: {
-                    x: defaultScaleValue,
-                    y: defaultScaleValue
-                },
-                translate: {
-                    x: xPos,
-                    y: yPos
-                },
-                onDragBegan: function(x, y) {
-                    oneFingerGestureAllowed = true;
-                },
-                onDragChanged: function(relativeX, relativeY, intersectionX, intersectionY) {
-                    if (oneFingerGestureAllowed) {
-                        // We recommend setting the entire translate property rather than
-                        // its individual components as the latter would cause several
-                        // call to native, which can potentially lead to performance
-                        // issues on older devices. The same applied to the rotate and
-                        // scale property
-                        this.translate = {x:intersectionX, y:intersectionY};
-                    }
-                },
-                onDragEnded: function(x, y) {
-                    // react to the drag gesture ending
-                    console.log("Heleloy:" + AR.hardware.sensors.enabled);
-                },
-                onRotationBegan: function(angleInDegrees) {
-                    // react to the rotation gesture beginning
-                },
-                onRotationChanged: function(angleInDegrees) {
-                    this.rotate.z = rotationValues[0] + angleInDegrees;
-                },
-                onRotationEnded: function(angleInDegrees) {
-                   rotationValues[0] = this.rotate.z
-                },
-                onScaleBegan: function(scale) {
-                    // react to the scale gesture beginning
-                },
-                onScaleChanged: function(scale) {
-                    var scaleValue = scaleValues[0] * scale;
-                    this.scale = {x: scaleValue, y: scaleValue};
-                },
-                onScaleEnded: function(scale) {
-                    scaleValues[0] = this.scale.x;
-                }
-            });
-            image.rotatesToCamera = true;
-            this.instantTrackable.drawables.addCamDrawable(image);
-            lastAddedModel = image;
             World.requestedModel = -1;
             World.initialDrag = true;
         }

@@ -24,6 +24,16 @@ body {
     max-width: 100px;
 }
 
+#tracking-model-reset-button-change-camera {
+    position: absolute;
+    right: 45;
+    top: 0;
+    padding-right: 45px;
+    padding-top: 5px;
+    width: 14%;
+    max-width: 100px;
+}
+
 #tracking-controls-container-lower {
     position: absolute;
     right: 0;

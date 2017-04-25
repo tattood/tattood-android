@@ -15,6 +15,7 @@ import android.media.AudioManager;
 import android.opengl.GLES20;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.webkit.WebView;
 import android.widget.Toast;
@@ -175,6 +176,7 @@ public abstract class AbstractArchitectCamActivity extends Activity implements A
 
             // locationProvider used to fetch user position
             this.locationProvider = getLocationProvider( this.locationListener );
+
         } else {
             this.locationProvider = null;
             this.locationListener = null;

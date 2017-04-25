@@ -4,13 +4,20 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.LocationListener;
 import android.net.Uri;
+import android.os.Bundle;
+import android.os.Debug;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -25,7 +32,7 @@ import com.wikitude.common.camera.CameraSettings;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ARActivity extends AbstractArchitectCamActivity {
+public class ARActivity extends AbstractArchitectCamActivity implements SensorEventListener {
 
     private static final String TAG = "SampleCamActivity";
     /**
@@ -45,6 +52,25 @@ public class ARActivity extends AbstractArchitectCamActivity {
     private static final boolean EXTRAS_KEY_ACTIVITY_GEO = true;
     private static final boolean EXTRAS_KEY_ACTIVITY_IR = true;
     private static final boolean EXTRAS_KEY_ACTIVITY_INSTANT = true;
+
+    private SensorManager sensorManager;
+    private Sensor sensor;
+
+    @Override
+    public void onCreate(final Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+
+        this.architectView.callJavascript("World.changeTattoo('assets/indir.png');");
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+
+        if (sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR) != null)
+        {
+            Log.e("Heleloy", "sensor yok");
+        }
+        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+        sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+    }
 
     @Override
     public String getARchitectWorldPath() {
@@ -74,6 +100,20 @@ public class ARActivity extends AbstractArchitectCamActivity {
     @Override
     public String getWikitudeSDKLicenseKey() {
         return WikitudeSDKConstants.WIKITUDE_SDK_KEY;
+    }
+
+    @Override
+    public final void onAccuracyChanged(Sensor sensor, int accuracy) {
+        // Do something here if sensor accuracy changes.
+        Log.e("Heleloy", "girdik2");
+    }
+
+    @Override
+    public final void onSensorChanged(SensorEvent event) {
+        if (event.sensor == sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR))
+        {
+            this.architectView.callJavascript("World.changeRotation(" + (2 * Math.asin(event.values[0]) * 180 / Math.PI) + "," + (2 * Math.asin(event.values[1]) * 180 / Math.PI) + ")");
+        }
     }
 
     @Override
