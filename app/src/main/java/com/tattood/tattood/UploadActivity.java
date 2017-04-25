@@ -1,19 +1,21 @@
 package com.tattood.tattood;
 
-import android.content.DialogInterface;
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.text.InputType;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.cunoraz.tagview.Tag;
@@ -47,11 +49,13 @@ public class UploadActivity extends AppCompatActivity {
             @Override
             public void onTagDeleted(TagView tagView, Tag tag, int index) {
                 tattoo.tags.remove(index);
+                tagView.remove(index);
             }
         });
         image = (DrawView) findViewById(R.id.tattoo_image);
         try {
             bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), path);
+            image.setColorFilter(Color.parseColor("#000000"));
             image.setImage(bitmap);
             image.setDrawable(false);
             Log.d("IMAGE", String.valueOf(path));
@@ -66,32 +70,48 @@ public class UploadActivity extends AppCompatActivity {
                 tattoo.is_private = b;
             }
         });
-        Button add_tag = (Button) findViewById(R.id.add_tag);
-        add_tag.setOnClickListener(new View.OnClickListener() {
+        TextView tv_tag = (TextView) findViewById(R.id.new_tag);
+        tv_tag.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    String tag = String.valueOf(textView.getText());
+                    tattoo.tags.add(tag);
+                    Tag ttag = new Tag(tag);
+                    ttag.isDeletable = true;
+                    tagGroup.addTag(ttag);
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
+                    textView.setText("");
+                    return true;
+                }
+                return false;
+            }
+        });
+        final Button crop_button = (Button) findViewById(R.id.crop_button);
+        final Button crop_revert = (Button) findViewById(R.id.crop_revert);
+        crop_revert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(UploadActivity.this);
-                builder.setTitle("New Tag");
-                final EditText input = new EditText(UploadActivity.this);
-                input.setInputType(InputType.TYPE_CLASS_TEXT);
-                builder.setView(input);
-                builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String tag = input.getText().toString();
-                        tattoo.tags.add(tag);
-                        Tag ttag = new Tag(tag);
-                        ttag.isDeletable = true;
-                        tagGroup.addTag(ttag);
-                    }
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                builder.show();
+                image.all_points.clear();
+                image.paint.reset();
+                image.invalidate();
+                crop_revert.setVisibility(View.INVISIBLE);
+            }
+        });
+        crop_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                image.setDrawable(true);
+                crop_button.setVisibility(View.INVISIBLE);
+            }
+        });
+        image.setListener(new DrawView.Listener() {
+            @Override
+            public void onFinish() {
+                image.setDrawable(false);
+                crop_revert.setVisibility(View.VISIBLE);
+                crop_button.setVisibility(View.VISIBLE);
             }
         });
         Button upload_button = (Button) findViewById(R.id.edit_finish);

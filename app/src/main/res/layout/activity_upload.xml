@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/background"
     android:orientation="vertical"
     tools:layout_editor_absoluteX="8dp"
     tools:layout_editor_absoluteY="8dp">
 
     <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,59 +18,110 @@
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="35dp"
-        card_view:cardCornerRadius="10dp"
-        android:background="@color/colorWhitish"
-        card_view:cardElevation="10dp">
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp">
 
-        <LinearLayout
+        <!--app:cardBackgroundColor="@color/colorGray"-->
+
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="508dp"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <com.tattood.tattood.DrawView
-                android:id="@+id/tattoo_image"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:layout_margin="5dp"
-                android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/tattoo_description"
-                android:scaleType="fitCenter"
-                tools:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal"/>
-
-            <Switch
-                android:id="@+id/switch_visibility"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:showText="true"
-                android:textAlignment="viewStart"
-                android:textOff="@string/sw_public"
-                android:textOn="@string/sw_private"/>
-
-            <Button
-                android:id="@+id/edit_finish"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Submit"/>
+                android:orientation="vertical"
+                android:weightSum="1">
 
-            <Button
-                android:id="@+id/add_tag"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/new_tag"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.9">
 
-            <com.cunoraz.tagview.TagView
-                xmlns:tagview="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/tag_list_edit"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                tagview:lineMargin="5dp"
-                tagview:tagMargin="5dp"
-                tagview:textPaddingBottom="5dp"
-                tagview:textPaddingLeft="8dp"
-                tagview:textPaddingRight="8dp"
-                tagview:textPaddingTop="5dp"/>
-        </LinearLayout>
+                    <com.tattood.tattood.DrawView
+                        android:id="@+id/tattoo_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:adjustViewBounds="true"
+                        android:background="@color/colorPureWhite"
+                        android:contentDescription="@string/tattoo_description"
+                        android:scaleType="fitCenter"
+                        tools:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal"/>
+
+                    <Button
+                        android:id="@+id/crop_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignTop="@+id/tattoo_image"
+                        android:text="Crop"/>
+
+                    <Button
+                        android:id="@+id/crop_revert"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_below="@+id/crop_button"
+                        android:text="REVERT"
+                        android:visibility="invisible"/>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:background="@color/colorGray"
+                    android:orientation="vertical">
+
+                    <Switch
+                        android:id="@+id/switch_visibility"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:showText="true"
+                        android:textAlignment="viewStart"
+                        android:textOff="@string/sw_public"
+                        android:textOn="@string/sw_private"/>
+
+                    <Button
+                        android:id="@+id/edit_finish"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Submit"/>
+
+                    <!--<Button-->
+                    <!--android:id="@+id/add_tag"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="@string/new_tag"/>-->
+
+                    <EditText
+                        android:id="@+id/new_tag"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="@string/add_new_tag"
+                        android:imeOptions="actionDone"
+                        android:inputType="textPersonName"
+                        android:maxLines="1"/>
+
+                    <com.cunoraz.tagview.TagView
+                        android:id="@+id/tag_list_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        app:lineMargin="5dp"
+                        app:tagMargin="5dp"
+                        app:textPaddingBottom="5dp"
+                        app:textPaddingLeft="8dp"
+                        app:textPaddingRight="8dp"
+                        app:textPaddingTop="5dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
     </android.support.v7.widget.CardView>
 </LinearLayout>

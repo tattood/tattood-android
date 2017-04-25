@@ -60,13 +60,13 @@
 + [X] Add margin to tattoo
 + [X] Put whole page in a frame and set background
 + [X] [[https://android-arsenal.com/details/1/2566][The Android Arsenal - Tags - Android TagView]]
-** Upload page [0/6]
-+ [ ] Change Add tag button to textinput and move to bottom
-+ [ ] Enable crop without clicking image
+** Upload page [2/7]
++ [X] Change Add tag button to textinput and move to bottom
++ [X] Enable crop without clicking image
 + [ ] Revert to original
 + [ ] Crop icon. Finish/Cancel will appear on crop. Revert to original will appear on finish
 + [ ] Move submit to the bottom
-+ [ ] Save the original photo to revert back
++ [ ] Run tensorflow initially
 ** Other User Page [0/1]
 + [ ] Image size
 ** AR Camera [0/2]
@@ -87,3 +87,4 @@
 + [ ] Upload submit should go back to profile page
 + [ ] Tattoo is added to database even if upload function fails
 + [ ] Ask for confirmation to discard changes in TattooEdit
++ [ ] Make all TagViews uniform

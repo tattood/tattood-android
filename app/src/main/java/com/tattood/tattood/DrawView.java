@@ -18,13 +18,14 @@ import java.util.ArrayList;
  */
 
 public class DrawView extends android.support.v7.widget.AppCompatImageView {
-    Paint paint = new Paint();
+    public Paint paint = new Paint();
     public ArrayList<ArrayList<float[]>> all_points;
     private ArrayList<float[]> points;
     public int wscale = 1;
     public int hscale = 1;
     private int imw = -1, imh = -1;
     private boolean drawable = true;
+    Listener listener;
     Context context;
 
     public DrawView(Context context, AttributeSet attrs) {
@@ -57,6 +58,7 @@ public class DrawView extends android.support.v7.widget.AppCompatImageView {
     @Override
     public boolean onTouchEvent(MotionEvent e) {
         if (drawable) {
+            getParent().requestDisallowInterceptTouchEvent(true);
             float[] point = new float[2];
             switch (e.getAction()) {
                 case MotionEvent.ACTION_DOWN:
@@ -66,10 +68,13 @@ public class DrawView extends android.support.v7.widget.AppCompatImageView {
                     point[1] = e.getY();
                     points.add(point);
                     invalidate();
+                    Log.d("CROP", "MOVE");
                     break;
                 case MotionEvent.ACTION_UP:
                     all_points.add(points);
+                    Log.d("CROP", "UP");
                     invalidate();
+                    listener.onFinish();
                     break;
                 default:
                     break;
@@ -99,5 +104,15 @@ public class DrawView extends android.support.v7.widget.AppCompatImageView {
 
     public void setDrawable(boolean d) {
         drawable = d;
+    }
+
+    public boolean isDrawable() { return drawable; }
+
+    public void setListener(Listener l) {
+        listener = l;
+    }
+
+    public abstract static class Listener {
+        abstract public void onFinish();
     }
 }
