@@ -116,11 +116,13 @@ public class User {
     }
 
     public void addLike(Tattoo t) {
-        ((TattooRecyclerViewAdapter)liked_view.getAdapter()).addTattoo(t);
+        if (liked_view != null)
+            ((TattooRecyclerViewAdapter)liked_view.getAdapter()).addTattoo(t);
     }
 
     public void removeLike(Tattoo t) {
-        ((TattooRecyclerViewAdapter)liked_view.getAdapter()).removeTattoo(t);
+        if (liked_view != null)
+            ((TattooRecyclerViewAdapter)liked_view.getAdapter()).removeTattoo(t);
     }
 
     public Tattoo getTattoo(String tid) {
