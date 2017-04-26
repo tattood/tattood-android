@@ -61,7 +61,7 @@
 ** AR Camera [0/2]
 + [ ] Save
 + [ ] Share
-** Core [9/10]
+** Core [10/10]
 + [X] Limit the Tag length
 + [X] Make all TagViews uniform
 + [X] Tag must be not empty
@@ -71,7 +71,7 @@
 + [X] Liking a tattoo before opening profile page fails
 + [X] Cache profile photo [[[https://github.com/facebook/fresco][Fresco]]]
 + [X] Ask for confirmation to discard changes in TattooEdit
-+ [ ] Make Images in RecyclerViewAdapter use Fresco
++ [X] Make Images in RecyclerViewAdapter use Fresco
 ** Server [1/4]
 + [X] Added /delete end-point
 + [ ] Tattoo is added to database even if upload function fails

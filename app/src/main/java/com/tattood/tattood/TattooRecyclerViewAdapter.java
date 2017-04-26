@@ -8,8 +8,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -69,16 +70,18 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        holder.image.setImageBitmap(getTattooImage(position));
         final int pos = holder.getAdapterPosition();
+        final Tattoo tattoo = mValues.get(pos);
+        if (tattoo != null)
+            Server.getTattooImage2(tattoo, holder.image);
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
-                    mListener.onListFragmentInteraction(mValues.get(pos));
+                    mListener.onListFragmentInteraction(tattoo);
                 } else {
                     Intent myIntent = new Intent(mContext, TattooActivity.class);
-                    myIntent.putExtra("tid",   mValues.get(pos).tattoo_id);
+                    myIntent.putExtra("tid",   tattoo.tattoo_id);
                     mContext.startActivity(myIntent);
                 }
             }
@@ -100,11 +103,11 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final ImageView image;
+        public final SimpleDraweeView image;
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            image = (ImageView) view.findViewById(R.id.item_image);
+            image = (SimpleDraweeView) view.findViewById(R.id.item_image);
         }
         @Override
         public String toString() {
