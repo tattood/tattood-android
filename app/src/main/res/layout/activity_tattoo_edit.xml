@@ -13,53 +13,53 @@
     <android.support.v7.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="35dp"
+        android:layout_marginBottom="35dp"
         app:cardCornerRadius="10dp"
         app:cardElevation="10dp">
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:weightSum="1">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.9">
+                    android:layout_height="0dp"
+                    android:layout_weight="2">
 
                     <ImageView
                         android:id="@+id/tattoo_image"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
-                        android:adjustViewBounds="true"
+                        android:adjustViewBounds="false"
                         android:background="@android:color/transparent"
                         android:contentDescription="@string/tattoo_description"
-                        android:scaleType="fitCenter"
-                        tools:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal"/>
+                        android:scaleType="fitXY"/>
 
                     <ImageView
                         android:id="@+id/button_delete"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        app:srcCompat="@drawable/ic_delete_black_24dp"
+                        android:layout_alignParentEnd="true"
                         android:layout_alignTop="@+id/tattoo_image"
-                        android:layout_alignParentEnd="true"/>
+                        app:srcCompat="@drawable/ic_delete_black_24dp"/>
                 </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.1"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:background="@color/colorGray"
                     android:orientation="vertical">
 
@@ -100,10 +100,10 @@
                         android:layout_margin="10dp"
                         app:lineMargin="5dp"
                         app:tagMargin="5dp"
+                        app:textPaddingBottom="5dp"
                         app:textPaddingLeft="8dp"
-                        app:textPaddingTop="5dp"
                         app:textPaddingRight="8dp"
-                        app:textPaddingBottom="5dp" />
+                        app:textPaddingTop="5dp"/>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -113,10 +113,10 @@
                             android:id="@+id/edit_finish"
                             android:layout_width="48dp"
                             android:layout_height="48dp"
-                            android:gravity="end"
-                            app:srcCompat="@drawable/ic_file_upload_black_24dp"
+                            android:layout_alignParentEnd="true"
                             android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"/>
+                            android:gravity="end"
+                            app:srcCompat="@drawable/ic_file_upload_black_24dp"/>
                     </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
