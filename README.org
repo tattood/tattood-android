@@ -73,19 +73,18 @@
 ** AR Camera [0/2]
 + [ ] Save
 + [ ] Share
-** Core [1/12]
-+ [ ] Cache profile photo
-  Check [[https://github.com/facebook/fresco][Fresco]]
+** Core [2/12]
++ [X] Limit the Tag length
++ [X] Make all TagViews uniform
++ [ ] Cache profile photo [[[https://github.com/facebook/fresco][Fresco]]]
 + [ ] Liking a tattoo before opening profile page fails
 + [ ] Change Tattoo tag to make use of the library
 + [ ] Tag must be not empty
-+ [ ] Limit the Tag length
 + [ ] Tag must be unique
 + [ ] Check if PNG
 + [ ] Upload submit should go back to profile page
 + [ ] Tattoo is added to database even if upload function fails
 + [ ] Ask for confirmation to discard changes in TattooEdit
-+ [X] Make all TagViews uniform
 + [ ] Try to combine TagGroup and Tattoo.Tags
 ** ??? [/]
 + [ ] Liking a tattoo doesn't update the image in popular list [SHOULD IT?]
