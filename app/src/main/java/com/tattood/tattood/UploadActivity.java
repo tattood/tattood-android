@@ -1,11 +1,13 @@
 package com.tattood.tattood;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -117,6 +119,8 @@ public class UploadActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 image.setDrawable(false);
+//                [TODO] UnComment below
+//                extract();
                 crop_revert.setVisibility(View.VISIBLE);
                 crop_button.setVisibility(View.VISIBLE);
             }
@@ -193,5 +197,21 @@ public class UploadActivity extends AppCompatActivity {
                 return true;
         }
         return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Closing Activity")
+                .setMessage("Are you sure you want to cancel Upload?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 }

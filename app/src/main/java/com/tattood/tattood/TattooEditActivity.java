@@ -1,7 +1,9 @@
 package com.tattood.tattood;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -28,6 +30,7 @@ public class TattooEditActivity extends AppCompatActivity {
     Tattoo tattoo;
     CompoundButton.OnCheckedChangeListener switch_listener;
     TagView tagGroup;
+    boolean edited = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,7 @@ public class TattooEditActivity extends AppCompatActivity {
                 TextView private_label = (TextView) findViewById(R.id.label_visibility);
                 private_label.setText(label);
                 User.getInstance().changeTattooVisibility(tattoo);
+                edited = true;
             }
         };
         tattoo = User.getInstance().getTattoo(tattoo_id);
@@ -52,6 +56,7 @@ public class TattooEditActivity extends AppCompatActivity {
             public void onTagDeleted(TagView tagView, Tag tag, int index) {
                 tagView.remove(index);
                 tattoo.tags.remove(index);
+                edited = true;
             }
         });
         Server.getTattooImage(this, tattoo,
@@ -100,6 +105,7 @@ public class TattooEditActivity extends AppCompatActivity {
                         textView.setText("");
                         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
+                        edited = true;
                     }
                     return true;
                 }
@@ -145,5 +151,23 @@ public class TattooEditActivity extends AppCompatActivity {
                 return true;
         }
         return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (edited) {
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle("Closing Activity")
+                    .setMessage("Are you sure you want to discard your changes?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
+        }
     }
 }
