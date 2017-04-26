@@ -76,12 +76,18 @@ public class UploadActivity extends AppCompatActivity {
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     String tag = String.valueOf(textView.getText());
-                    TattooTag ttag = new TattooTag(tag, true);
-                    tattoo.tags.add(ttag);
-                    tagGroup.addTag(ttag);
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
-                    textView.setText("");
+                    if (tag.isEmpty()) {
+                        textView.setError("Tag cannot be empty");
+                    } else if (tag_exists(tag)) {
+                        textView.setError("Tags must be unique");
+                    } else {
+                        TattooTag ttag = new TattooTag(tag, true);
+                        tattoo.tags.add(ttag);
+                        tagGroup.addTag(ttag);
+                        textView.setText("");
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
+                    }
                     return true;
                 }
                 return false;
@@ -171,5 +177,13 @@ public class UploadActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    public boolean tag_exists(String t) {
+        for (TattooTag tt: tattoo.tags) {
+            if (t.equals(tt.text))
+                return true;
+        }
+        return false;
     }
 }

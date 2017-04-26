@@ -72,6 +72,7 @@
         </activity>
         <activity
             android:name="com.tattood.tattood.UploadActivity"
+            android:windowSoftInputMode="adjustPan"
             android:label="@string/title_activity_upload">
         </activity>
         <activity

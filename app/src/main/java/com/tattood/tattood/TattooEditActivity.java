@@ -78,7 +78,7 @@ public class TattooEditActivity extends AppCompatActivity {
                         }
                     }
                 });
-        Button add_tag = (Button) findViewById(R.id.add_tag);
+        Button add_tag = (Button) findViewById(R.id.new_tag);
         add_tag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

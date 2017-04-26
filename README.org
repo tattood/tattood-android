@@ -73,14 +73,14 @@
 ** AR Camera [0/2]
 + [ ] Save
 + [ ] Share
-** Core [2/12]
+** Core [4/12]
 + [X] Limit the Tag length
 + [X] Make all TagViews uniform
 + [ ] Cache profile photo [[[https://github.com/facebook/fresco][Fresco]]]
 + [ ] Liking a tattoo before opening profile page fails
 + [ ] Change Tattoo tag to make use of the library
-+ [ ] Tag must be not empty
-+ [ ] Tag must be unique
++ [X] Tag must be not empty
++ [X] Tag must be unique
 + [ ] Check if PNG
 + [ ] Upload submit should go back to profile page
 + [ ] Tattoo is added to database even if upload function fails
