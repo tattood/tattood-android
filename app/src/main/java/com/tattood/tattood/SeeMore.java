@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.android.volley.Response;
 
@@ -11,6 +12,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class SeeMore extends AppCompatActivity {
+
+    private int previousTotal = 0;
+    private boolean loading = true;
+    private int visibleThreshold = 5;
+    int firstVisibleItem, visibleItemCount, totalItemCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +28,32 @@ public class SeeMore extends AppCompatActivity {
         final RecyclerView list_view = (RecyclerView) findViewById(R.id.list_view);
         list_view.setLayoutManager(new GridLayoutManager(this, 3));
         list_view.setAdapter(new TattooRecyclerViewAdapter(this, list_view));
+        int space = getResources().getDimensionPixelSize(R.dimen.grid_spacing);
+        GridItemDecoration divider_user = new GridItemDecoration(space);
+        list_view.addItemDecoration(divider_user);
+        list_view.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                GridLayoutManager mLayoutManager = (GridLayoutManager)recyclerView.getLayoutManager();
+                visibleItemCount = recyclerView.getChildCount();
+                totalItemCount = mLayoutManager.getItemCount();
+                firstVisibleItem = mLayoutManager.findFirstVisibleItemPosition();
+                if (loading) {
+                    if (totalItemCount > previousTotal) {
+                        loading = false;
+                        previousTotal = totalItemCount;
+                    }
+                }
+                if (!loading && (totalItemCount - visibleItemCount)
+                        <= (firstVisibleItem + visibleThreshold)) {
+                    // End has been reached
+                    Log.i("Yaeye!", "end called");
+                    // Do something
+                    loading = true;
+                }
+            }
+        });
         if (tag != null) {
             if (tag.equals("RECENT")) {
                 Server.getRecent(this,

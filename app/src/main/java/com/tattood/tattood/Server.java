@@ -216,6 +216,13 @@ public class Server {
     }
 
     public static void search(Context context, String query, Response.Listener<JSONObject> callback,
+                              int limit, int latest) {
+        String url = "/search?query=" + query + "&token=" + User.getInstance().token
+                + "&limit=" + limit + "&latest=" + latest;
+        request(context, url, null, callback);
+    }
+
+    public static void search(Context context, String query, Response.Listener<JSONObject> callback,
                               int limit) {
         String url = "/search?query=" + query + "&token=" + User.getInstance().token + "&limit=" + limit;
         request(context, url, null, callback);

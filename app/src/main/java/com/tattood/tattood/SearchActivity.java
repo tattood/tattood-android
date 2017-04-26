@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.SearchRecentSuggestions;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -26,12 +27,19 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_search);
         Bundle extras = getIntent().getExtras();
         query = extras.getString("query");
+
         final RecyclerView tag_list = (RecyclerView) findViewById(R.id.tag_list);
         tag_list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         tag_list.setAdapter(new TattooRecyclerViewAdapter(this, tag_list));
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, LinearLayoutManager.HORIZONTAL);
+        tag_list.addItemDecoration(dividerItemDecoration );
+
         final RecyclerView user_list = (RecyclerView) findViewById(R.id.user_list);
         user_list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         user_list.setAdapter(new UserRecyclerViewAdapter(this));
+        DividerItemDecoration divider_user = new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
+        tag_list.addItemDecoration(divider_user);
+
         Server.search(SearchActivity.this, query,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -72,7 +80,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         Button see_more = (Button) findViewById(R.id.see_more_tag);
         see_more.setOnClickListener(this);
         see_more = (Button) findViewById(R.id.see_more_user);
-        see_more.setOnClickListener(this);
+        see_more.setVisibility(View.INVISIBLE);
+//        see_more.setOnClickListener(this);
         handleIntent(getIntent());
     }
 
