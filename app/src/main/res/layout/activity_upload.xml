@@ -72,14 +72,24 @@
                     android:background="@color/colorGray"
                     android:orientation="vertical">
 
-                    <Switch
-                        android:id="@+id/switch_visibility"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:showText="true"
-                        android:textAlignment="viewStart"
-                        android:textOff="@string/sw_public"
-                        android:textOn="@string/sw_private"/>
+                        android:orientation="horizontal">
+
+                        <Switch
+                            android:id="@+id/switch_visibility"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="viewStart"/>
+
+                        <TextView
+                            android:id="@+id/label_visibility"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sw_public"/>
+
+                    </LinearLayout>
 
                     <EditText
                         android:id="@+id/new_tag"

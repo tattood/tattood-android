@@ -68,9 +68,9 @@ public class UploadActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 tattoo.is_private = b;
-//                String label =  b ? "Private" : "Public";
-//                TextView private_label = (TextView) findViewById(R.id.private_label);
-//                private_label.setText(label);
+                String label = tattoo.is_private ? "Private" : "Public";
+                TextView private_label = (TextView) findViewById(R.id.label_visibility);
+                private_label.setText(label);
             }
         });
         TextView tv_tag = (TextView) findViewById(R.id.new_tag);

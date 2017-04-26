@@ -36,6 +36,9 @@ public class TattooEditActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 tattoo.is_private = isChecked;
+                String label = tattoo.is_private ? "Private" : "Public";
+                TextView private_label = (TextView) findViewById(R.id.label_visibility);
+                private_label.setText(label);
                 User.getInstance().changeTattooVisibility(tattoo);
             }
         };

@@ -60,8 +60,8 @@
   + [[https://github.com/florent37/MaterialViewPager?utm_source=android-arsenal.com&utm_medium=referral&utm_campaign=1731][GitHub - florent37/MaterialViewPager: A Material Design ViewPager easy to use...]]
   + [[https://github.com/H07000223/FlycoTabLayout?utm_source=android-arsenal.com&utm_medium=referral&utm_campaign=2756][GitHub - H07000223/FlycoTabLayout: An Android TabLayout Lib]]
   + [[https://github.com/rey5137/Material?utm_source=android-arsenal.com&utm_medium=referral&utm_campaign=1685][GitHub - rey5137/material: A library to bring fully animated Material Design ...]]
-** Tattoo Edit Page [4/6]
-+ [ ] Change public/private switch
+** Tattoo Edit Page [5/6]
++ [X] Change public/private switch
 + [ ] Put Delete Button
 + [X] Increase tattoo size
 + [X] Add margin to tattoo
@@ -72,7 +72,7 @@
 ** AR Camera [0/2]
 + [ ] Save
 + [ ] Share
-** Core [6/11]
+** Core [6/12]
 + [X] Limit the Tag length
 + [X] Make all TagViews uniform
 + [X] Tag must be not empty
@@ -84,12 +84,14 @@
 + [ ] Check if PNG
 + [ ] Ask for confirmation to discard changes in TattooEdit
 + [ ] Try to combine TagGroup and Tattoo.Tags
-** Server [1/3]
+** Server [1/4]
 + [ ] Tattoo is added to database even if upload function fails
 + [X] Added /delete end-point
 + [ ] Move to AWS
++ [ ] /delete and /like reads tattoo-id from email field
 ** ??? [1/4]
 + [X] Auto-login fails
 + [ ] Liking a tattoo doesn't update the image in popular list [SHOULD IT?]
 + [ ] Change create_json method
 + [ ] Change see more activity to adapt different behaviours
++ [ ] Fix warnings in Android Studio
