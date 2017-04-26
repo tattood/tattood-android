@@ -12,8 +12,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.facebook.drawee.view.SimpleDraweeView;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int RESULT_LOAD_IMAGE = 200;
@@ -74,9 +75,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         see_more.setOnClickListener(this);
 
         String url = String.valueOf(user.photo);
-        ImageView img = (ImageView) findViewById(R.id.user_image);
-        BasicImageDownloader dl = new BasicImageDownloader(img);
-        dl.execute(String.valueOf(url));
+        final SimpleDraweeView img = (SimpleDraweeView) findViewById(R.id.user_image);
+        img.setImageURI(url);
 
         TextView tv_user = (TextView) findViewById(R.id.owner_name);
         tv_user.setText(user.username);

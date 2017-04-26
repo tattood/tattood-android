@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.android.volley.Response;
 import com.cunoraz.tagview.Tag;
 import com.cunoraz.tagview.TagView;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 
@@ -30,13 +31,8 @@ public class TattooActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         final String tattoo_id = extras.getString("tid");
         final Tattoo tattoo = new Tattoo(tattoo_id, null);
-        Server.getTattooImage(this, tattoo,
-                new Server.ResponseCallback() {
-                    @Override
-                    public void run() {
-                        ImageView tattoo_img = (ImageView)findViewById(R.id.tattoo_image);
-                        tattoo_img.setImageBitmap(tattoo.image);
-                    }});
+        final SimpleDraweeView tattoo_img = (SimpleDraweeView) findViewById(R.id.tattoo_image);
+        Server.getTattooImage2(tattoo, tattoo_img);
         Server.getTattooData(this, tattoo_id,
                 new Response.Listener<JSONObject>() {
                     @Override

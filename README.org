@@ -63,7 +63,7 @@
 ** AR Camera [0/2]
 + [ ] Save
 + [ ] Share
-** Core [7/10]
+** Core [8/9]
 + [X] Limit the Tag length
 + [X] Make all TagViews uniform
 + [X] Tag must be not empty
@@ -71,15 +71,15 @@
 + [X] Change Tattoo tag to make use of the library
 + [X] Upload submit should go back to profile page
 + [X] Liking a tattoo before opening profile page fails
-+ [ ] Cache profile photo [[[https://github.com/facebook/fresco][Fresco]]]
++ [X] Cache profile photo [[[https://github.com/facebook/fresco][Fresco]]]
 + [ ] Ask for confirmation to discard changes in TattooEdit
-+ [ ] Try to combine TagGroup and Tattoo.Tags
 ** Server [1/4]
 + [X] Added /delete end-point
 + [ ] Tattoo is added to database even if upload function fails
 + [ ] Move to AWS
 + [ ] /delete and /like reads tattoo-id from email field
 ** ??? [1/10]
++ TattooEdit cat problem should appear in Upload but didn't
 + [X] Auto-login fails
 + [ ] Liking a tattoo doesn't update the image in popular list [SHOULD IT?]
 + [ ] Refresh doesn't work in Profile Page [SHOULD IT??]
@@ -88,7 +88,7 @@
 + [ ] Fix warnings in Android Studio
 + [ ] Check if PNG (in server or android ?)
 + [ ] Should Other user have the same design as Profile Page ??
-+ TattooEdit cat problem should appear in Upload but didn't
++ [ ] Try to combine TagGroup and Tattoo.Tags
 + [ ] Change text font
   + [[http://fontawesome.io][FontAwesome]]
   + [[https://github.com/Bearded-Hen/Android-Bootstrap][Bootstrap]]

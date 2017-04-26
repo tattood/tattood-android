@@ -38,4 +38,5 @@
     <string name="search">Search</string>
     <string name="search_hint">Search</string>
     <string name="add_new_tag">Enter new tag...</string>
+    <string name="no_results_found">No results found...</string>
 </resources>

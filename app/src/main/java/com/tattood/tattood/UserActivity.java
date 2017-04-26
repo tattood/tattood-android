@@ -5,9 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.facebook.drawee.view.SimpleDraweeView;
 
 public class UserActivity extends AppCompatActivity {
 
@@ -24,10 +24,8 @@ public class UserActivity extends AppCompatActivity {
         Uri url = user.photo;
         TextView tv = (TextView) findViewById(R.id.tv_username);
         tv.setText(username);
-        final ImageView img = (ImageView) findViewById(R.id.user_image);
-        BasicImageDownloader dl = new BasicImageDownloader(img);
-        Log.d("PROFILE1", String.valueOf(url));
-        dl.execute(String.valueOf(url));
+        final SimpleDraweeView  img = (SimpleDraweeView ) findViewById(R.id.user_image);
+        img.setImageURI(url);
         user_liked = (RecyclerView) findViewById(R.id.list_liked);
         user_liked.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         user_liked.setAdapter(new TattooRecyclerViewAdapter(this, user_liked));

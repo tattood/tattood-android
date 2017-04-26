@@ -101,13 +101,11 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final ImageView image;
-
         public ViewHolder(View view) {
             super(view);
             mView = view;
             image = (ImageView) view.findViewById(R.id.item_image);
         }
-
         @Override
         public String toString() {
             return super.toString() + " '";

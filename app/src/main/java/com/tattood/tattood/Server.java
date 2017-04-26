@@ -18,6 +18,7 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -96,7 +97,7 @@ public class Server {
         }
         RequestQueue queue = Volley.newRequestQueue(context);
         JsonObjectRequest request = new JsonObjectRequest(host + url, data, callback, error_handler);
-        RetryPolicy policy = new DefaultRetryPolicy(timeout, 1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        RetryPolicy policy = new DefaultRetryPolicy(timeout, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         request.setRetryPolicy(policy);
         queue.add(request);
     }
@@ -184,6 +185,11 @@ public class Server {
                 });
         RequestQueue mRequestQueue = Volley.newRequestQueue(context);
         mRequestQueue.add(request);
+    }
+
+    public static void getTattooImage2(final Tattoo tattoo, SimpleDraweeView view) {
+        final String url = host + "/tattoo?id="+tattoo.tattoo_id+"&token="+User.getInstance().token;
+        view.setImageURI(url);
     }
 
     public static void getTattooList(Context context, TattooRequest r, String username,
