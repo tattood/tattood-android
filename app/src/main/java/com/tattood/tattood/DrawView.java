@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -25,6 +26,8 @@ public class DrawView extends android.support.v7.widget.AppCompatImageView {
     public int hscale = 1;
     private int imw = -1, imh = -1;
     private boolean drawable = true;
+    private Bitmap bitmap;
+    boolean cleared = false;
     Listener listener;
     Context context;
 
@@ -36,10 +39,13 @@ public class DrawView extends android.support.v7.widget.AppCompatImageView {
         paint.setStrokeJoin(Paint.Join.ROUND);
         paint.setStrokeWidth(25);
         paint.setStrokeCap(Paint.Cap.ROUND);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setPathEffect(new DashPathEffect(new float[] {10,20}, 0));
     }
 
     @Override
     public void onDraw(Canvas canvas){
+        canvas.drawColor(Color.TRANSPARENT);
         for(int j= 0; j<all_points.size(); j++){
             for(int i=1; i<all_points.get(j).size(); i++){
                 canvas.drawLine(all_points.get(j).get(i-1)[0],
@@ -68,15 +74,11 @@ public class DrawView extends android.support.v7.widget.AppCompatImageView {
                     point[1] = e.getY();
                     points.add(point);
                     invalidate();
-                    Log.d("CROP", "MOVE");
                     break;
                 case MotionEvent.ACTION_UP:
                     all_points.add(points);
-                    Log.d("CROP", "UP");
                     invalidate();
                     listener.onFinish();
-                    break;
-                default:
                     break;
             }
             return true;
@@ -94,7 +96,8 @@ public class DrawView extends android.support.v7.widget.AppCompatImageView {
             hscale = getHeight() / imh;
     }
 
-    public void setImage(Bitmap bitmap) {
+    public void setImage(Bitmap b) {
+        bitmap = b;
         Drawable d = new BitmapDrawable(context.getResources(), bitmap);
         setBackground(d);
         Log.d("setImage", String.valueOf(bitmap.getWidth()));
@@ -110,6 +113,14 @@ public class DrawView extends android.support.v7.widget.AppCompatImageView {
 
     public void setListener(Listener l) {
         listener = l;
+    }
+
+    public void clear() {
+        cleared = true;
+        all_points.clear();
+        points.clear();
+        paint.reset();
+        invalidate();
     }
 
     public abstract static class Listener {

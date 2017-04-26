@@ -16,6 +16,12 @@
 + [X] Toolbar color / transparent with background
 + [X] Background color
 + [X] Discovery Page list view Align and increase size
+** Upload page [5/5]
++ [X] Change Add tag button to textinput and move to bottom
++ [X] Enable crop without clicking image
++ [X] Move submit to the bottom
++ [X] Run tensorflow initially
++ [X] Revert to original
 ** General [0/3]
 + [ ] Change text font
   + [[http://fontawesome.io][FontAwesome]]
@@ -61,13 +67,6 @@
 + [X] Add margin to tattoo
 + [X] Put whole page in a frame and set background
 + [X] [[https://android-arsenal.com/details/1/2566][The Android Arsenal - Tags - Android TagView]]
-** Upload page [2/6]
-+ [X] Change Add tag button to textinput and move to bottom
-+ [X] Enable crop without clicking image
-+ [ ] Revert to original
-+ [ ] Crop icon. Finish/Cancel will appear on crop. Revert to original will appear on finish
-+ [ ] Move submit to the bottom
-+ [ ] Run tensorflow initially
 ** Other User Page [0/1]
 + [ ] Image size
 ** AR Camera [0/2]
@@ -85,11 +84,12 @@
 + [ ] Check if PNG
 + [ ] Ask for confirmation to discard changes in TattooEdit
 + [ ] Try to combine TagGroup and Tattoo.Tags
-** Server [0/2]
+** Server [1/3]
 + [ ] Tattoo is added to database even if upload function fails
-+ [ ] Added /delete end-point
-** ??? [2/4]
-+ [X] Liking a tattoo doesn't update the image in popular list [SHOULD IT?]
++ [X] Added /delete end-point
++ [ ] Move to AWS
+** ??? [1/4]
 + [X] Auto-login fails
++ [ ] Liking a tattoo doesn't update the image in popular list [SHOULD IT?]
 + [ ] Change create_json method
 + [ ] Change see more activity to adapt different behaviours

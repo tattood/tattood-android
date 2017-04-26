@@ -1,17 +1,16 @@
 package com.tattood.tattood;
 
-import android.content.DialogInterface;
+import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.text.InputType;
-import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Button;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.cunoraz.tagview.Tag;
@@ -78,35 +77,30 @@ public class TattooEditActivity extends AppCompatActivity {
                         }
                     }
                 });
-        Button add_tag = (Button) findViewById(R.id.new_tag);
-        add_tag.setOnClickListener(new View.OnClickListener() {
+        TextView add_tag = (TextView) findViewById(R.id.new_tag);
+        add_tag.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(TattooEditActivity.this);
-                builder.setTitle("New Tag");
-                final EditText input = new EditText(TattooEditActivity.this);
-                input.setInputType(InputType.TYPE_CLASS_TEXT);
-                builder.setView(input);
-                builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String tag = input.getText().toString();
-                        Log.d("TAG", String.valueOf(tattoo.tags.size()));
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    String tag = String.valueOf(textView.getText());
+                    if (tag.isEmpty()) {
+                        textView.setError("Tag cannot be empty");
+                    } else if (tag_exists(tag)) {
+                        textView.setError("Tags must be unique");
+                    } else {
                         TattooTag ttag = new TattooTag(tag, true);
                         tattoo.tags.add(ttag);
                         tagGroup.addTag(ttag);
+                        textView.setText("");
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
                     }
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                builder.show();
+                    return true;
+                }
+                return false;
             }
         });
-        Button upload_button = (Button) findViewById(R.id.edit_finish);
+        ImageView upload_button = (ImageView) findViewById(R.id.edit_finish);
         upload_button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -122,4 +116,11 @@ public class TattooEditActivity extends AppCompatActivity {
         });
     }
 
+    public boolean tag_exists(String t) {
+        for (TattooTag tt: tattoo.tags) {
+            if (t.equals(tt.text))
+                return true;
+        }
+        return false;
+    }
 }

@@ -12,8 +12,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -68,6 +68,9 @@ public class UploadActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 tattoo.is_private = b;
+//                String label =  b ? "Private" : "Public";
+//                TextView private_label = (TextView) findViewById(R.id.private_label);
+//                private_label.setText(label);
             }
         });
         TextView tv_tag = (TextView) findViewById(R.id.new_tag);
@@ -93,14 +96,13 @@ public class UploadActivity extends AppCompatActivity {
                 return false;
             }
         });
-        final Button crop_button = (Button) findViewById(R.id.crop_button);
-        final Button crop_revert = (Button) findViewById(R.id.crop_revert);
+        final ImageView crop_button = (ImageView) findViewById(R.id.crop_button);
+        final ImageView crop_revert = (ImageView) findViewById(R.id.crop_revert);
         crop_revert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                image.all_points.clear();
-                image.paint.reset();
-                image.invalidate();
+                image. clear();
+//                image.setImage(bitmap);
                 crop_revert.setVisibility(View.INVISIBLE);
             }
         });
@@ -119,7 +121,7 @@ public class UploadActivity extends AppCompatActivity {
                 crop_button.setVisibility(View.VISIBLE);
             }
         });
-        Button upload_button = (Button) findViewById(R.id.edit_finish);
+        final ImageView upload_button = (ImageView) findViewById(R.id.edit_finish);
         upload_button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -141,6 +143,8 @@ public class UploadActivity extends AppCompatActivity {
                         });
             }
         });
+//        [TODO] Uncomment below
+//        extract();
     }
 
     public void extract() {
