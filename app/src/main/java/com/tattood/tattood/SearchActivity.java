@@ -30,8 +30,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         tag_list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         tag_list.setAdapter(new TattooRecyclerViewAdapter(this, tag_list));
         final RecyclerView user_list = (RecyclerView) findViewById(R.id.user_list);
-        user_list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        user_list.setAdapter(new TattooRecyclerViewAdapter(this, user_list));
+        user_list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        user_list.setAdapter(new UserRecyclerViewAdapter(this));
         Server.search(SearchActivity.this, query,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -46,7 +46,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                                 Button button = (Button) findViewById(R.id.see_more_user);
                                 button.setVisibility(View.VISIBLE);
                                 user_list.setVisibility(View.VISIBLE);
-                                ((TattooRecyclerViewAdapter) user_list.getAdapter()).set_data(users);
+                                ((UserRecyclerViewAdapter) user_list.getAdapter()).set_data(users);
                             }
                             else {
                                 not_found = true;

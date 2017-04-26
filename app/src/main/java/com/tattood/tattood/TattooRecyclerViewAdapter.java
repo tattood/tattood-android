@@ -46,7 +46,7 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_tattoo_item, parent, false);
+                .inflate(R.layout.tattoo_item, parent, false);
         view.setOnClickListener(this);
         return new ViewHolder(view);
     }
