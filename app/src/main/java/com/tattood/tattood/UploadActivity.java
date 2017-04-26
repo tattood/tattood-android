@@ -123,13 +123,17 @@ public class UploadActivity extends AppCompatActivity {
         upload_button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                extract();
                 Server.uploadImage(UploadActivity.this, path, tattoo,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
                                 try {
                                     tattoo.tattoo_id = response.getString("id");
+                                    if (tattoo.is_private)
+                                        User.getInstance().addPrivate(tattoo);
+                                    else
+                                        User.getInstance().addPublic(tattoo);
+                                    finish();
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }

@@ -227,7 +227,11 @@ public class Server {
         try {
             data.put("token", User.getInstance().token);
             data.put("id", tattoo.tattoo_id);
-            data.put("tags", new JSONArray(tattoo.tags));
+            ArrayList<String> tags = new ArrayList<>();
+            for (TattooTag t : tattoo.tags) {
+                tags.add(t.text);
+            }
+            data.put("tags", new JSONArray(tags));
             data.put("private", tattoo.is_private);
             if (bitmap != null)
                 data.put("image", getStringImage(bitmap));

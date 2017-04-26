@@ -1,5 +1,5 @@
 * TODO
-** Tattoo Page [4/4]
+** Tattoo Page [5/5,]
 + [X] Increase size
 + [X] Add margin
 + [X] Change like button
@@ -61,7 +61,7 @@
 + [X] Add margin to tattoo
 + [X] Put whole page in a frame and set background
 + [X] [[https://android-arsenal.com/details/1/2566][The Android Arsenal - Tags - Android TagView]]
-** Upload page [2/7]
+** Upload page [2/6]
 + [X] Change Add tag button to textinput and move to bottom
 + [X] Enable crop without clicking image
 + [ ] Revert to original
@@ -73,21 +73,23 @@
 ** AR Camera [0/2]
 + [ ] Save
 + [ ] Share
-** Core [4/12]
+** Core [6/11]
 + [X] Limit the Tag length
 + [X] Make all TagViews uniform
-+ [ ] Cache profile photo [[[https://github.com/facebook/fresco][Fresco]]]
-+ [ ] Liking a tattoo before opening profile page fails
-+ [ ] Change Tattoo tag to make use of the library
 + [X] Tag must be not empty
 + [X] Tag must be unique
++ [X] Change Tattoo tag to make use of the library
++ [X] Upload submit should go back to profile page
++ [ ] Cache profile photo [[[https://github.com/facebook/fresco][Fresco]]]
++ [ ] Liking a tattoo before opening profile page fails
 + [ ] Check if PNG
-+ [ ] Upload submit should go back to profile page
-+ [ ] Tattoo is added to database even if upload function fails
 + [ ] Ask for confirmation to discard changes in TattooEdit
 + [ ] Try to combine TagGroup and Tattoo.Tags
-** ??? [/]
-+ [ ] Liking a tattoo doesn't update the image in popular list [SHOULD IT?]
-+ [ ] Auto-login fails
+** Server [0/2]
++ [ ] Tattoo is added to database even if upload function fails
++ [ ] Added /delete end-point
+** ??? [2/4]
++ [X] Liking a tattoo doesn't update the image in popular list [SHOULD IT?]
++ [X] Auto-login fails
 + [ ] Change create_json method
 + [ ] Change see more activity to adapt different behaviours
