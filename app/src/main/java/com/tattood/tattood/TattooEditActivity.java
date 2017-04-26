@@ -11,6 +11,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.cunoraz.tagview.Tag;
@@ -19,6 +20,8 @@ import com.cunoraz.tagview.TagView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import static com.tattood.tattood.R.id.button_delete;
 
 public class TattooEditActivity extends AppCompatActivity {
 
@@ -115,6 +118,23 @@ public class TattooEditActivity extends AppCompatActivity {
                         }
                 });
                 finish();
+            }
+        });
+        ImageView delete_button = (ImageView) findViewById(button_delete);
+        delete_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Server.delete(TattooEditActivity.this, tattoo, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        if (tattoo.is_private)
+                            User.getInstance().removePrivate(tattoo);
+                        else
+                            User.getInstance().removePublic(tattoo);
+                        finish();
+                        Toast.makeText(TattooEditActivity.this, "Deleted Tattoo", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }

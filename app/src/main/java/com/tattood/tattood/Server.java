@@ -260,6 +260,12 @@ public class Server {
         updateOrUpload(context, path, tattoo, callback);
     }
 
+    public static void delete(Context context, final Tattoo tattoo,
+                              Response.Listener<JSONObject> callback) {
+        JSONObject data = create_json(User.getInstance().token, tattoo.tattoo_id);
+        request(context, "/tattoo-delete", data, callback);
+    }
+
     public static void extractTags(Context context, final Uri path,
                                    ArrayList<float[]> x, ArrayList<float[]> y,
                                    final Response.Listener<JSONObject> callback) {

@@ -142,6 +142,14 @@ public class User {
         ((TattooRecyclerViewAdapter)private_view.getAdapter()).addTattoo(t);
     }
 
+    public void removePublic(Tattoo t) {
+        ((TattooRecyclerViewAdapter)public_view.getAdapter()).removeTattoo(t);
+    }
+
+    public void removePrivate(Tattoo t) {
+        ((TattooRecyclerViewAdapter)private_view.getAdapter()).removeTattoo(t);
+    }
+
     public int like_count() {
         return liked_view.getAdapter().getItemCount();
     }

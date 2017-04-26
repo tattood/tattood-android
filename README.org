@@ -60,9 +60,10 @@
   + [[https://github.com/florent37/MaterialViewPager?utm_source=android-arsenal.com&utm_medium=referral&utm_campaign=1731][GitHub - florent37/MaterialViewPager: A Material Design ViewPager easy to use...]]
   + [[https://github.com/H07000223/FlycoTabLayout?utm_source=android-arsenal.com&utm_medium=referral&utm_campaign=2756][GitHub - H07000223/FlycoTabLayout: An Android TabLayout Lib]]
   + [[https://github.com/rey5137/Material?utm_source=android-arsenal.com&utm_medium=referral&utm_campaign=1685][GitHub - rey5137/material: A library to bring fully animated Material Design ...]]
-** Tattoo Edit Page [5/6]
+** Tattoo Edit Page [6/7]
 + [X] Change public/private switch
-+ [ ] Put Delete Button
++ [X] Put Delete Button
++ [ ] Tattoo Size is broken on Cat Tattoo
 + [X] Increase tattoo size
 + [X] Add margin to tattoo
 + [X] Put whole page in a frame and set background
