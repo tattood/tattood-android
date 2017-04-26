@@ -14,5 +14,5 @@
         android:icon="@drawable/ic_person_white_24px"
         android:tint="@color/colorPrimary"
         app:showAsAction="ifRoom"
-        android:title="@string/search"/>
+        android:title="@string/title_profile"/>
 </menu>

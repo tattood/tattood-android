@@ -32,15 +32,16 @@
 + [X] Tattoo Size is broken on Cat Tattoo
 ** Other User Page [1/1]
 + [X] Image size
-** Search [3/5]
+** Search [4/6]
 + [X] [BUG] Search See More inactive
 + [X] [BUG] Tattoo Tag Search
 + [X] Show label when there are no results
++ [X] Add recent searches
++ [ ] Remove icon from suggestions (Check Github and [[http://stackoverflow.com/questions/30808150/toolbar-search-suggestions-theming][SO]])
 + [ ] Search User-Name should list users
-+ [ ] Add recent searches
 ** See more [1/6]
 + [X] See more changes to single row
-+ [ ] Auto load at the bottom of the page
++ [ ] Auto load at the bottom of the page (Requires change in server)
 + [ ] Users should have different layout
 + [ ] Change See More button
 + [ ] See more Card layout grid

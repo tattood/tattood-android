@@ -3,5 +3,7 @@
             android:label="@string/app_name"
             android:hint="@string/search_hint"
             android:voiceSearchMode="showVoiceSearchButton|launchRecognizer"
-            android:voiceLanguageModel="web_search">
+            android:voiceLanguageModel="web_search"
+            android:searchSuggestAuthority="com.example.MySuggestionProvider"
+            android:searchSuggestSelection=" ?" >
 </searchable>

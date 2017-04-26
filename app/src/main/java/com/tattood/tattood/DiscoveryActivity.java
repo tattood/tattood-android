@@ -66,19 +66,6 @@ public class DiscoveryActivity extends AppCompatActivity implements View.OnClick
         see_more = (Button) findViewById(R.id.see_more_popular);
         see_more.setOnClickListener(this);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_profile);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent myIntent = new Intent(DiscoveryActivity.this, ProfileActivity.class);
-//                ActivityOptions options =
-//                        ActivityOptions.makeCustomAnimation(DiscoveryActivity.this,
-//                                android.R.anim.slide_in_left,
-//                                android.R.anim.slide_out_right);
-//                startActivity(myIntent, options.toBundle());
-//            }
-//        });
-
         final SwipeRefreshLayout swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -105,7 +92,6 @@ public class DiscoveryActivity extends AppCompatActivity implements View.OnClick
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
     }
