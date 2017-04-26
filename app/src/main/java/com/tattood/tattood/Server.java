@@ -34,8 +34,8 @@ import java.util.ArrayList;
  */
 
 public class Server {
-//    public static final String host = "http://139.179.211.114:5000";
-    public static final String host = "http://192.168.1.26:5000";
+    public static final String host = "http://139.179.197.223:5000";
+//    public static final String host = "http://192.168.1.26:5000";
     public enum TattooRequest {Liked, Public, Private}
 //    public enum UserRequest {Followed, Followers}
     public static boolean isInternetAvailable() {
@@ -123,8 +123,7 @@ public class Server {
                               Response.Listener<JSONObject> callback,
                               Response.ErrorListener error_handler) {
         JSONObject data = create_json(token, email);
-        int timeout = 1000;
-        request(context, "/login", timeout, data, callback, error_handler);
+        request(context, "/login", data, callback, error_handler);
     }
 
     public static void register(Context context, String email, String username, Uri photo, String token,

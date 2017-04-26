@@ -18,8 +18,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
 public class TattooActivity extends AppCompatActivity {
 
     boolean is_liked;
@@ -63,18 +61,15 @@ public class TattooActivity extends AppCompatActivity {
                                     startActivity(myIntent);
                                 }});
                             JSONArray tattooJSON = response.getJSONArray("tags");
-                            ArrayList<String> tags = new ArrayList<>();
+                            TagView tagGroup = (TagView) findViewById(R.id.tag_group);
                             for (int i = 0; i < tattooJSON.length(); i++) {
                                 String t = tattooJSON.getString(i);
-                                if (!t.isEmpty())
-                                    tags.add(t);
+                                if (!t.isEmpty()) {
+                                    TattooTag ttag = new TattooTag(t);
+                                    tattoo.tags.add(ttag);
+                                    tagGroup.addTag(ttag);
+                                }
                             }
-                            tattoo.tags = tags;
-                            TagView tagGroup = (TagView) findViewById(R.id.tag_group);
-                            ArrayList<Tag> tag_list = new ArrayList<>();
-                            for (int i = 0; i < tags.size(); i++)
-                                tag_list.add(new Tag(tags.get(i)));
-                            tagGroup.addTags(tag_list);
                             tagGroup.setOnTagClickListener(new TagView.OnTagClickListener() {
                                 @Override
                                 public void onTagClick(Tag tag, int position) {

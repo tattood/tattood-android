@@ -76,9 +76,8 @@ public class UploadActivity extends AppCompatActivity {
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     String tag = String.valueOf(textView.getText());
-                    tattoo.tags.add(tag);
-                    Tag ttag = new Tag(tag);
-                    ttag.isDeletable = true;
+                    TattooTag ttag = new TattooTag(tag, true);
+                    tattoo.tags.add(ttag);
                     tagGroup.addTag(ttag);
                     InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
@@ -162,10 +161,10 @@ public class UploadActivity extends AppCompatActivity {
                             tagGroup.removeAll();
                             tattoo.tags.clear();
                             for(int i = 0; i < arr.length(); i++) {
-                                Tag ttag = new Tag(arr.getString(i));
-                                ttag.isDeletable = true;
+                                String tag = arr.getString(i);
+                                TattooTag ttag = new TattooTag(tag, true);
                                 tagGroup.addTag(ttag);
-                                tattoo.tags.add(arr.getString(i));
+                                tattoo.tags.add(ttag);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

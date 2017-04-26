@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Tattoo implements Serializable {
     public String owner_id;
     public String tattoo_id;
-    public ArrayList<String> tags;
+    public ArrayList<TattooTag> tags;
     public boolean is_private;
     public Bitmap image;
 

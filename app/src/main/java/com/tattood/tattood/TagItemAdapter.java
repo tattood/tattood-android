@@ -16,11 +16,11 @@ import java.util.ArrayList;
  */
 
 public class TagItemAdapter extends BaseAdapter implements ListAdapter {
-    public ArrayList<String> list = new ArrayList<>();
+    public ArrayList<TattooTag> list = new ArrayList<>();
     private final Context context;
     private final Tattoo tattoo;
 
-    public TagItemAdapter(Context context, ArrayList<String> list, Tattoo t) {
+    public TagItemAdapter(Context context, ArrayList<TattooTag> list, Tattoo t) {
         this.list = list;
         this.context = context;
         this.tattoo = t;
@@ -49,7 +49,7 @@ public class TagItemAdapter extends BaseAdapter implements ListAdapter {
             view = inflater.inflate(R.layout.tag_edit_layout, parent, false);
         }
         TextView listItemText = (TextView)view.findViewById(R.id.tag_name);
-        listItemText.setText(list.get(position));
+        listItemText.setText(list.get(position).text);
         Button tag_delete = (Button)view.findViewById(R.id.tag_delete);
         tag_delete.setOnClickListener(new View.OnClickListener(){
             @Override
