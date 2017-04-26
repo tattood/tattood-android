@@ -31,11 +31,10 @@
                 android:orientation="vertical"
                 android:weightSum="1">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="0.9"
-                    android:orientation="vertical">
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.9">
 
                     <ImageView
                         android:id="@+id/tattoo_image"
@@ -47,7 +46,15 @@
                         android:contentDescription="@string/tattoo_description"
                         android:scaleType="fitCenter"
                         tools:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal"/>
-                </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/button_delete"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        app:srcCompat="@drawable/ic_delete_black_24dp"
+                        android:layout_alignTop="@+id/tattoo_image"
+                        android:layout_alignParentEnd="true"/>
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -64,12 +71,6 @@
                         android:textAlignment="viewStart"
                         android:textOff="@string/sw_public"
                         android:textOn="@string/sw_private"/>
-
-                    <Button
-                        android:id="@+id/edit_finish"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Submit"/>
 
                     <EditText
                         android:id="@+id/new_tag"
@@ -93,6 +94,20 @@
                         app:textPaddingTop="5dp"
                         app:textPaddingRight="8dp"
                         app:textPaddingBottom="5dp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/edit_finish"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:gravity="end"
+                            app:srcCompat="@drawable/ic_file_upload_black_24dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentEnd="true"/>
+                    </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>

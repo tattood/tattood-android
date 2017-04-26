@@ -47,21 +47,21 @@
                         android:scaleType="fitCenter"
                         tools:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal"/>
 
-                    <Button
+                    <ImageView
                         android:id="@+id/crop_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_alignTop="@+id/tattoo_image"
-                        android:text="Crop"/>
+                        app:srcCompat="@drawable/ic_content_cut_black_24dp"/>
 
-                    <Button
+                    <ImageView
                         android:id="@+id/crop_revert"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_below="@+id/crop_button"
-                        android:text="REVERT"
+                        app:srcCompat="@drawable/ic_replay_black_24dp"
                         android:visibility="invisible"/>
                 </RelativeLayout>
 
@@ -80,12 +80,6 @@
                         android:textAlignment="viewStart"
                         android:textOff="@string/sw_public"
                         android:textOn="@string/sw_private"/>
-
-                    <Button
-                        android:id="@+id/edit_finish"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Submit"/>
 
                     <EditText
                         android:id="@+id/new_tag"
@@ -109,6 +103,20 @@
                         app:textPaddingLeft="8dp"
                         app:textPaddingRight="8dp"
                         app:textPaddingTop="5dp"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/edit_finish"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:gravity="end"
+                            app:srcCompat="@drawable/ic_file_upload_black_24dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentEnd="true"/>
+                    </RelativeLayout>
 
                 </LinearLayout>
 
