@@ -2,6 +2,7 @@ package com.tattood.tattood;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -15,6 +16,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int RESULT_LOAD_IMAGE = 200;
@@ -85,7 +88,18 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK  && null != data) {
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                Uri resultUri = result.getUri();
+                Intent myIntent = new Intent(this, UploadActivity.class);
+                myIntent.putExtra("path", resultUri.toString());
+                startActivity(myIntent);
+                User.getInstance().private_view.getAdapter().notifyDataSetChanged();
+                User.getInstance().public_view.getAdapter().notifyDataSetChanged();
+            }
+        }
+        else if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK  && null != data) {
             Uri selectedImage = data.getData();
             String[] filePathColumn = { MediaStore.Images.Media.DATA };
             Log.d("Upload", String.valueOf(selectedImage));
@@ -101,11 +115,17 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             String picturePath = cursor.getString(columnIndex);
             cursor.close(); // close cursor
             Log.d("Upload", picturePath);
-            Intent myIntent = new Intent(this, UploadActivity.class);
-            myIntent.putExtra("path", picturePath);
-            startActivity(myIntent);
-            User.getInstance().private_view.getAdapter().notifyDataSetChanged();
-            User.getInstance().public_view.getAdapter().notifyDataSetChanged();
+            CropImage.activity(Uri.parse("file://" + picturePath))
+                    .setGuidelines(CropImageView.Guidelines.ON)
+                    .setOutputCompressFormat(Bitmap.CompressFormat.PNG)
+//                    .setMinCropResultSize(300, 300)
+                    .setMaxCropResultSize(300, 300)
+                    .start(this);
+//            Intent myIntent = new Intent(this, CropActivity.class);
+//            myIntent.putExtra("path", picturePath);
+//            startActivity(myIntent);
+//            User.getInstance().private_view.getAdapter().notifyDataSetChanged();
+//            User.getInstance().public_view.getAdapter().notifyDataSetChanged();
         }
     }
 }

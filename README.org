@@ -1,5 +1,5 @@
 * TODO
-** Tattoo Page [5/5,]
+** Tattoo Page [4/5]
 + [X] Increase size
 + [X] Add margin
 + [X] Change like button
@@ -10,18 +10,20 @@
   + [X] Like button (HEART)
   + [X] #of likes
   + [X] Camera button
++ [ ] Tattoo Page opens profile activity
 ** Discovery [5/5]
 + [X] Discovery Page Profile Button
 + [X] Pull-swipe longer animation
 + [X] Toolbar color / transparent with background
 + [X] Background color
 + [X] Discovery Page list view Align and increase size
-** Upload page [5/5]
+** Upload page [5/6]
 + [X] Change Add tag button to textinput and move to bottom
 + [X] Enable crop without clicking image
 + [X] Move submit to the bottom
 + [X] Run tensorflow initially
 + [X] Revert to original
++ [ ] Do not open crop activity if it is already <=300
 ** Tattoo Edit Page [7/7]
 + [X] Change public/private switch
 + [X] Put Delete Button
@@ -72,6 +74,7 @@
 + [ ] /delete and /like reads tattoo-id from email field
 + [ ] While saving make white pixels transparent ??
 ** Visual [0/3]
++ [ ] Check constant dp
 + [ ] Change text font
   + [[http://fontawesome.io][FontAwesome]]
   + [[https://github.com/Bearded-Hen/Android-Bootstrap][Bootstrap]]

@@ -35,7 +35,7 @@ import java.util.ArrayList;
  */
 
 public class Server {
-    public static final String host = "http://46.101.137.115:5000";
+    public static final String host = "http://46.101.120.15:5000";
 //    public static final String host = "http://192.168.1.26:5000";
     public enum TattooRequest {Liked, Public, Private}
 //    public enum UserRequest {Followed, Followers}

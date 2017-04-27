@@ -44,8 +44,8 @@
                         android:adjustViewBounds="true"
                         android:background="@color/colorPureWhite"
                         android:contentDescription="@string/tattoo_description"
-                        android:scaleType="fitCenter"
                         tools:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal"/>
+                        <!--android:scaleType="fitCenter"-->
 
                     <ImageView
                         android:id="@+id/crop_button"
