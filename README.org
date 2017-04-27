@@ -54,9 +54,7 @@
 + [ ] Auto load at the bottom of the page (Requires change in server)
 + [ ] Change See More button
 + [ ] See more Card layout grid (or simply add borders)
-  Three alternatives: [[https://developer.android.com/training/material/lists-cards.html#cardview][Official]] and [[https://github.com/gabrielemariotti/cardslib][3rd Party]], [[https://github.com/rubensousa/ViewPagerCards][Duolingo-like]]
-+ [ ] See more: disappearing toolbar
-  [[https://developer.android.com/reference/android/support/design/widget/CollapsingToolbarLayout.html][CollapsingToolbarLayout | Android Developers]]
++ [ ] See more: disappearing toolbar [???]
 ** Profile Page [3/6]
 + [X] Make profile icon circular
 + [X] Profile page list alignment
@@ -64,10 +62,6 @@
 + [ ] Profile page upload button to top
 + [ ] While scrolling, user photo should disappear and auto-load
 + [ ] [DESIGN] Profile photo in the middle, public/private as tabs
-  + [[https://developer.android.com/training/implementing-navigation/lateral.html][Creating Swipe Views with Tabs | Android Developers]]
-  + [[https://material.io/guidelines/components/tabs.html#tabs-usage][Tabs - Components - Material design guidelines]]
-  + [[https://github.com/florent37/MaterialViewPager?utm_source=android-arsenal.com&utm_medium=referral&utm_campaign=1731][GitHub - florent37/MaterialViewPager: A Material Design ViewPager easy to use...]]
-  + [[https://github.com/H07000223/FlycoTabLayout?utm_source=android-arsenal.com&utm_medium=referral&utm_campaign=2756][GitHub - H07000223/FlycoTabLayout: An Android TabLayout Lib]]
   + [[https://github.com/rey5137/Material?utm_source=android-arsenal.com&utm_medium=referral&utm_campaign=1685][GitHub - rey5137/material: A library to bring fully animated Material Design ...]]
 ** AR Camera [0/2]
 + [ ] Save
@@ -77,7 +71,7 @@
 + [ ] Tattoo is added to database even if upload function fails
 + [ ] Move to AWS
 + [ ] /delete and /like reads tattoo-id from email field
-** ??? [1/17]
+** ??? [1/15]
 + TattooEdit cat problem should appear in Upload but didn't
 + [X] Auto-login fails
 + [ ] Liking a tattoo doesn't update the image in popular list [SHOULD IT?]
@@ -93,13 +87,11 @@
 + [ ] Should Other user have the same design as Profile Page ??
 + [ ] Try to combine TagGroup and Tattoo.Tags
 + [ ] Remove icon from suggestions (Check Github and [[http://stackoverflow.com/questions/30808150/toolbar-search-suggestions-theming][SO]])
++ [ ] Make See-More image density dynamic to make it fit 3 items
+** Visual [0/3]
 + [ ] Change text font
   + [[http://fontawesome.io][FontAwesome]]
   + [[https://github.com/Bearded-Hen/Android-Bootstrap][Bootstrap]]
 + [ ] Decide on color scheme
 + [ ] Animations and transitions:
-  + [[https://developer.android.com/reference/android/transition/package-summary.html][Transitions Library]]
   + [[https://github.com/castorflex/SmoothProgressBar?utm_source=android-arsenal.com&utm_medium=referral&utm_campaign=370][Progress Bar]]
-  + [[https://github.com/daimajia/AndroidViewAnimations][View Animations]]
-  + [[https://github.com/airbnb/lottie-android?utm_source=android-arsenal.com&utm_medium=referral&utm_campaign=5203][Lottie]] ????
-  + [[https://github.com/rengwuxian/MaterialEditText][MaterialEditText]]

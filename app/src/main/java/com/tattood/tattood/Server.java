@@ -35,7 +35,7 @@ import java.util.ArrayList;
  */
 
 public class Server {
-    public static final String host = "http://139.179.168.13:5000";
+    public static final String host = "http://139.179.55.135:5000";
 //    public static final String host = "http://192.168.1.26:5000";
     public enum TattooRequest {Liked, Public, Private}
 //    public enum UserRequest {Followed, Followers}
@@ -216,10 +216,14 @@ public class Server {
     }
 
     public static void search(Context context, String query, Response.Listener<JSONObject> callback,
-                              int limit, int latest) {
-        String url = "/search?query=" + query + "&token=" + User.getInstance().token
-                + "&limit=" + limit + "&latest=" + latest;
-        request(context, url, null, callback);
+                              int limit, String latest) {
+        if (latest == null)
+            search(context, query, callback, limit);
+        else {
+            String url = "/search?query=" + query + "&token=" + User.getInstance().token
+                    + "&limit=" + limit + "&latest=" + latest;
+            request(context, url, null, callback);
+        }
     }
 
     public static void search(Context context, String query, Response.Listener<JSONObject> callback,
