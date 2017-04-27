@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.cunoraz.tagview.Tag;
 import com.cunoraz.tagview.TagView;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -59,13 +60,15 @@ public class TattooEditActivity extends AppCompatActivity {
                 edited = true;
             }
         });
-        Server.getTattooImage(this, tattoo,
-                new Server.ResponseCallback() {
-                    @Override
-                    public void run() {
-                        ImageView tattoo_img = (ImageView)findViewById(R.id.tattoo_image);
-                        tattoo_img.setImageBitmap(tattoo.image);
-                    }});
+        final SimpleDraweeView tattoo_img = (SimpleDraweeView)findViewById(R.id.tattoo_image);
+        Server.getTattooImage2(tattoo, tattoo_img);
+//        Server.getTattooImage(this, tattoo,
+//                new Server.ResponseCallback() {
+//                    @Override
+//                    public void run() {
+//                        ImageView tattoo_img = (ImageView)findViewById(R.id.tattoo_image);
+//                        tattoo_img.setImageBitmap(tattoo.image);
+//                    }});
         Server.getTattooData(this, tattoo_id,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -168,6 +171,9 @@ public class TattooEditActivity extends AppCompatActivity {
                     })
                     .setNegativeButton("No", null)
                     .show();
+        }
+        else {
+            finish();
         }
     }
 }

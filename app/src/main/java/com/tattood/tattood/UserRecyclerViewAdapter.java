@@ -84,6 +84,7 @@ public class UserRecyclerViewAdapter extends RecyclerView.Adapter<UserRecyclerVi
             Iterator<String> keys = obj.keys();
             while( keys.hasNext() ) {
                 String key = keys.next();
+                Log.d("DISCOVERY", key);
                 final int index = Integer.parseInt(key);
                 JSONArray tattooJSON = obj.getJSONArray(key);
                 String id = tattooJSON.getString(0);

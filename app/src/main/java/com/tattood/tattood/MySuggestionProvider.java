@@ -17,4 +17,5 @@ public class MySuggestionProvider extends SearchRecentSuggestionsProvider {
     public boolean onCreate() {
         return super.onCreate();
     }
+
 }

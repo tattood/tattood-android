@@ -52,12 +52,6 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
         return new ViewHolder(view);
     }
 
-    private Bitmap getTattooImage(int index) {
-        if (index >= mValues.size() || mValues.get(index) == null)
-            return null;
-        return mValues.get(index).getImage();
-    }
-
     public void setTattooImage(int index, Bitmap image) {
         if (index >= mValues.size() || mValues.get(index) == null)
             return;

@@ -54,7 +54,6 @@
 + [ ] Auto load at the bottom of the page (Requires change in server)
 + [ ] Change See More button
 + [ ] See more Card layout grid (or simply add borders)
-+ [ ] See more: disappearing toolbar [???]
 ** Profile Page [3/6]
 + [X] Make profile icon circular
 + [X] Profile page list alignment
@@ -66,14 +65,23 @@
 ** AR Camera [0/2]
 + [ ] Save
 + [ ] Share
-** Server [1/4]
+** Server [1/5]
 + [X] Added /delete end-point
 + [ ] Tattoo is added to database even if upload function fails
 + [ ] Move to AWS
 + [ ] /delete and /like reads tattoo-id from email field
-** ??? [1/15]
++ [ ] While saving make white pixels transparent ??
+** Visual [0/3]
++ [ ] Change text font
+  + [[http://fontawesome.io][FontAwesome]]
+  + [[https://github.com/Bearded-Hen/Android-Bootstrap][Bootstrap]]
++ [ ] Decide on color scheme
++ [ ] Animations and transitions:
+  + [[https://github.com/castorflex/SmoothProgressBar?utm_source=android-arsenal.com&utm_medium=referral&utm_campaign=370][Progress Bar]]
+** ??? [1/16]
 + TattooEdit cat problem should appear in Upload but didn't
 + [X] Auto-login fails
++ [ ] Change RecyclerView in User instance to ArrayList<Tattoo> and remove any UI related parts
 + [ ] Liking a tattoo doesn't update the image in popular list [SHOULD IT?]
 + [ ] Remove obsoleted functions regarding Image Download
 + [ ] Refresh doesn't work in Profile Page [SHOULD IT??]
@@ -88,10 +96,3 @@
 + [ ] Try to combine TagGroup and Tattoo.Tags
 + [ ] Remove icon from suggestions (Check Github and [[http://stackoverflow.com/questions/30808150/toolbar-search-suggestions-theming][SO]])
 + [ ] Make See-More image density dynamic to make it fit 3 items
-** Visual [0/3]
-+ [ ] Change text font
-  + [[http://fontawesome.io][FontAwesome]]
-  + [[https://github.com/Bearded-Hen/Android-Bootstrap][Bootstrap]]
-+ [ ] Decide on color scheme
-+ [ ] Animations and transitions:
-  + [[https://github.com/castorflex/SmoothProgressBar?utm_source=android-arsenal.com&utm_medium=referral&utm_campaign=370][Progress Bar]]
