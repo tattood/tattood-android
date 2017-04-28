@@ -1,5 +1,5 @@
 * TODO
-** Tattoo Page [4/5]
+** Tattoo Page [4/6]
 + [X] Increase size
 + [X] Add margin
 + [X] Change like button
@@ -11,6 +11,7 @@
   + [X] #of likes
   + [X] Camera button
 + [ ] Tattoo Page opens profile activity
++ [ ] Do not show 0 likes
 ** Discovery [5/5]
 + [X] Discovery Page Profile Button
 + [X] Pull-swipe longer animation

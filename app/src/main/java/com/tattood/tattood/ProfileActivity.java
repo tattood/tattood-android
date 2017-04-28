@@ -118,14 +118,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             CropImage.activity(Uri.parse("file://" + picturePath))
                     .setGuidelines(CropImageView.Guidelines.ON)
                     .setOutputCompressFormat(Bitmap.CompressFormat.PNG)
-//                    .setMinCropResultSize(300, 300)
-                    .setMaxCropResultSize(300, 300)
+                    .setAspectRatio(1, 1)
+//                    .setMinCropResultSize(800, 800)
                     .start(this);
-//            Intent myIntent = new Intent(this, CropActivity.class);
-//            myIntent.putExtra("path", picturePath);
-//            startActivity(myIntent);
-//            User.getInstance().private_view.getAdapter().notifyDataSetChanged();
-//            User.getInstance().public_view.getAdapter().notifyDataSetChanged();
         }
     }
 }

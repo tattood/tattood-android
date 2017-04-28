@@ -96,13 +96,6 @@
             android:name=".TattooEditActivity"
             android:label="@string/title_edit">
         </activity>
-        <activity android:name=".ExtractImage">
-        </activity>
-        <activity
-            android:name=".CropActivity"
-            android:label="@string/title_activity_crop"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
     </application>
 
 </manifest>
