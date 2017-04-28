@@ -15,10 +15,8 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-        maven {
-            url "https://jitpack.io"
-            url  "https://dl.bintray.com/karlgao0811/MaterialRoundButton"
-        }
+        maven { url "https://jitpack.io" }
+        maven { url  "https://dl.bintray.com/karlgao0811/MaterialRoundButton" }
     }
 }
 

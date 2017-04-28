@@ -17,9 +17,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
 import com.android.volley.Response;
+import com.karlgao.materialroundbutton.MaterialButton;
 
 import org.json.JSONObject;
 
@@ -61,9 +61,9 @@ public class DiscoveryActivity extends AppCompatActivity implements View.OnClick
                     }
                 });
 
-        Button see_more = (Button) findViewById(R.id.see_more_recent);
+        MaterialButton see_more = (MaterialButton) findViewById(R.id.see_more_recent);
         see_more.setOnClickListener(this);
-        see_more = (Button) findViewById(R.id.see_more_popular);
+        see_more = (MaterialButton) findViewById(R.id.see_more_popular);
         see_more.setOnClickListener(this);
 
         final SwipeRefreshLayout swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
