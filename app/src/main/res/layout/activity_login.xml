@@ -8,7 +8,7 @@
               android:paddingLeft="@dimen/activity_horizontal_margin"
               android:paddingRight="@dimen/activity_horizontal_margin"
               android:paddingTop="@dimen/activity_vertical_margin"
-              android:background="@drawable/background"
+              android:background="@drawable/pattern7"
               tools:context="com.tattood.tattood.LoginActivity"
               android:weightSum="2">
 
@@ -57,7 +57,6 @@
             android:src="@drawable/signup_google_button"/>
     </LinearLayout>
             <!--android:background="@color/colorWhite"-->
-
 
     <!-- delete this button! -->
 

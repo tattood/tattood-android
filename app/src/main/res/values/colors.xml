@@ -10,4 +10,7 @@
     <color name="colorPink">#c75ba5</color>
     <color name="black_alpha_40">#969c5e5f</color>
     <color name="colorPureWhite">#FFFFFF</color>
+    <color name="colorPinkAlpha">#79a67aa6</color>
+
+
 </resources>
