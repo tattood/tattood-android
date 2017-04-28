@@ -47,6 +47,12 @@
             android:textSize="20dp"
             android:textStyle="bold"/>
 
+        <!--<com.google.android.gms.common.SignInButton-->
+            <!--android:id="@+id/login_button"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:layout_height="wrap_content" />-->
+
         <ImageButton
             android:id="@+id/login_button"
             android:layout_width="wrap_content"
@@ -55,6 +61,7 @@
             android:layout_marginTop="24dp"
             android:background="@drawable/google_button_shape"
             android:src="@drawable/signup_google_button"/>
+
     </LinearLayout>
             <!--android:background="@color/colorWhite"-->
 

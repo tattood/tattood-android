@@ -67,10 +67,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                                 tag_list.setVisibility(View.VISIBLE);
                                 ((TattooRecyclerViewAdapter) tag_list.getAdapter()).set_data(tags);
                             }
-                            else {
-                                if (not_found) {
-                                    findViewById(R.id.tv_no_results).setVisibility(View.VISIBLE);
-                                }
+                            if (not_found) {
+                                findViewById(R.id.tv_no_results).setVisibility(View.VISIBLE);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

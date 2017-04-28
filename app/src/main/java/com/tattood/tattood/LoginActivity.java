@@ -57,6 +57,8 @@ public class LoginActivity extends AppCompatActivity implements
         askForPermission();
         setContentView(R.layout.activity_login);
         ImageButton login_button = (ImageButton) findViewById(R.id.login_button);
+//        SignInButton login_button = (SignInButton) findViewById(R.id.login_button);
+//        login_button.setSize(SignInButton.SIZE_WIDE);
         login_button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
