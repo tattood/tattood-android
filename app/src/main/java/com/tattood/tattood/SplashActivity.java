@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.facebook.drawee.backends.pipeline.Fresco;
 
 import org.json.JSONObject;
 
@@ -21,7 +20,6 @@ public class SplashActivity extends Activity {
         setContentView(R.layout.activity_splash);
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         final String user = settings.getString("username", null);
-        Fresco.initialize(this);
         if (user != null) {
             final String token = settings.getString("token", null);
             final String email = settings.getString("email", null);

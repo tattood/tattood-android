@@ -12,6 +12,6 @@
         android:scaleType="fitXY"
         android:gravity="center"
         fresco:actualImageScaleType="fitXY"
-        fresco:placeholderImage="@drawable/ic_person_black_24dp"
         android:contentDescription="@string/tattoo_description"/>
+        <!--fresco:placeholderImage="@drawable/ic_person_black_24dp"-->
 </LinearLayout>

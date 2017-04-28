@@ -17,14 +17,15 @@
 + [X] Toolbar color / transparent with background
 + [X] Background color
 + [X] Discovery Page list view Align and increase size
-** Upload page [5/6]
+** Upload page [5/7]
 + [X] Change Add tag button to textinput and move to bottom
 + [X] Enable crop without clicking image
 + [X] Move submit to the bottom
 + [X] Run tensorflow initially
 + [X] Revert to original
 + [ ] Do not open crop activity if it is already <=300
-** Tattoo Edit Page [7/7]
++ [ ] Fill with white if <=300
+** Tattoo Edit Page [7/8]
 + [X] Change public/private switch
 + [X] Put Delete Button
 + [X] Increase tattoo size
@@ -32,8 +33,10 @@
 + [X] Put whole page in a frame and set background
 + [X] [[https://android-arsenal.com/details/1/2566][The Android Arsenal - Tags - Android TagView]]
 + [X] Tattoo Size is broken on Cat Tattoo
-** Other User Page [1/1]
++ [ ] No save button
+** Other User Page [1/2]
 + [X] Image size
++ [ ] Image size not correct
 ** Search [5/5]
 + [X] [BUG] Search See More inactive
 + [X] [BUG] Tattoo Tag Search
@@ -55,7 +58,9 @@
 + [X] See more changes to single row
 + [ ] Auto load at the bottom of the page (Requires change in server)
 + [ ] Change See More button
++ [ ] Add background
 + [ ] See more Card layout grid (or simply add borders)
++ [ ] Delete Users
 ** Profile Page [3/6]
 + [X] Make profile icon circular
 + [X] Profile page list alignment
@@ -70,7 +75,7 @@
 ** Server [1/5]
 + [X] Added /delete end-point
 + [ ] Tattoo is added to database even if upload function fails
-+ [ ] Move to AWS
++ [ ] Move to DigitalOcean
 + [ ] /delete and /like reads tattoo-id from email field
 + [ ] While saving make white pixels transparent ??
 ** Visual [0/3]
@@ -81,21 +86,16 @@
 + [ ] Decide on color scheme
 + [ ] Animations and transitions:
   + [[https://github.com/castorflex/SmoothProgressBar?utm_source=android-arsenal.com&utm_medium=referral&utm_campaign=370][Progress Bar]]
-** ??? [1/16]
+** ??? [1/11]
 + TattooEdit cat problem should appear in Upload but didn't
 + [X] Auto-login fails
 + [ ] Change RecyclerView in User instance to ArrayList<Tattoo> and remove any UI related parts
-+ [ ] Liking a tattoo doesn't update the image in popular list [SHOULD IT?]
 + [ ] Remove obsoleted functions regarding Image Download
-+ [ ] Refresh doesn't work in Profile Page [SHOULD IT??]
-+ [ ] Search Returns tags ordered by ID
-+ [ ] SeeMore:Users should have different layout [SHOULD IT??] [Does it even need See-More?]
 + [ ] Change create_json method
 + [ ] Change see more activity to adapt different behaviors
 + [ ] Fix warnings in Android Studio
 + [ ] HasTag.owner_id redundant
 + [ ] Check if PNG (in server or android ?)
-+ [ ] Should Other user have the same design as Profile Page ??
 + [ ] Try to combine TagGroup and Tattoo.Tags
 + [ ] Remove icon from suggestions (Check Github and [[http://stackoverflow.com/questions/30808150/toolbar-search-suggestions-theming][SO]])
 + [ ] Make See-More image density dynamic to make it fit 3 items

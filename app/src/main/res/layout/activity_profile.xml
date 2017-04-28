@@ -33,8 +33,7 @@
                 <com.facebook.drawee.view.SimpleDraweeView
                     android:id="@+id/user_image"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    fresco:placeholderImage="@drawable/ic_person_black_24dp"/>
+                    android:layout_height="100dp"/>
             </android.support.v7.widget.CardView>
 
             <TextView
