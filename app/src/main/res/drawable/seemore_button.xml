@@ -9,6 +9,7 @@
         <gradient android:angle="-90" />
     </shape>
 </item>
+
 <item
     android:state_pressed="true"
     android:state_enabled="true"
@@ -28,8 +29,7 @@
     </shape>
 </item>
 <item
-    android:state_enabled="true"
-    android:drawable="@drawable/background" >
+    android:state_enabled="true">
     <shape android:shape="rectangle"  >
         <corners android:radius="15dp" />
         <gradient android:angle="-90" />
