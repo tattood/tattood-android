@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -24,31 +23,26 @@ import java.util.Iterator;
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecyclerViewAdapter.ViewHolder>
-        implements View.OnClickListener {
+public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecyclerViewAdapter.ViewHolder> {
 
     public ArrayList<Tattoo> mValues;
     private final OnListFragmentInteractionListener mListener;
     private final Context mContext;
-    private final RecyclerView mRecyclerView;
 
-    public TattooRecyclerViewAdapter(Context context, RecyclerView recyclerView) {
-        this(context, recyclerView, null);
+    public TattooRecyclerViewAdapter(Context context) {
+        this(context, null);
     }
 
-    public TattooRecyclerViewAdapter(Context context, RecyclerView recyclerView,
-                                     OnListFragmentInteractionListener listener) {
+    public TattooRecyclerViewAdapter(Context context, OnListFragmentInteractionListener listener) {
         mValues = null;
         mListener = listener;
         mContext = context;
-        mRecyclerView = recyclerView;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.tattoo_item, parent, false);
-        view.setOnClickListener(this);
         return new ViewHolder(view);
     }
 
@@ -87,14 +81,6 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
         return (mValues == null) ? 0 : mValues.size();
     }
 
-    @Override
-    public void onClick(View v) {
-        int itemPosition = mRecyclerView.getChildLayoutPosition(v);
-        Log.d("Tattoo", "onCLick()");
-        Tattoo item = mValues.get(itemPosition);
-        Toast.makeText(mContext, item.toString(), Toast.LENGTH_LONG).show();
-    }
-
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final SimpleDraweeView image;
@@ -113,6 +99,7 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
         try {
             obj = obj.getJSONObject("data");
             mValues = new ArrayList<>(obj.length());
+            Log.d("DATA", String.valueOf(obj.length()));
             for (int i = 0; i < obj.length(); i++)
                 mValues.add(null);
             Iterator<String> keys = obj.keys();

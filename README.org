@@ -18,7 +18,7 @@
 + [X] Toolbar color / transparent with background
 + [X] Background color
 + [X] Discovery Page list view Align and increase size
-** Upload page [5/7]
+** Upload page [5/10]
 + [X] Change Add tag button to textinput and move to bottom
 + [X] Enable crop without clicking image
 + [X] Move submit to the bottom
@@ -26,7 +26,10 @@
 + [X] Revert to original
 + [ ] Do not open crop activity if it is already <=300
 + [ ] Fill with white if <=300
-** Tattoo Edit Page [7/8]
++ [ ] second Crop small line
++ [ ] Show cropped image
++ [ ] Save cropped image
+** Tattoo Edit Page [7/9]
 + [X] Change public/private switch
 + [X] Put Delete Button
 + [X] Increase tattoo size
@@ -34,7 +37,8 @@
 + [X] Put whole page in a frame and set background
 + [X] [[https://android-arsenal.com/details/1/2566][The Android Arsenal - Tags - Android TagView]]
 + [X] Tattoo Size is broken on Cat Tattoo
-+ [ ] No save button
++ [ ] Save Button use text
++ [ ] Ask for confirmation Delete
 ** Other User Page [1/2]
 + [X] Image size
 + [ ] Image size not correct
@@ -55,9 +59,10 @@
 + [X] Cache profile photo [[[https://github.com/facebook/fresco][Fresco]]]
 + [X] Ask for confirmation to discard changes in TattooEdit
 + [X] Make Images in RecyclerViewAdapter use Fresco
-** See more [1/6]
+** See more [1/7]
 + [X] See more changes to single row
 + [ ] Auto load at the bottom of the page (Requires change in server)
++ [ ] Make See-More image density dynamic to make it fit 3 items
 + [ ] Change See More button
 + [ ] Add background
 + [ ] See more Card layout grid (or simply add borders)
@@ -99,4 +104,3 @@
 + [ ] Check if PNG (in server or android ?)
 + [ ] Try to combine TagGroup and Tattoo.Tags
 + [ ] Remove icon from suggestions (Check Github and [[http://stackoverflow.com/questions/30808150/toolbar-search-suggestions-theming][SO]])
-+ [ ] Make See-More image density dynamic to make it fit 3 items

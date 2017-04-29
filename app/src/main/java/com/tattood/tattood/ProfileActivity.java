@@ -26,19 +26,19 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     public void refresh_images() {
         RecyclerView user_liked = (RecyclerView) findViewById(R.id.user_liked_list);
         user_liked.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        user_liked.setAdapter(new TattooRecyclerViewAdapter(this, user_liked));
+        user_liked.setAdapter(new TattooRecyclerViewAdapter(this));
         user.setLikedView(this, user_liked);
 
         RecyclerView user_public = (RecyclerView) findViewById(R.id.user_public_list);
         OnListFragmentInteractionListener public_listener = new OnListFragmentInteractionListener(this);
         user_public.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        user_public.setAdapter(new TattooRecyclerViewAdapter(this, user_public, public_listener));
+        user_public.setAdapter(new TattooRecyclerViewAdapter(this, public_listener));
         user.setPublicView(this, user_public);
 
         RecyclerView user_private = (RecyclerView) findViewById(R.id.user_private_list);
         OnListFragmentInteractionListener private_listener = new OnListFragmentInteractionListener(this);
         user_private.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        user_private.setAdapter(new TattooRecyclerViewAdapter(this, user_private, private_listener));
+        user_private.setAdapter(new TattooRecyclerViewAdapter(this, private_listener));
         user.setPrivateView(this, user_private);
     }
 

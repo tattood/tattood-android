@@ -30,7 +30,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         final RecyclerView tag_list = (RecyclerView) findViewById(R.id.tag_list);
         tag_list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        tag_list.setAdapter(new TattooRecyclerViewAdapter(this, tag_list));
+        tag_list.setAdapter(new TattooRecyclerViewAdapter(this));
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, LinearLayoutManager.HORIZONTAL);
         tag_list.addItemDecoration(dividerItemDecoration );
 

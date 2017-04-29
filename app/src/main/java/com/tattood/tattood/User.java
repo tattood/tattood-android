@@ -3,6 +3,7 @@ package com.tattood.tattood;
 import android.content.Context;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.android.volley.Response;
 
@@ -66,6 +67,7 @@ public class User {
     public void setPublicView(Context context, final RecyclerView list_view, int limit) {
         if (public_view == null) {
             public_view = list_view;
+            Log.d("NULL", "PUBLIC");
             Server.getTattooList(context, Server.TattooRequest.Public, username,
                     new Response.Listener<JSONObject>() {
                         @Override
@@ -74,6 +76,7 @@ public class User {
                         }
                     }, limit);
         } else {
+            Log.d("NOT-NULL", "PUBLIC");
             changeView(public_view, list_view);
         }
     }

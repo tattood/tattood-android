@@ -38,7 +38,7 @@ public class DiscoveryActivity extends AppCompatActivity implements View.OnClick
         User.setInstance(token, username, photo);
         popular_view = (RecyclerView) findViewById(R.id.popular_list);
         popular_view.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        popular_view.setAdapter(new TattooRecyclerViewAdapter(this, popular_view));
+        popular_view.setAdapter(new TattooRecyclerViewAdapter(this));
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, LinearLayoutManager.HORIZONTAL);
         popular_view.addItemDecoration(dividerItemDecoration);
         Server.getPopular(this,
@@ -51,7 +51,7 @@ public class DiscoveryActivity extends AppCompatActivity implements View.OnClick
 
         recent_view = (RecyclerView) findViewById(R.id.recent_list);
         recent_view.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        recent_view.setAdapter(new TattooRecyclerViewAdapter(this, recent_view));
+        recent_view.setAdapter(new TattooRecyclerViewAdapter(this));
         recent_view.addItemDecoration(dividerItemDecoration);
         Server.getRecent(this,
                 new Response.Listener<JSONObject>() {
@@ -121,7 +121,7 @@ public class DiscoveryActivity extends AppCompatActivity implements View.OnClick
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.profile) {
-            Intent myIntent = new Intent(DiscoveryActivity.this, ProfileActivity.class);
+            Intent myIntent = new Intent(DiscoveryActivity.this, ProfileActivity2.class);
             ActivityOptions options =
                     ActivityOptions.makeCustomAnimation(DiscoveryActivity.this,
                             android.R.anim.slide_in_left,
