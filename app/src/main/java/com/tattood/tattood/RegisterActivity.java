@@ -43,6 +43,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 editor.apply();
                                 Intent myIntent = new Intent(getBaseContext(), DiscoveryActivity.class);
                                 myIntent.putExtra("token", token);
+                                myIntent.putExtra("username", username);
                                 myIntent.putExtra("photo-uri", photo.toString());
                                 startActivity(myIntent);
                             }

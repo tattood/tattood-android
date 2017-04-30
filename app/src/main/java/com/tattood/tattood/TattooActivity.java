@@ -44,11 +44,8 @@ public class TattooActivity extends AppCompatActivity {
                             final String url = response.getString("url");
                             TextView owner = (TextView) findViewById(R.id.owner_name);
                             owner.setText(username);
-                            Log.d("Tattoo", username);
-                            final ImageView img = (ImageView) findViewById(R.id.user_image);
-                            BasicImageDownloader dl = new BasicImageDownloader(img);
-                            Log.d("PROFILE2", String.valueOf(url));
-                            dl.execute(String.valueOf(url));
+                            final SimpleDraweeView img = (SimpleDraweeView) findViewById(R.id.user_image);
+                            img.setImageURI(url);
                             tattoo.owner_id = owner_id;
                             owner.setOnClickListener( new View.OnClickListener() {
                                 @Override

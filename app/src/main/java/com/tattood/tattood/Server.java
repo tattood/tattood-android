@@ -260,7 +260,21 @@ public class Server {
 
     public static void updateTattoo(Context context, Tattoo tattoo,
                                     final Response.Listener<JSONObject> callback) {
-        updateOrUpload(context, null, tattoo, callback);
+        final String url = "/tattoo-update";
+        JSONObject data = new JSONObject();
+        try {
+            data.put("token", User.getInstance().token);
+            data.put("id", tattoo.tattoo_id);
+            ArrayList<String> tags = new ArrayList<>();
+            for (TattooTag t : tattoo.tags) {
+                tags.add(t.text);
+            }
+            data.put("tags", new JSONArray(tags));
+            data.put("private", tattoo.is_private);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        request(context, url, data, callback);
     }
 
     private static Bitmap loadImage(Context context, final Uri path) {
@@ -273,8 +287,33 @@ public class Server {
     }
 
     public static void uploadImage(Context context, final Uri path, final Tattoo tattoo,
+                                   ArrayList<float[]> x, ArrayList<float[]> y,
                                    final Response.Listener<JSONObject> callback) {
-        updateOrUpload(context, path, tattoo, callback);
+        final Bitmap bitmap = loadImage(context, path);
+        final String url = "/tattoo-upload";
+        JSONObject data = new JSONObject();
+        try {
+            data.put("token", User.getInstance().token);
+            data.put("id", tattoo.tattoo_id);
+            ArrayList<String> tags = new ArrayList<>();
+            for (TattooTag t : tattoo.tags) {
+                tags.add(t.text);
+            }
+            data.put("tags", new JSONArray(tags));
+            data.put("private", tattoo.is_private);
+            data.put("image", getStringImage(bitmap));
+            JSONArray px = new JSONArray();
+            JSONArray py = new JSONArray();
+            for (int i = 0; i < x.size(); i++)
+                px.put(new JSONArray(x.get(i)));
+            for (int i = 0; i < y.size(); i++)
+                py.put(new JSONArray(y.get(i)));
+            data.put("x", px);
+            data.put("y", py);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        request(context, url, data, callback);
     }
 
     public static void delete(Context context, final Tattoo tattoo,

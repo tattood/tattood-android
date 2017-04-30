@@ -37,7 +37,8 @@ public class UploadActivity extends AppCompatActivity {
     TagView tagGroup;
     Bitmap bitmap = null;
     DrawView image;
-
+    ArrayList<float[]> x = new ArrayList<>();
+    ArrayList<float[]> y = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,7 +129,7 @@ public class UploadActivity extends AppCompatActivity {
         upload_button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Server.uploadImage(UploadActivity.this, path, tattoo,
+                Server.uploadImage(UploadActivity.this, path, tattoo, x, y,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
@@ -153,8 +154,8 @@ public class UploadActivity extends AppCompatActivity {
     }
 
     public void extract() {
-        ArrayList<float[]> x = new ArrayList<>();
-        ArrayList<float[]> y = new ArrayList<>();
+        x = new ArrayList<>();
+        y = new ArrayList<>();
         float wscale = 1;
         float hscale = 1;
         if(bitmap != null) wscale = image.getWidth() / bitmap.getWidth();
