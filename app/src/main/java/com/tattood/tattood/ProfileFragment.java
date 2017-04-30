@@ -4,19 +4,26 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.android.volley.Response;
+
+import org.json.JSONObject;
 
 public class ProfileFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private TattooRecyclerViewAdapter adapter;
     private String source;
+    private String user_name;
 
-    public static ProfileFragment getInstance(String title) {
+    public static ProfileFragment getInstance(String title, String user_name) {
         ProfileFragment fra = new ProfileFragment();
         Bundle bundle = new Bundle();
         bundle.putString("source", title);
+        bundle.putString("user_name", user_name);
         fra.setArguments(bundle);
         return fra;
     }
@@ -26,6 +33,7 @@ public class ProfileFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
         source = bundle.getString("source");
+        user_name = bundle.getString("user_name");
     }
 
     @Override
@@ -41,14 +49,37 @@ public class ProfileFragment extends Fragment {
         }
         adapter = new TattooRecyclerViewAdapter(mRecyclerView.getContext(), listener);
         mRecyclerView.setAdapter(adapter);
-        if (source.equals("Public")) {
-            User.getInstance().setPublicView(getContext(), mRecyclerView);
-        } else if (source.equals("Private")) {
-            User.getInstance().setPrivateView(getContext(), mRecyclerView);
+        if(user_name != null)
+            Log.d("USER NAME", user_name);
+        if(user_name == null) {
+            if (source.equals("Public")) {
+                User.getInstance().setPublicView(getContext(), mRecyclerView);
+            } else if (source.equals("Private")) {
+                User.getInstance().setPrivateView(getContext(), mRecyclerView);
+            }
+            else if(source.equals("Liked")) {
+                User.getInstance().setLikedView(getContext(), mRecyclerView);
+            }
+        } else{
+            if (source.equals("Public")) {
+                Server.getTattooList(getContext(), Server.TattooRequest.Public, user_name,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                ((TattooRecyclerViewAdapter) mRecyclerView.getAdapter()).set_data(response);
+                            }
+                        }, 20);
+            } else if(source.equals("Liked")) {
+                Server.getTattooList(getContext(), Server.TattooRequest.Liked, user_name,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                ((TattooRecyclerViewAdapter) mRecyclerView.getAdapter()).set_data(response);
+                            }
+                        }, 20);
+            }
         }
-        else if(source.equals("Liked")) {
-            User.getInstance().setLikedView(getContext(), mRecyclerView);
-        }
+
         return v;
     }
 }

@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 public class ProfileActivity2 extends AppCompatActivity {
 
+//    private int[] mImageArray, mColorArray;
     private ArrayList<Fragment> mFragments;
     private final String[] mTitles = {"Public", "Private", "Liked"};
     TabLayout layout;
@@ -26,7 +27,6 @@ public class ProfileActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_profile2);
         layout = (TabLayout) findViewById(R.id.tabs);
         initViewPager();
-
         final User user = User.getInstance();
         String url = String.valueOf(user.photo);
         final SimpleDraweeView img = (SimpleDraweeView) findViewById(R.id.user_image);
@@ -60,7 +60,7 @@ public class ProfileActivity2 extends AppCompatActivity {
     private void initFragments() {
         mFragments = new ArrayList<>();
         for (String title : mTitles) {
-            mFragments.add(ProfileFragment.getInstance(title));
+            mFragments.add(ProfileFragment.getInstance(title, null));
         }
     }
 

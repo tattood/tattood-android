@@ -192,7 +192,7 @@ public class Server {
         view.setImageURI(url);
     }
 
-    public static void getTattooList(Context context, TattooRequest r, String username,
+        public static void getTattooList(Context context, TattooRequest r, String username,
                                      Response.Listener<JSONObject> callback, int limit) {
         String url;
         if (r == TattooRequest.Liked) {
