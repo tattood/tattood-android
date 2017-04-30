@@ -104,7 +104,6 @@ public class UploadActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 image. clear();
-//                image.setImage(bitmap);
                 crop_revert.setVisibility(View.INVISIBLE);
             }
         });
@@ -139,6 +138,8 @@ public class UploadActivity extends AppCompatActivity {
                                         User.getInstance().addPrivate(tattoo);
                                     else
                                         User.getInstance().addPublic(tattoo);
+                                    User.getInstance().private_view.getAdapter().notifyDataSetChanged();
+                                    User.getInstance().public_view.getAdapter().notifyDataSetChanged();
                                     finish();
                                 } catch (JSONException e) {
                                     e.printStackTrace();

@@ -71,7 +71,7 @@ public class TattooActivity extends AppCompatActivity {
                             tagGroup.setOnTagClickListener(new TagView.OnTagClickListener() {
                                 @Override
                                 public void onTagClick(Tag tag, int position) {
-                                    Intent myIntent = new Intent(TattooActivity.this, SearchActivity.class);
+                                    Intent myIntent = new Intent(TattooActivity.this, SeeMore.class);
                                     myIntent.putExtra("TAG", "TAG");
                                     myIntent.putExtra("query", tag.text);
                                     startActivity(myIntent);

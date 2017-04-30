@@ -88,11 +88,8 @@
 
     </android.support.design.widget.AppBarLayout>
 
-
-
-    <!--<include layout="@layout/nested_scrollview"/>-->
-
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_upload"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         app:layout_anchor="@+id/viewpager"

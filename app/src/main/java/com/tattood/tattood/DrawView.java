@@ -120,6 +120,12 @@ public class DrawView extends android.support.v7.widget.AppCompatImageView {
         all_points.clear();
         points.clear();
         paint.reset();
+        paint.setColor(Color.GRAY);
+        paint.setStrokeJoin(Paint.Join.ROUND);
+        paint.setStrokeWidth(25);
+        paint.setStrokeCap(Paint.Cap.ROUND);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setPathEffect(new DashPathEffect(new float[] {10,20}, 0));
         invalidate();
     }
 

@@ -18,17 +18,6 @@
 + [X] Toolbar color / transparent with background
 + [X] Background color
 + [X] Discovery Page list view Align and increase size
-** Upload page [5/10]
-+ [X] Change Add tag button to textinput and move to bottom
-+ [X] Enable crop without clicking image
-+ [X] Move submit to the bottom
-+ [X] Run tensorflow initially
-+ [X] Revert to original
-+ [ ] Do not open crop activity if it is already <=300
-+ [ ] Fill with white if <=300
-+ [ ] second Crop small line
-+ [ ] Show cropped image
-+ [ ] Save cropped image
 ** Tattoo Edit Page [9/9]
 + [X] Change public/private switch
 + [X] Put Delete Button
@@ -39,9 +28,8 @@
 + [X] Tattoo Size is broken on Cat Tattoo
 + [X] Save Button use text
 + [X] Ask for confirmation Delete
-** Other User Page [1/2]
+** Other User Page [1/1]
 + [X] Image size
-+ [ ] Image size not correct
 ** Search [5/5]
 + [X] [BUG] Search See More inactive
 + [X] [BUG] Tattoo Tag Search
@@ -59,11 +47,21 @@
 + [X] Cache profile photo [[[https://github.com/facebook/fresco][Fresco]]]
 + [X] Ask for confirmation to discard changes in TattooEdit
 + [X] Make Images in RecyclerViewAdapter use Fresco
-** See more [1/7]
+** Upload page [5/10]
++ [X] Change Add tag button to textinput and move to bottom
++ [X] Enable crop without clicking image
++ [X] Move submit to the bottom
++ [X] Run tensorflow initially
++ [X] Revert to original
++ [ ] Fill with white if <=300
++ [ ] second Crop shows small line
++ [ ] Show cropped image
++ [ ] Save cropped image
+** See more [2/7]
 + [X] See more changes to single row
++ [X] Change See More button
 + [ ] Auto load at the bottom of the page (Requires change in server)
 + [ ] Make See-More image density dynamic to make it fit 3 items
-+ [ ] Change See More button
 + [ ] Add background
 + [ ] See more Card layout grid (or simply add borders)
 + [ ] Delete Users
@@ -80,10 +78,10 @@
 ** AR Camera [0/2]
 + [ ] Save
 + [ ] Share
-** Server [1/5]
+** Server [2/5]
 + [X] Added /delete end-point
++ [X] Move to DigitalOcean
 + [ ] Tattoo is added to database even if upload function fails
-+ [ ] Move to DigitalOcean
 + [ ] /delete and /like reads tattoo-id from email field
 + [ ] While saving make white pixels transparent ??
 ** Visual [0/3]
