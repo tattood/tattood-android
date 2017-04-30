@@ -1,6 +1,7 @@
 package com.tattood.tattood;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -54,6 +55,7 @@ public class TattooActivity extends AppCompatActivity {
                                 public void onClick(View view) {
                                     Intent myIntent = new Intent(TattooActivity.this, UserActivity.class);
                                     myIntent.putExtra("username", username);
+                                    myIntent.putExtra("other_user_photo", url);
                                     startActivity(myIntent);
                                 }});
                             JSONArray tattooJSON = response.getJSONArray("tags");
@@ -126,6 +128,9 @@ public class TattooActivity extends AppCompatActivity {
 
     private void refreshLikeButton() {
         final TextView like_label = (TextView) findViewById(R.id.like_count);
-        like_label.setText(like_count + " likes");
+        if(like_count != 0) {
+            like_label.setTypeface(null, Typeface.BOLD);
+            like_label.setText(like_count + " likes");
+        }
     }
 }

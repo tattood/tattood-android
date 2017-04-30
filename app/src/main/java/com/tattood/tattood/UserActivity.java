@@ -2,39 +2,57 @@ package com.tattood.tattood;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import java.util.ArrayList;
+
 public class UserActivity extends AppCompatActivity {
 
-    private RecyclerView user_liked;
-    private RecyclerView user_public;
+    private ArrayList<Fragment> mFragments;
+    private final String[] mTitles = {"Public", "Liked"};
+    private ViewPager mViewPager;
+    String username;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         Bundle extras = getIntent().getExtras();
-        String username = extras.getString("username");
-        User user = User.getInstance();
-        Uri url = user.photo;
-        TextView tv = (TextView) findViewById(R.id.tv_username);
+        username = extras.getString("username");
+        String other_user_photo = extras.getString("other_user_photo");
+        initFragments();
+        initViewPager();
+        TextView tv = (TextView) findViewById(R.id.owner_name);
         tv.setText(username);
         final SimpleDraweeView  img = (SimpleDraweeView ) findViewById(R.id.user_image);
-        img.setImageURI(url);
-        user_liked = (RecyclerView) findViewById(R.id.list_liked);
-        user_liked.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        user_liked.setAdapter(new TattooRecyclerViewAdapter(this));
-        user.setLikedView(this, user_liked);
+        img.setImageURI(other_user_photo);
 
-        user_public = (RecyclerView) findViewById(R.id.list_uploaded);
-        user_public.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        user_public.setAdapter(new TattooRecyclerViewAdapter(this));
-        user.setPublicView(this, user_public);
+        ViewPager pager = (ViewPager) findViewById(R.id.viewpager);
+        pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager(), mFragments, mTitles));
+        TabLayout layout = (TabLayout) findViewById(R.id.tabs);
+        layout.setupWithViewPager(pager);
     }
 
+    private void initFragments() {
+        mFragments = new ArrayList<>();
+        for (String title : mTitles) {
+            mFragments.add(ProfileFragment.getInstance(title, username));
+        }
+    }
+
+    private void initViewPager() {
+        mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        mViewPager.setOffscreenPageLimit(4);
+        mViewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager(), mFragments, mTitles));
+    }
 }
