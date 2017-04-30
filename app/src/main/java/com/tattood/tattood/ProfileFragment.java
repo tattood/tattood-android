@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,16 +41,12 @@ public class ProfileFragment extends Fragment {
         mRecyclerView = (RecyclerView) v.findViewById(R.id.recyclerview);
         mRecyclerView.setLayoutManager(new GridLayoutManager(mRecyclerView.getContext(), 2));
         OnListFragmentInteractionListener listener = null;
-        if (source.equals("Public")) {
-            listener = new OnListFragmentInteractionListener(getContext());
-        } else if (source.equals("Private")) {
-            listener = new OnListFragmentInteractionListener(getContext());
-        }
-        adapter = new TattooRecyclerViewAdapter(mRecyclerView.getContext(), listener);
-        mRecyclerView.setAdapter(adapter);
-        if(user_name != null)
-            Log.d("USER NAME", user_name);
         if(user_name == null) {
+            if (source.equals("Public")) {
+                listener = new OnListFragmentInteractionListener(getContext());
+            } else if (source.equals("Private")) {
+                listener = new OnListFragmentInteractionListener(getContext());
+            }
             if (source.equals("Public")) {
                 User.getInstance().setPublicView(getContext(), mRecyclerView);
             } else if (source.equals("Private")) {
@@ -79,7 +74,8 @@ public class ProfileFragment extends Fragment {
                         }, 20);
             }
         }
-
+        adapter = new TattooRecyclerViewAdapter(mRecyclerView.getContext(), listener);
+        mRecyclerView.setAdapter(adapter);
         return v;
     }
 }
