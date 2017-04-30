@@ -1,58 +1,60 @@
 package com.tattood.tattood;
 
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
+
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 
-import cn.hugeterry.coordinatortablayout.CoordinatorTabLayout;
-
 public class ProfileActivity2 extends AppCompatActivity {
 
-    private CoordinatorTabLayout layout;
-//    private int[] mImageArray, mColorArray;
     private ArrayList<Fragment> mFragments;
     private final String[] mTitles = {"Public", "Private", "Liked"};
-    private ViewPager mViewPager;
-
+    TabLayout layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile2);
-        initFragments();
+        layout = (TabLayout) findViewById(R.id.tabs);
         initViewPager();
 
-        ViewPager pager = (ViewPager) findViewById(R.id.viewpager);
-        pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager(), mFragments, mTitles));
-        TabLayout layout = (TabLayout) findViewById(R.id.tabs);
-        layout.setupWithViewPager(pager);
-//        layout.setTitle(User.getInstance().username);
-//        layout.setupWithViewPager(mViewPager);
-//        LayoutInflater inflator = (LayoutInflater) this .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        View v = inflator.inflate(R.layout.layout_actionbar, null);
-//        layout.getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-//        layout.getActionBar().setCustomView(v);
-//        int[] mColorArray = new int[]{
-//                android.R.color.holo_blue_light,
-//                android.R.color.holo_red_light,
-//                android.R.color.holo_green_light};
-//        int[] imageArray = new int[] {
-//                R.mipmap.ic_launcher,
-//                R.mipmap.ic_launcher,
-//                R.mipmap.ic_launcher
-//        };
-//        layout.setImageArray(imageArray, mColorArray);
-//        layout.get
-//        int[] mColorArray = new int[]{
-//                android.R.color.holo_blue_light,
-//                android.R.color.holo_red_light,
-//                android.R.color.holo_orange_light,
-//                android.R.color.holo_green_light};
-//        layout.setImageArray(mColorArray);
+        final User user = User.getInstance();
+        String url = String.valueOf(user.photo);
+        final SimpleDraweeView img = (SimpleDraweeView) findViewById(R.id.user_image);
+        img.setImageURI(url);
+
+        TextView tv_user = (TextView) findViewById(R.id.owner_name);
+        tv_user.setText(user.username);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            boolean isShow = false;
+            int scrollRange = -1;
+
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (scrollRange == -1) {
+                    scrollRange = appBarLayout.getTotalScrollRange();
+                }
+                if (scrollRange + verticalOffset == 0) {
+                    collapsingToolbarLayout.setTitle(user.username);
+                    isShow = true;
+                } else if(isShow) {
+                    collapsingToolbarLayout.setTitle(" ");
+                    isShow = false;
+                }
+            }
+        });
     }
 
     private void initFragments() {
@@ -63,8 +65,10 @@ public class ProfileActivity2 extends AppCompatActivity {
     }
 
     private void initViewPager() {
-        mViewPager = (ViewPager) findViewById(R.id.viewpager);
-        mViewPager.setOffscreenPageLimit(4);
-        mViewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager(), mFragments, mTitles));
+        initFragments();
+        ViewPager pager = (ViewPager) findViewById(R.id.viewpager);
+        pager.setOffscreenPageLimit(4);
+        pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager(), mFragments, mTitles));
+        layout.setupWithViewPager(pager);
     }
 }

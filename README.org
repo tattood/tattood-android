@@ -67,14 +67,16 @@
 + [ ] Add background
 + [ ] See more Card layout grid (or simply add borders)
 + [ ] Delete Users
-** Profile Page [3/6]
+** Profile Page [6/9]
 + [X] Make profile icon circular
 + [X] Profile page list alignment
 + [X] Profile page move toolbar inside the view
-+ [ ] Profile page upload button to top
-+ [ ] While scrolling, user photo should disappear and auto-load
-+ [ ] [DESIGN] Profile photo in the middle, public/private as tabs
-  + [[https://github.com/rey5137/Material?utm_source=android-arsenal.com&utm_medium=referral&utm_campaign=1685][GitHub - rey5137/material: A library to bring fully animated Material Design ...]]
++ [X] Profile page upload button to top
++ [X] While scrolling, user photo should disappear
++ [X] [DESIGN] Profile photo in the middle, public/private as tabs
++ [ ] Auto-load images as they scroll
++ [ ] Set Toolbar Icon
++ [ ] Add toolbar transition animation
 ** AR Camera [0/2]
 + [ ] Save
 + [ ] Share
