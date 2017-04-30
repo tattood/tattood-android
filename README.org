@@ -85,10 +85,11 @@
 ** AR Camera [0/2]
 + [ ] Save
 + [ ] Share
-** Server [3/3]
+** Server [4/4]
 + [X] Added /delete end-point
 + [X] Move to DigitalOcean
 + [X] While saving, make white pixels transparent ??
++ [X] Tags are deleted when changed visibility
 ** Visual [0/3]
 + [ ] Check constant dp
 + [ ] Change text font
@@ -97,18 +98,16 @@
 + [ ] Decide on color scheme
 + [ ] Animations and transitions:
   + [[https://github.com/castorflex/SmoothProgressBar?utm_source=android-arsenal.com&utm_medium=referral&utm_campaign=370][Progress Bar]]
-** ??? [1/12]
-+ TattooEdit cat problem should appear in Upload but didn't
+** ??? [2/12]
 + [X] Auto-login fails
++ [X] Check if PNG (in server or android ?)
 + [ ] Change RecyclerView in User instance to ArrayList<Tattoo> and remove any UI related parts
 + [ ] Remove obsoleted functions regarding Image Download
 + [ ] Change create_json method
 + [ ] Change see more activity to adapt different behaviors
 + [ ] Fix warnings in Android Studio
 + [ ] HasTag.owner_id redundant
-+ [ ] Check if PNG (in server or android ?)
 + [ ] Try to combine TagGroup and Tattoo.Tags
 + [ ] Remove icon from suggestions (Check Github and [[http://stackoverflow.com/questions/30808150/toolbar-search-suggestions-theming][SO]])
 + [ ] Tattoo is added to database even if upload function fails
 + [ ] /delete and /like reads tattoo-id from email field
-+ [ ] Tags are deleted when changed visibility

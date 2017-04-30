@@ -15,7 +15,7 @@ public class UserActivity extends AppCompatActivity {
 
     private ArrayList<Fragment> mFragments;
     private final String[] mTitles = {"Public", "Liked"};
-    private TabLayout layout;
+    private ViewPager mViewPager;
     String username;
 
 
@@ -23,9 +23,20 @@ public class UserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-        layout = (TabLayout) findViewById(R.id.tabs);
+        Bundle extras = getIntent().getExtras();
+        username = extras.getString("username");
+        String other_user_photo = extras.getString("other_user_photo");
+        initFragments();
         initViewPager();
-        initUser(getIntent().getExtras());
+        TextView tv = (TextView) findViewById(R.id.owner_name);
+        tv.setText(username);
+        final SimpleDraweeView  img = (SimpleDraweeView ) findViewById(R.id.user_image);
+        img.setImageURI(other_user_photo);
+
+        ViewPager pager = (ViewPager) findViewById(R.id.viewpager);
+        pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager(), mFragments, mTitles));
+        TabLayout layout = (TabLayout) findViewById(R.id.tabs);
+        layout.setupWithViewPager(pager);
     }
 
     private void initFragments() {
@@ -36,19 +47,8 @@ public class UserActivity extends AppCompatActivity {
     }
 
     private void initViewPager() {
-        initFragments();
-        ViewPager pager = (ViewPager) findViewById(R.id.viewpager);
-        pager.setOffscreenPageLimit(1);
-        pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager(), mFragments, mTitles));
-        layout.setupWithViewPager(pager);
-    }
-
-    private void initUser(Bundle extras) {
-        username = extras.getString("username");
-        String other_user_photo = extras.getString("other_user_photo");
-        TextView tv = (TextView) findViewById(R.id.owner_name);
-        tv.setText(username);
-        final SimpleDraweeView img = (SimpleDraweeView ) findViewById(R.id.user_image);
-        img.setImageURI(other_user_photo);
+        mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        mViewPager.setOffscreenPageLimit(4);
+        mViewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager(), mFragments, mTitles));
     }
 }

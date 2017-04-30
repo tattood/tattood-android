@@ -29,6 +29,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 
 /**
  * Created by eksi on 08/02/17.
@@ -236,28 +237,6 @@ public class Server {
         search(context, query, callback, 20);
     }
 
-    private static void updateOrUpload(Context context, final Uri path, final Tattoo tattoo,
-                                       final Response.Listener<JSONObject> callback) {
-        final Bitmap bitmap = path == null ? null : loadImage(context, path);
-        final String url = bitmap == null ? "/tattoo-update" : "/tattoo-upload";
-        JSONObject data = new JSONObject();
-        try {
-            data.put("token", User.getInstance().token);
-            data.put("id", tattoo.tattoo_id);
-            ArrayList<String> tags = new ArrayList<>();
-            for (TattooTag t : tattoo.tags) {
-                tags.add(t.text);
-            }
-            data.put("tags", new JSONArray(tags));
-            data.put("private", tattoo.is_private);
-            if (bitmap != null)
-                data.put("image", getStringImage(bitmap));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        request(context, url, data, callback);
-    }
-
     public static void updateTattoo(Context context, Tattoo tattoo,
                                     final Response.Listener<JSONObject> callback) {
         final String url = "/tattoo-update";
@@ -269,7 +248,9 @@ public class Server {
             for (TattooTag t : tattoo.tags) {
                 tags.add(t.text);
             }
+            tags = new ArrayList<>(new LinkedHashSet<>(tags));
             data.put("tags", new JSONArray(tags));
+            Log.d("tags", (new JSONArray(tags).toString()));
             data.put("private", tattoo.is_private);
         } catch (JSONException e) {
             e.printStackTrace();
