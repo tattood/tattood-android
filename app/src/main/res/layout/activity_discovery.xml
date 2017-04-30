@@ -53,7 +53,7 @@
                     android:layout_weight="2"
                     android:layout_height="36dp"
                     android:layout_gravity="top"
-                    app:mb_buttonColor="#339CFF"
+                    app:mb_buttonColor="@color/colorTransPurple"
                     app:mb_buttonType="raised"
                     app:mb_cornerRadius="28dp"
                     app:mb_rippleColor="#40ffffff"
@@ -79,7 +79,7 @@
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_weight="0.8"
-                    android:background="@color/colorPrimaryDark"/>
+                    android:background="@color/colorPurple"/>
                 <View
                     android:layout_width="0dp"
                     android:layout_height="1dp"
@@ -129,7 +129,7 @@
                     android:layout_weight="2"
                     android:layout_height="36dp"
                     android:layout_gravity="top"
-                    app:mb_buttonColor="#339CFF"
+                    app:mb_buttonColor="@color/colorTransPurple"
                     app:mb_buttonType="raised"
                     app:mb_cornerRadius="28dp"
                     app:mb_rippleColor="#40ffffff"
@@ -157,7 +157,7 @@
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_weight="0.8"
-                    android:background="@color/colorPrimaryDark"/>
+                    android:background="@color/colorPurple"/>
 
                 <View
                     android:layout_width="0dp"
