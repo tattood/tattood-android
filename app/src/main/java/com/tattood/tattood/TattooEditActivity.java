@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
@@ -62,13 +63,6 @@ public class TattooEditActivity extends AppCompatActivity {
         });
         final SimpleDraweeView tattoo_img = (SimpleDraweeView)findViewById(R.id.tattoo_image);
         Server.getTattooImage2(tattoo, tattoo_img);
-//        Server.getTattooImage(this, tattoo,
-//                new Server.ResponseCallback() {
-//                    @Override
-//                    public void run() {
-//                        ImageView tattoo_img = (ImageView)findViewById(R.id.tattoo_image);
-//                        tattoo_img.setImageBitmap(tattoo.image);
-//                    }});
         Server.getTattooData(this, tattoo_id,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -115,7 +109,7 @@ public class TattooEditActivity extends AppCompatActivity {
                 return false;
             }
         });
-        ImageView upload_button = (ImageView) findViewById(R.id.edit_finish);
+        Button upload_button = (Button) findViewById(R.id.edit_finish);
         upload_button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -133,17 +127,28 @@ public class TattooEditActivity extends AppCompatActivity {
         delete_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Server.delete(TattooEditActivity.this, tattoo, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        if (tattoo.is_private)
-                            User.getInstance().removePrivate(tattoo);
-                        else
-                            User.getInstance().removePublic(tattoo);
-                        finish();
-                        Toast.makeText(TattooEditActivity.this, "Deleted Tattoo", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                new AlertDialog.Builder(TattooEditActivity.this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Closing Activity")
+                        .setMessage("Are you sure you want to Delete?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Server.delete(TattooEditActivity.this, tattoo, new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        if (tattoo.is_private)
+                                            User.getInstance().removePrivate(tattoo);
+                                        else
+                                            User.getInstance().removePublic(tattoo);
+                                        finish();
+                                        Toast.makeText(TattooEditActivity.this, "Deleted Tattoo", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
             }
         });
     }

@@ -29,7 +29,7 @@
 + [ ] second Crop small line
 + [ ] Show cropped image
 + [ ] Save cropped image
-** Tattoo Edit Page [7/9]
+** Tattoo Edit Page [9/9]
 + [X] Change public/private switch
 + [X] Put Delete Button
 + [X] Increase tattoo size
@@ -37,8 +37,8 @@
 + [X] Put whole page in a frame and set background
 + [X] [[https://android-arsenal.com/details/1/2566][The Android Arsenal - Tags - Android TagView]]
 + [X] Tattoo Size is broken on Cat Tattoo
-+ [ ] Save Button use text
-+ [ ] Ask for confirmation Delete
++ [X] Save Button use text
++ [X] Ask for confirmation Delete
 ** Other User Page [1/2]
 + [X] Image size
 + [ ] Image size not correct

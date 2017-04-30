@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class SeeMore extends AppCompatActivity {
 
-    private final int LIST_SIZE = 1;
+    private final int LIST_SIZE = 100;
     private int previousTotal = LIST_SIZE;
     private boolean loading = false;
     private int visibleThreshold = 3;
