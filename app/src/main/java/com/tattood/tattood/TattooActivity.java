@@ -132,5 +132,8 @@ public class TattooActivity extends AppCompatActivity {
             like_label.setTypeface(null, Typeface.BOLD);
             like_label.setText(like_count + " likes");
         }
+        else {
+            like_label.setText("");
+        }
     }
 }
