@@ -121,7 +121,7 @@ public class DiscoveryActivity extends AppCompatActivity implements View.OnClick
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.profile) {
-            Intent myIntent = new Intent(DiscoveryActivity.this, ProfileActivity2.class);
+            Intent myIntent = new Intent(DiscoveryActivity.this, ProfileActivity.class);
             ActivityOptions options =
                     ActivityOptions.makeCustomAnimation(DiscoveryActivity.this,
                             android.R.anim.slide_in_left,

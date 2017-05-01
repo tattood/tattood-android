@@ -6,62 +6,66 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
-public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
+import java.util.ArrayList;
+
+public class ProfileActivity extends AppCompatActivity {
+
+//    private int[] mImageArray, mColorArray;
+    private ArrayList<Fragment> mFragments;
+    private final String[] mTitles = {"Public", "Private", "Liked"};
+    TabLayout layout;
     private static final int RESULT_LOAD_IMAGE = 200;
-    private User user;
 
-    public void refresh_images() {
-        RecyclerView user_liked = (RecyclerView) findViewById(R.id.user_liked_list);
-        user_liked.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        user_liked.setAdapter(new TattooRecyclerViewAdapter(this));
-        user.setLikedView(this, user_liked);
-
-        RecyclerView user_public = (RecyclerView) findViewById(R.id.user_public_list);
-        OnListFragmentInteractionListener public_listener = new OnListFragmentInteractionListener(this);
-        user_public.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        user_public.setAdapter(new TattooRecyclerViewAdapter(this, public_listener));
-        user.setPublicView(this, user_public);
-
-        RecyclerView user_private = (RecyclerView) findViewById(R.id.user_private_list);
-        OnListFragmentInteractionListener private_listener = new OnListFragmentInteractionListener(this);
-        user_private.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        user_private.setAdapter(new TattooRecyclerViewAdapter(this, private_listener));
-        user.setPrivateView(this, user_private);
-    }
 
     @Override
-    public void onClick(View v) {
-        Intent myIntent = new Intent(this, SeeMore.class);
-        Log.d("SEE-MORE", "CLICKED");
-        if (v.getId() == R.id.see_more_private) {
-            myIntent.putExtra("TAG", "PRIVATE");
-        } else if (v.getId() == R.id.see_more_public) {
-            myIntent.putExtra("TAG", "PUBLIC");
-        } else if (v.getId() == R.id.see_more_liked) {
-            myIntent.putExtra("TAG", "LIKED");
-        }
-        startActivity(myIntent);
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
-        user = User.getInstance();
-        refresh_images();
+        setContentView(R.layout.activity_profile2);
+        layout = (TabLayout) findViewById(R.id.tabs);
+        initViewPager();
+        final User user = User.getInstance();
+        String url = String.valueOf(user.photo);
+        final SimpleDraweeView img = (SimpleDraweeView) findViewById(R.id.user_image);
+        img.setImageURI(url);
+
+        TextView tv_user = (TextView) findViewById(R.id.owner_name);
+        tv_user.setText(user.username);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            boolean isShow = false;
+            int scrollRange = -1;
+
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (scrollRange == -1) {
+                    scrollRange = appBarLayout.getTotalScrollRange();
+                }
+                if (scrollRange + verticalOffset == 0) {
+                    collapsingToolbarLayout.setTitle(user.username);
+                    isShow = true;
+                } else if(isShow) {
+                    collapsingToolbarLayout.setTitle(" ");
+                    isShow = false;
+                }
+            }
+        });
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_upload);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,19 +74,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 startActivityForResult(i, RESULT_LOAD_IMAGE);
             }
         });
-        Button see_more = (Button) findViewById(R.id.see_more_private);
-        see_more.setOnClickListener(this);
-        see_more = (Button) findViewById(R.id.see_more_public);
-        see_more.setOnClickListener(this);
-        see_more = (Button) findViewById(R.id.see_more_liked);
-        see_more.setOnClickListener(this);
-
-        String url = String.valueOf(user.photo);
-        final SimpleDraweeView img = (SimpleDraweeView) findViewById(R.id.user_image);
-        img.setImageURI(url);
-
-        TextView tv_user = (TextView) findViewById(R.id.owner_name);
-        tv_user.setText(user.username);
     }
 
     @Override
@@ -95,15 +86,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 Intent myIntent = new Intent(this, UploadActivity.class);
                 myIntent.putExtra("path", resultUri.toString());
                 startActivity(myIntent);
-                User.getInstance().private_view.getAdapter().notifyDataSetChanged();
-                User.getInstance().public_view.getAdapter().notifyDataSetChanged();
             }
         }
         else if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK  && null != data) {
             Uri selectedImage = data.getData();
             String[] filePathColumn = { MediaStore.Images.Media.DATA };
-            Log.d("Upload", String.valueOf(selectedImage));
-            Log.d("Upload", filePathColumn[0]);
             Cursor cursor = this.getContentResolver().query(selectedImage, filePathColumn, null, null, null);
             if (cursor == null || cursor.getCount() < 1) {
                 return;
@@ -113,14 +100,28 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             if(columnIndex < 0)
                 return;
             String picturePath = cursor.getString(columnIndex);
-            cursor.close(); // close cursor
-            Log.d("Upload", picturePath);
+            cursor.close();
             CropImage.activity(Uri.parse("file://" + picturePath))
                     .setGuidelines(CropImageView.Guidelines.ON)
                     .setOutputCompressFormat(Bitmap.CompressFormat.PNG)
+                    .setMaxCropResultSize(300, 300)
                     .setAspectRatio(1, 1)
-//                    .setMinCropResultSize(800, 800)
                     .start(this);
         }
+    }
+
+    private void initFragments() {
+        mFragments = new ArrayList<>();
+        for (String title : mTitles) {
+            mFragments.add(ProfileFragment.getInstance(title, null));
+        }
+    }
+
+    private void initViewPager() {
+        initFragments();
+        ViewPager pager = (ViewPager) findViewById(R.id.viewpager);
+        pager.setOffscreenPageLimit(4);
+        pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager(), mFragments, mTitles));
+        layout.setupWithViewPager(pager);
     }
 }
