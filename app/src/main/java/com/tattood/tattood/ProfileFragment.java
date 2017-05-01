@@ -46,6 +46,12 @@ public class ProfileFragment extends Fragment {
         }
         adapter = new TattooRecyclerViewAdapter(mRecyclerView.getContext(), listener, true);
         mRecyclerView.setAdapter(adapter);
+        refresh();
+
+        return v;
+    }
+
+    public void refresh(){
         if(user_name == null) {
             if (source.equals("Public")) {
                 User.getInstance().setPublicView(getContext(), mRecyclerView);
@@ -74,7 +80,6 @@ public class ProfileFragment extends Fragment {
                         }, 20);
             }
         }
-
-        return v;
     }
+
 }
