@@ -46,14 +46,20 @@ public class ProfileFragment extends Fragment {
         }
         adapter = new TattooRecyclerViewAdapter(mRecyclerView.getContext(), listener, true);
         mRecyclerView.setAdapter(adapter);
+        refresh();
+
+        return v;
+    }
+
+    public void refresh(){
         if(user_name == null) {
             if (source.equals("Public")) {
-                User.getInstance().setPublicView(getContext(), mRecyclerView);
+                User.getInstance().setPublicView(getContext(), mRecyclerView, 20, true);
             } else if (source.equals("Private")) {
-                User.getInstance().setPrivateView(getContext(), mRecyclerView);
+                User.getInstance().setPrivateView(getContext(), mRecyclerView, 20, true);
             }
             else if(source.equals("Liked")) {
-                User.getInstance().setLikedView(getContext(), mRecyclerView);
+                User.getInstance().setLikedView(getContext(), mRecyclerView, 20, true);
             }
         } else{
             if (source.equals("Public")) {
@@ -74,7 +80,6 @@ public class ProfileFragment extends Fragment {
                         }, 20);
             }
         }
-
-        return v;
     }
+
 }

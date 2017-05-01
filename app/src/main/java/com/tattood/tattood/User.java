@@ -46,7 +46,11 @@ public class User {
     }
 
     public void setLikedView(Context context, final RecyclerView list_view, int limit) {
-        if (liked_view == null) {
+        setLikedView(context, list_view, limit, false);
+    }
+
+    public void setLikedView(Context context, final RecyclerView list_view, int limit, boolean refresh) {
+        if (liked_view == null || refresh) {
             liked_view = list_view;
             Server.getTattooList(context, Server.TattooRequest.Liked, username,
                     new Response.Listener<JSONObject>() {
@@ -65,7 +69,11 @@ public class User {
     }
 
     public void setPublicView(Context context, final RecyclerView list_view, int limit) {
-        if (public_view == null) {
+        setPublicView(context, list_view, limit, false);
+    }
+
+    public void setPublicView(Context context, final RecyclerView list_view, int limit, boolean refresh) {
+        if (public_view == null || refresh) {
             public_view = list_view;
             Log.d("NULL", "PUBLIC");
             Server.getTattooList(context, Server.TattooRequest.Public, username,
@@ -86,7 +94,11 @@ public class User {
     }
 
     public void setPrivateView(Context context, final RecyclerView list_view, int limit) {
-        if (private_view == null) {
+        setPrivateView(context, list_view, limit, false);
+    }
+
+    public void setPrivateView(Context context, final RecyclerView list_view, int limit, boolean refresh) {
+        if (private_view == null || refresh) {
             private_view = list_view;
             Server.getTattooList(context, Server.TattooRequest.Private, username,
                     new Response.Listener<JSONObject>() {

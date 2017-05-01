@@ -20,7 +20,8 @@
         android:textColorHint="@color/colorWhite"
         android:ems="10"
         android:id="@+id/editText_username"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="165dp"
+        android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
 
     <Button
