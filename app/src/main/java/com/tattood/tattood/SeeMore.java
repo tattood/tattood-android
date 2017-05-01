@@ -33,12 +33,8 @@ public class SeeMore extends AppCompatActivity {
         tag = extras.getString("TAG");
         list_view = (RecyclerView) findViewById(R.id.list_view);
         list_view.setLayoutManager(new GridLayoutManager(this, 3));
-        list_view.setAdapter(new TattooRecyclerViewAdapter(this));
+        list_view.setAdapter(new TattooRecyclerViewAdapter(this, true));
         list_view.setHasFixedSize(true);
-        int space = getResources().getDimensionPixelSize(R.dimen.grid_spacing);
-//        GridItemDecoration divider_user = new GridItemDecoration(space);
-//        list_view.addItemDecoration(new MarginDecoration(this));
-//        list_view.addItemDecoration(divider_user);
         list_view.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {

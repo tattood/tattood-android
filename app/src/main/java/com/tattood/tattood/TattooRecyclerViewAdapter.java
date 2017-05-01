@@ -18,31 +18,39 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link Tattoo} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
- */
 public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecyclerViewAdapter.ViewHolder> {
 
     public ArrayList<Tattoo> mValues;
     private final OnListFragmentInteractionListener mListener;
     private final Context mContext;
+    private boolean isGrid;
 
     public TattooRecyclerViewAdapter(Context context) {
         this(context, null);
     }
 
+    public TattooRecyclerViewAdapter(Context context, boolean grid) {
+        this(context, null, grid);
+    }
+
     public TattooRecyclerViewAdapter(Context context, OnListFragmentInteractionListener listener) {
+        this(context, null, false);
+    }
+
+    public TattooRecyclerViewAdapter(Context context, OnListFragmentInteractionListener listener, boolean grid) {
         mValues = null;
         mListener = listener;
         mContext = context;
+        isGrid = grid;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.tattoo_item, parent, false);
+        View view;
+        if (isGrid)
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_tattoo_item, parent, false);
+        else
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tattoo_item, parent, false);
         return new ViewHolder(view);
     }
 

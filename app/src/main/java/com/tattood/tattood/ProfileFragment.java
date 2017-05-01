@@ -44,7 +44,7 @@ public class ProfileFragment extends Fragment {
         if (user_name == null && (source.equals("Public") || source.equals("Private"))) {
             listener = new OnListFragmentInteractionListener(getContext());
         }
-        adapter = new TattooRecyclerViewAdapter(mRecyclerView.getContext(), listener);
+        adapter = new TattooRecyclerViewAdapter(mRecyclerView.getContext(), listener, true);
         mRecyclerView.setAdapter(adapter);
         if(user_name == null) {
             if (source.equals("Public")) {
