@@ -39,11 +39,9 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
         mRecyclerView = (RecyclerView) v.findViewById(R.id.recyclerview);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(mRecyclerView.getContext(), 2));
+        mRecyclerView.setLayoutManager(new GridLayoutManager(mRecyclerView.getContext(), 3));
         OnListFragmentInteractionListener listener = null;
-        if (user_name == null && source.equals("Public")) {
-            listener = new OnListFragmentInteractionListener(getContext());
-        } else if (user_name == null && source.equals("Private")) {
+        if (user_name == null && (source.equals("Public") || source.equals("Private"))) {
             listener = new OnListFragmentInteractionListener(getContext());
         }
         adapter = new TattooRecyclerViewAdapter(mRecyclerView.getContext(), listener);

@@ -13,7 +13,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
@@ -45,7 +44,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         TextView tv_user = (TextView) findViewById(R.id.owner_name);
         tv_user.setText(user.username);
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {

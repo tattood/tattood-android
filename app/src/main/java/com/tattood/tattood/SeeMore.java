@@ -34,9 +34,11 @@ public class SeeMore extends AppCompatActivity {
         list_view = (RecyclerView) findViewById(R.id.list_view);
         list_view.setLayoutManager(new GridLayoutManager(this, 3));
         list_view.setAdapter(new TattooRecyclerViewAdapter(this));
+        list_view.setHasFixedSize(true);
         int space = getResources().getDimensionPixelSize(R.dimen.grid_spacing);
-        GridItemDecoration divider_user = new GridItemDecoration(space);
-        list_view.addItemDecoration(divider_user);
+//        GridItemDecoration divider_user = new GridItemDecoration(space);
+//        list_view.addItemDecoration(new MarginDecoration(this));
+//        list_view.addItemDecoration(divider_user);
         list_view.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -45,11 +47,6 @@ public class SeeMore extends AppCompatActivity {
                 visibleItemCount = recyclerView.getChildCount();
                 totalItemCount = mLayoutManager.getItemCount();
                 firstVisibleItem = mLayoutManager.findFirstVisibleItemPosition();
-                Log.d("SEARCH", String.valueOf(loading));
-                Log.d("SEARCH", String.valueOf(totalItemCount));
-                Log.d("SEARCH", String.valueOf(visibleItemCount));
-                Log.d("SEARCH", String.valueOf(firstVisibleItem));
-                Log.d("SEARCH", String.valueOf(visibleThreshold));
                 if (loading) {
                     if (totalItemCount > previousTotal) {
                         loading = false;

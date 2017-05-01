@@ -30,9 +30,10 @@
 + [X] Tattoo Size is broken on Cat Tattoo
 + [X] Save Button use text
 + [X] Ask for confirmation Delete
-** Other User Page [1/1]
+** Other User Page [1/2]
 + [X] Image size
-** Search [6/6]
++ [ ] Username doesn't appear in the toolbar
+** Search [7/8]
 + [X] [BUG] Search See More inactive
 + [X] [BUG] Tattoo Tag Search
 + [X] Show label when there are no results
@@ -40,6 +41,7 @@
 + [X] Search User-Name should list users
 + [X] Search shows private tattoo
 + [X] Delete Users in Search
++ [ ] Clicking on another place should close search bar
 ** Core [10/10]
 + [X] Limit the Tag length
 + [X] Make all TagViews uniform
@@ -60,16 +62,16 @@
 + [X] Save cropped image
 + [X] second Crop shows small line
 + [ ] Uncomment extract tags
-+ [ ] Fill with white if <=300
 + [ ] Show cropped image
 + [ ] Give information on network failure
-** See more [4/6]
+** See more [4/7]
 + [X] See more changes to single row
 + [X] Change See More button
 + [X] Add background
 + [X] See more Card layout grid (or simply add borders)
 + [ ] Auto load at the bottom of the page (Requires change in server)
 + [ ] Make See-More image density dynamic to make it fit 3 items
++ [ ] Use Server.getTattooImage2 and remove the first one
 ** Profile Page [6/11]
 + [X] Make profile icon circular
 + [X] Profile page list alignment
@@ -90,6 +92,7 @@
 + [X] Move to DigitalOcean
 + [X] While saving, make white pixels transparent ??
 + [X] Tags are deleted when changed visibility
++ [ ] Fill with white if <=300
 ** Visual [0/3]
 + [ ] Check constant dp
 + [ ] Change text font
