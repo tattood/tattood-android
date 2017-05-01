@@ -54,12 +54,12 @@ public class ProfileFragment extends Fragment {
     public void refresh(){
         if(user_name == null) {
             if (source.equals("Public")) {
-                User.getInstance().setPublicView(getContext(), mRecyclerView);
+                User.getInstance().setPublicView(getContext(), mRecyclerView, 20, true);
             } else if (source.equals("Private")) {
-                User.getInstance().setPrivateView(getContext(), mRecyclerView);
+                User.getInstance().setPrivateView(getContext(), mRecyclerView, 20, true);
             }
             else if(source.equals("Liked")) {
-                User.getInstance().setLikedView(getContext(), mRecyclerView);
+                User.getInstance().setLikedView(getContext(), mRecyclerView, 20, true);
             }
         } else{
             if (source.equals("Public")) {
