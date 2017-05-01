@@ -38,9 +38,11 @@ public class DiscoveryActivity extends AppCompatActivity implements View.OnClick
         User.setInstance(token, username, photo);
         popular_view = (RecyclerView) findViewById(R.id.popular_list);
         popular_view.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        popular_view.addItemDecoration(new SimpleDividerItemDecoration(this));
+
         popular_view.setAdapter(new TattooRecyclerViewAdapter(this));
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, LinearLayoutManager.HORIZONTAL);
-        popular_view.addItemDecoration(dividerItemDecoration);
+        //DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, LinearLayoutManager.HORIZONTAL);
+       // popular_view.addItemDecoration(dividerItemDecoration);
         Server.getPopular(this,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -52,7 +54,7 @@ public class DiscoveryActivity extends AppCompatActivity implements View.OnClick
         recent_view = (RecyclerView) findViewById(R.id.recent_list);
         recent_view.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recent_view.setAdapter(new TattooRecyclerViewAdapter(this));
-        recent_view.addItemDecoration(dividerItemDecoration);
+        recent_view.addItemDecoration(new SimpleDividerItemDecoration(this));
         Server.getRecent(this,
                 new Response.Listener<JSONObject>() {
                     @Override
