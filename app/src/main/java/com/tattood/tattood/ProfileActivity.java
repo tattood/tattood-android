@@ -27,7 +27,7 @@ public class ProfileActivity extends AppCompatActivity {
 //    private int[] mImageArray, mColorArray;
     private ArrayList<Fragment> mFragments;
     private final String[] mTitles = {"Public", "Private", "Liked"};
-    TabLayout layout;
+    private TabLayout layout;
     private static final int RESULT_LOAD_IMAGE = 200;
 
 

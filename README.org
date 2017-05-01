@@ -13,13 +13,13 @@
 + [X] Tattoo Page opens profile activity
 + [X] Do not show 0 likes
 + [ ] Add Border
-** Discovery [5/6]
+** Discovery [6/6]
 + [X] Discovery Page Profile Button
 + [X] Pull-swipe longer animation
 + [X] Toolbar color / transparent with background
 + [X] Background color
 + [X] Discovery Page list view Align and increase size
-+ [ ] Add secondary FrameLayout
++ [X] Add secondary FrameLayout
 ** Tattoo Edit Page [9/9]
 + [X] Change public/private switch
 + [X] Put Delete Button
@@ -30,9 +30,9 @@
 + [X] Tattoo Size is broken on Cat Tattoo
 + [X] Save Button use text
 + [X] Ask for confirmation Delete
-** Other User Page [1/2]
+** Other User Page [2/2]
 + [X] Image size
-+ [ ] Username doesn't appear in the toolbar
++ [X] Username doesn't appear in the toolbar
 ** Search [7/8]
 + [X] [BUG] Search See More inactive
 + [X] [BUG] Tattoo Tag Search
@@ -64,25 +64,25 @@
 + [ ] Uncomment extract tags
 + [ ] Show cropped image
 + [ ] Give information on network failure
-** See more [4/7]
+** See more [5/7]
 + [X] See more changes to single row
 + [X] Change See More button
 + [X] Add background
 + [X] See more Card layout grid (or simply add borders)
++ [X] Make See-More image density dynamic to make it fit 3 items
 + [ ] Auto load at the bottom of the page (Requires change in server)
-+ [ ] Make See-More image density dynamic to make it fit 3 items
 + [ ] Use Server.getTattooImage2 and remove the first one
-** Profile Page [6/11]
+** Profile Page [7/11]
 + [X] Make profile icon circular
 + [X] Profile page list alignment
 + [X] Profile page move toolbar inside the view
 + [X] Profile page upload button to top
 + [X] While scrolling, user photo should disappear
 + [X] [DESIGN] Profile photo in the middle, public/private as tabs
++ [X] Make tabs 3 column
 + [ ] Auto-load images as they scroll
 + [ ] Set Toolbar Icon
 + [ ] Add toolbar transition animation
-+ [ ] Make tabs 3 column
 + [ ] Add refresh
 ** AR Camera [0/2]
 + [ ] Save
