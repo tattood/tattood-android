@@ -35,7 +35,7 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile2);
+        setContentView(R.layout.activity_profile);
         layout = (TabLayout) findViewById(R.id.tabs);
         initViewPager();
         final User user = User.getInstance();
