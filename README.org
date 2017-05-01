@@ -1,3 +1,6 @@
+* Pipeline
+Discovery Page -> Tattoo Page -> Camera Button -> Apply Filter -> Send to Unity -> Press Initialize ->
+  Edge Detection (Threshold) -> Find Gradient (PCA or FFT) ->
 * TODO
 ** Tattoo Page [7/7]
 + [X] Increase size
@@ -41,7 +44,6 @@
 + [X] Search User-Name should list users
 + [X] Search shows private tattoo
 + [X] Delete Users in Search
-+ [ ] Clicking on another place should close search bar
 ** Core [10/10]
 + [X] Limit the Tag length
 + [X] Make all TagViews uniform
@@ -53,7 +55,7 @@
 + [X] Cache profile photo [[[https://github.com/facebook/fresco][Fresco]]]
 + [X] Ask for confirmation to discard changes in TattooEdit
 + [X] Make Images in RecyclerViewAdapter use Fresco
-** Upload page [7/11]
+** Upload page [8/11]
 + [X] Change Add tag button to textinput and move to bottom
 + [X] Enable crop without clicking image
 + [X] Move submit to the bottom
@@ -61,9 +63,10 @@
 + [X] Revert to original
 + [X] Save cropped image
 + [X] second Crop shows small line
-+ [ ] Uncomment extract tags
++ [X] Uncomment extract tags
 + [ ] Show cropped image
 + [ ] Give information on network failure
++ [ ] Open keyboard when clicked new tag label (Might be a bug in Virtual Device)
 ** See more [5/7]
 + [X] See more changes to single row
 + [X] Change See More button
@@ -71,7 +74,7 @@
 + [X] See more Card layout grid (or simply add borders)
 + [X] Make See-More image density dynamic to make it fit 3 items
 + [ ] Auto load at the bottom of the page (Requires change in server)
-** Profile Page [7/11]
+** Profile Page [8/11]
 + [X] Make profile icon circular
 + [X] Profile page list alignment
 + [X] Profile page move toolbar inside the view
@@ -79,19 +82,32 @@
 + [X] While scrolling, user photo should disappear
 + [X] [DESIGN] Profile photo in the middle, public/private as tabs
 + [X] Make tabs 3 column
++ [X] Add refresh
 + [ ] Auto-load images as they scroll
-+ [ ] Add refresh
 + [ ] Set Toolbar Icon
 + [ ] Add toolbar transition animation
-** AR Camera [0/2]
+** AR Camera [0/9]
++ [ ] Plane rotation depends on gyroscope, not stable
++ [ ] Apply filters
++ [ ] Edge detection, arm width
++ [ ] Image gradient
++ [ ] Try to make the input image black-white
++ [ ] [CONSTRAINT] Arm must be in the center
++ [ ] [CONSTRAINT] Background should not be colorful
++ [ ] Based on the arm width select the appropriate mesh
++ [ ] Apply some function on the mesh using arm edges and orientation => shape the mesh
++ [ ] Apply the same function on the other 4 meshes and update the slider shape bar
++ [ ] [CONSTRAINT] Maybe draw something to improve tracking -> if so try to eliminate drawing on the camera
++ [ ] Take screenshot
 + [ ] Save
 + [ ] Share
-** Server [4/4]
+** Server [4/6]
 + [X] Added /delete end-point
 + [X] Move to DigitalOcean
 + [X] While saving, make white pixels transparent ??
 + [X] Tags are deleted when changed visibility
 + [ ] Fill with white if <=300
++ [ ] Check Other Image Classification Models: [Inception, TF-SLIM]
 ** Visual [0/3]
 + [ ] Check constant dp
 + [ ] Change text font
@@ -114,3 +130,4 @@
 + [ ] Tattoo is added to database even if upload function fails
 + [ ] /delete and /like reads tattoo-id from email field
 + [ ] Use Server.getTattooImage2 and remove the first one
++ [-] Clicking on another place should close search bar (Kinda works)

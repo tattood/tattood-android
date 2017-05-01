@@ -322,7 +322,7 @@ public class Server {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        int timeout = 600000;
+        int timeout = 60000;
         request(context, "/extract-tags", timeout, data, callback);
     }
 

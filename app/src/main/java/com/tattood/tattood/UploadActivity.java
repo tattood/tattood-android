@@ -120,7 +120,7 @@ public class UploadActivity extends AppCompatActivity {
             public void onFinish() {
                 image.setDrawable(false);
 //                [TODO] UnComment below
-//                extract();
+                extract();
                 crop_revert.setVisibility(View.VISIBLE);
                 crop_button.setVisibility(View.VISIBLE);
             }
@@ -150,7 +150,7 @@ public class UploadActivity extends AppCompatActivity {
             }
         });
 //        [TODO] Uncomment below
-//        extract();
+        extract();
     }
 
     public void extract() {
@@ -183,6 +183,7 @@ public class UploadActivity extends AppCompatActivity {
                             for(int i = 0; i < arr.length(); i++) {
                                 String tag = arr.getString(i);
                                 TattooTag ttag = new TattooTag(tag, true);
+                                Log.d("TAG", tag);
                                 tagGroup.addTag(ttag);
                                 tattoo.tags.add(ttag);
                             }
