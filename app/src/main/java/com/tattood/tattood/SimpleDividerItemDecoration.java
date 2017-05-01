@@ -1,12 +1,13 @@
 package com.tattood.tattood;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.View;
 
 /**
@@ -18,6 +19,7 @@ public class SimpleDividerItemDecoration extends RecyclerView.ItemDecoration {
     private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
 
     private Drawable divider;
+    private Context context;
 
     /**
      * Default divider will be used
@@ -26,6 +28,7 @@ public class SimpleDividerItemDecoration extends RecyclerView.ItemDecoration {
         final TypedArray styledAttributes = context.obtainStyledAttributes(ATTRS);
         divider = styledAttributes.getDrawable(0);
         styledAttributes.recycle();
+        this.context = context;
     }
 
     /**
@@ -39,8 +42,10 @@ public class SimpleDividerItemDecoration extends RecyclerView.ItemDecoration {
     public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
         //int left = parent.getPaddingLeft();
         //int right = parent.getWidth() - parent.getPaddingRight();
+        Resources r = context.getResources();
+        int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, r.getDisplayMetrics());
         int top = parent.getPaddingTop();
-        int bottom = parent.getHeight() - parent.getPaddingBottom();
+        int bottom = top + px;
 
         int childCount = parent.getChildCount();
         for (int i = 0; i < childCount; i++) {
@@ -53,7 +58,7 @@ public class SimpleDividerItemDecoration extends RecyclerView.ItemDecoration {
             //int top = child.getBottom() + params.bottomMargin;
             //int bottom = top + divider.getIntrinsicHeight();
 
-            divider.setBounds(left, top, right, bottom*2/3);
+            divider.setBounds(left, top, right, bottom);
             divider.draw(c);
         }
     }

@@ -1,5 +1,5 @@
 * TODO
-** Tattoo Page [6/7]
+** Tattoo Page [7/7]
 + [X] Increase size
 + [X] Add margin
 + [X] Change like button
@@ -12,7 +12,7 @@
   + [X] Camera button
 + [X] Tattoo Page opens profile activity
 + [X] Do not show 0 likes
-+ [ ] Add Border
++ [X] Add Border
 ** Discovery [6/6]
 + [X] Discovery Page Profile Button
 + [X] Pull-swipe longer animation
@@ -71,7 +71,6 @@
 + [X] See more Card layout grid (or simply add borders)
 + [X] Make See-More image density dynamic to make it fit 3 items
 + [ ] Auto load at the bottom of the page (Requires change in server)
-+ [ ] Use Server.getTattooImage2 and remove the first one
 ** Profile Page [7/11]
 + [X] Make profile icon circular
 + [X] Profile page list alignment
@@ -81,9 +80,9 @@
 + [X] [DESIGN] Profile photo in the middle, public/private as tabs
 + [X] Make tabs 3 column
 + [ ] Auto-load images as they scroll
++ [ ] Add refresh
 + [ ] Set Toolbar Icon
 + [ ] Add toolbar transition animation
-+ [ ] Add refresh
 ** AR Camera [0/2]
 + [ ] Save
 + [ ] Share
@@ -114,3 +113,4 @@
 + [ ] Remove icon from suggestions (Check Github and [[http://stackoverflow.com/questions/30808150/toolbar-search-suggestions-theming][SO]])
 + [ ] Tattoo is added to database even if upload function fails
 + [ ] /delete and /like reads tattoo-id from email field
++ [ ] Use Server.getTattooImage2 and remove the first one

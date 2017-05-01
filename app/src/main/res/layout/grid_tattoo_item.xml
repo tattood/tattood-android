@@ -5,7 +5,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
+    android:layout_margin="2dp"
     card_view:cardCornerRadius="6dp">
     <FrameLayout
         android:layout_width="match_parent"
