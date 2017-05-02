@@ -1,6 +1,7 @@
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_content"
     android:layout_width="match_parent"
@@ -54,21 +55,13 @@
                 android:orientation="vertical"
                 android:paddingTop="20dp">
 
-                <android.support.v7.widget.CardView
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/user_image"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:innerRadius="0dp"
-                    android:shape="ring"
-                    android:thicknessRatio="1.9"
-                    tools:cardCornerRadius="40dp"
-                    tools:elevation="12dp">
-
-                    <com.facebook.drawee.view.SimpleDraweeView
-                        android:id="@+id/user_image"
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp" />
-                </android.support.v7.widget.CardView>
-
+                    fresco:roundedCornerRadius="5dp"
+                    fresco:roundAsCircle="true"
+                    fresco:roundingBorderWidth="1dp"/>
                 <TextView
                     android:id="@+id/owner_name"
                     android:layout_width="wrap_content"
