@@ -1,1 +1,1 @@
-include ':app', ':Bitirme', ':wikitude-unity-bridge'
+include ':app'

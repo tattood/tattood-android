@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.cunoraz.tagview.Tag;
@@ -15,7 +16,6 @@ import com.cunoraz.tagview.TagView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
-import com.tattood.tattood.UnityPlayerActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -118,8 +118,9 @@ public class TattooActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d("CAMERA", "Clicked");
-                Intent myIntent = new Intent(TattooActivity.this, UnityPlayerActivity.class);
-                startActivity(myIntent);
+                Toast.makeText(TattooActivity.this, "CAMERA NOT READY YET", Toast.LENGTH_LONG).show();
+//                Intent myIntent = new Intent(TattooActivity.this, UnityPlayerActivity.class);
+//                startActivity(myIntent);
             }
         });
     }
