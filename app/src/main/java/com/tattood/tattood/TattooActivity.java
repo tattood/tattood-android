@@ -15,6 +15,7 @@ import com.cunoraz.tagview.TagView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
+import com.tattood.unity.UnityPlayerActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -117,7 +118,7 @@ public class TattooActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d("CAMERA", "Clicked");
-                Intent myIntent = new Intent(TattooActivity.this, CameraActivity.class);
+                Intent myIntent = new Intent(TattooActivity.this, UnityPlayerActivity.class);
                 startActivity(myIntent);
             }
         });

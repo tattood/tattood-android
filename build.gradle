@@ -15,8 +15,13 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        mavenCentral()
         maven { url "https://jitpack.io" }
         maven { url  "https://dl.bintray.com/karlgao0811/MaterialRoundButton" }
+        flatDir {
+            dirs 'libs'
+            dirs project(':Bitirme').file('libs')
+        }
     }
 }
 

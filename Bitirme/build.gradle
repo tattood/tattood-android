@@ -10,14 +10,15 @@ buildscript {
 }
 
 allprojects {
-   repositories {
-      flatDir {
-        dirs 'libs'
-      }
-   }
+    repositories {
+        flatDir {
+            dirs 'libs'
+            dirs project(':Bitirme').file('libs')
+        }
+    }
 }
 
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 dependencies {
 	compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -26,7 +27,7 @@ dependencies {
 
 android {
 	compileSdkVersion 25
-	buildToolsVersion '25.0.2'
+	buildToolsVersion '25.0.3'
 
 	defaultConfig {
 		targetSdkVersion 25
@@ -41,6 +42,7 @@ android {
 			jniDebuggable true
 		}
 		release {
+			// Set minifyEnabled to true if you want to run ProGuard on your project
 			minifyEnabled false
 			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-unity.txt'
 			
