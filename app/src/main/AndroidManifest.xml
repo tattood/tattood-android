@@ -26,7 +26,7 @@
         tools:ignore="GoogleAppIndexingWarning">
         <provider
             android:name="com.tattood.app.MySuggestionProvider"
-            android:authorities="com.example.MySuggestionProvider"/>
+            android:authorities="com.tattood.app.MySuggestionProvider"/>
 
         <activity
             android:name="com.tattood.app.LoginActivity"
