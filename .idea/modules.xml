@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/Bitirme/Bitirme.iml" filepath="$PROJECT_DIR$/Bitirme/Bitirme.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/tattood-android.iml" filepath="$PROJECT_DIR$/tattood-android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wikitude-unity-bridge/wikitude-unity-bridge.iml" filepath="$PROJECT_DIR$/wikitude-unity-bridge/wikitude-unity-bridge.iml" />
     </modules>
   </component>
 </project>
