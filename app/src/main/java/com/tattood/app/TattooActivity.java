@@ -15,7 +15,7 @@ import com.cunoraz.tagview.TagView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
-import com.tattood.unity.UnityPlayerActivity;
+import com.tattood.tattood.UnityPlayerActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;

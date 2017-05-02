@@ -57,7 +57,7 @@ public class UserActivity extends AppCompatActivity {
     private void initFragments() {
         mFragments = new ArrayList<>();
         for (String title : mTitles) {
-            mFragments.add(ProfileFragment.getInstance(title, null));
+            mFragments.add(ProfileFragment.getInstance(title, username));
         }
     }
 

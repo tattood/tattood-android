@@ -8,17 +8,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:876997578175:android:45548c20f04023b2",
+        "mobilesdk_app_id": "1:876997578175:android:132b5415db632268",
         "android_client_info": {
-          "package_name": "com.tattood.tattood"
+          "package_name": "com.tattood.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "876997578175-3mvn4447hcvdpr4nr7vml1otj8ottad6.apps.googleusercontent.com",
+          "client_id": "876997578175-f51rvjbs5nf32nnoqr17a9mlnqt9ja1f.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.tattood.tattood",
+            "package_name": "com.tattood.app",
             "certificate_hash": "59f1b0887fd1548cd376462a78d365e80e82f61c"
           }
         },
