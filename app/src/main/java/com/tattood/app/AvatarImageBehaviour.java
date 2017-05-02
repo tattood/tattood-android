@@ -1,4 +1,4 @@
-package com.tattood.tattood;
+package com.tattood.app;
 
 /**
  * Created by eksi on 29/04/17.
@@ -7,7 +7,6 @@ package com.tattood.tattood;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.View;

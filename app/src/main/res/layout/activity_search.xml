@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="2"
+    android:background="@drawable/pattern7"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <TextView

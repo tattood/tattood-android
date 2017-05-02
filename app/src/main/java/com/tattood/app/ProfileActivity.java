@@ -1,4 +1,4 @@
-package com.tattood.tattood;
+package com.tattood.app;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -17,12 +17,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import com.android.volley.Response;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 

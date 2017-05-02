@@ -1,4 +1,4 @@
-package com.tattood.tattood;
+package com.tattood.app;
 
 import android.content.Intent;
 import android.graphics.Typeface;

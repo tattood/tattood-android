@@ -2,7 +2,7 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context="com.tattood.tattood.ProfileFragment">
+             tools:context="com.tattood.app.ProfileFragment">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:background="@drawable/pattern7"

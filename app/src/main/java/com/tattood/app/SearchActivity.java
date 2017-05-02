@@ -1,17 +1,13 @@
-package com.tattood.tattood;
+package com.tattood.app;
 
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.SearchRecentSuggestions;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.android.volley.Response;
 
@@ -31,7 +27,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         final RecyclerView tag_list = (RecyclerView) findViewById(R.id.tag_list);
         tag_list.setLayoutManager(new GridLayoutManager(this, 3));
-        tag_list.setAdapter(new TattooRecyclerViewAdapter(this));
+        tag_list.setAdapter(new TattooRecyclerViewAdapter(this, true));
 
         Server.search(SearchActivity.this, query,
                 new Response.Listener<JSONObject>() {
