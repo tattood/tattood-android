@@ -36,7 +36,7 @@ Discovery Page -> Tattoo Page -> Camera Button -> Apply Filter -> Send to Unity 
 ** Other User Page [2/2]
 + [X] Image size
 + [X] Username doesn't appear in the toolbar
-** Search [7/8]
+** Search [7/7]
 + [X] [BUG] Search See More inactive
 + [X] [BUG] Tattoo Tag Search
 + [X] Show label when there are no results
@@ -67,7 +67,7 @@ Discovery Page -> Tattoo Page -> Camera Button -> Apply Filter -> Send to Unity 
 + [ ] Show cropped image
 + [ ] Give information on network failure
 + [ ] Open keyboard when clicked new tag label (Might be a bug in Virtual Device)
-** See more [5/7]
+** See more [5/6]
 + [X] See more changes to single row
 + [X] Change See More button
 + [X] Add background
