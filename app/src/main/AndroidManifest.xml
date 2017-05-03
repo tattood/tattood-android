@@ -91,7 +91,7 @@
         </activity>
         <activity android:name="com.tattood.app.ProfileActivity">
         </activity>
-        <activity android:name="com.tattood.tattood.UnityPlayerActivity">
+        <activity android:name="com.wikitude.unity.WikitudeActivity">
         </activity>
     </application>
 

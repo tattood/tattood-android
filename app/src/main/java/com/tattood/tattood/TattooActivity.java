@@ -16,6 +16,7 @@ import com.cunoraz.tagview.TagView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
+import com.wikitude.unity.WikitudeActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,10 +33,10 @@ public class TattooActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tattoo);
         Bundle extras = getIntent().getExtras();
         final String tattoo_id = extras.getString("tid");
-        final Tattoo tattoo = new Tattoo(tattoo_id, null);
+        final com.tattood.app.Tattoo tattoo = new com.tattood.app.Tattoo(tattoo_id, null);
         final SimpleDraweeView tattoo_img = (SimpleDraweeView) findViewById(R.id.tattoo_image);
-        Server.getTattooImage2(tattoo, tattoo_img);
-        Server.getTattooData(this, tattoo_id,
+        com.tattood.app.Server.getTattooImage2(tattoo, tattoo_img);
+        com.tattood.app.Server.getTattooData(this, tattoo_id,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -51,7 +52,7 @@ public class TattooActivity extends AppCompatActivity {
                             owner.setOnClickListener( new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    Intent myIntent = new Intent(TattooActivity.this, UserActivity.class);
+                                    Intent myIntent = new Intent(TattooActivity.this, com.tattood.app.UserActivity.class);
                                     myIntent.putExtra("username", username);
                                     myIntent.putExtra("other_user_photo", url);
                                     startActivity(myIntent);
@@ -61,7 +62,7 @@ public class TattooActivity extends AppCompatActivity {
                             for (int i = 0; i < tattooJSON.length(); i++) {
                                 String t = tattooJSON.getString(i);
                                 if (!t.isEmpty()) {
-                                    TattooTag ttag = new TattooTag(t);
+                                    com.tattood.app.TattooTag ttag = new com.tattood.app.TattooTag(t);
                                     tattoo.tags.add(ttag);
                                     tagGroup.addTag(ttag);
                                 }
@@ -69,7 +70,7 @@ public class TattooActivity extends AppCompatActivity {
                             tagGroup.setOnTagClickListener(new TagView.OnTagClickListener() {
                                 @Override
                                 public void onTagClick(Tag tag, int position) {
-                                    Intent myIntent = new Intent(TattooActivity.this, SeeMore.class);
+                                    Intent myIntent = new Intent(TattooActivity.this, com.tattood.app.SeeMore.class);
                                     myIntent.putExtra("TAG", "TAG");
                                     myIntent.putExtra("query", tag.text);
                                     startActivity(myIntent);
@@ -88,11 +89,11 @@ public class TattooActivity extends AppCompatActivity {
                                         @Override
                                         public void onResponse(JSONObject response) {
                                             like_count++;
-                                            User.getInstance().addLike(tattoo);
+                                            com.tattood.app.User.getInstance().addLike(tattoo);
                                             refreshLikeButton();
                                         }
                                     };
-                                    Server.like(TattooActivity.this, tattoo_id, true, callback);
+                                    com.tattood.app.Server.like(TattooActivity.this, tattoo_id, true, callback);
                                 }
 
                                 @Override
@@ -101,11 +102,11 @@ public class TattooActivity extends AppCompatActivity {
                                         @Override
                                         public void onResponse(JSONObject response) {
                                             like_count--;
-                                            User.getInstance().removeLike(tattoo);
+                                            com.tattood.app.User.getInstance().removeLike(tattoo);
                                             refreshLikeButton();
                                         }
                                     };
-                                    Server.like(TattooActivity.this, tattoo_id, false, callback);
+                                    com.tattood.app.Server.like(TattooActivity.this, tattoo_id, false, callback);
                                 }
                             });
                         } catch (JSONException e) {
@@ -118,9 +119,8 @@ public class TattooActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d("CAMERA", "Clicked");
-                Toast.makeText(TattooActivity.this, "CAMERA NOT READY YET", Toast.LENGTH_LONG).show();
-//                Intent myIntent = new Intent(TattooActivity.this, UnityPlayerActivity.class);
-//                startActivity(myIntent);
+                Intent myIntent = new Intent(TattooActivity.this, WikitudeActivity.class);
+                startActivity(myIntent);
             }
         });
     }
