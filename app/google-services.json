@@ -49,6 +49,42 @@
           "status": 2
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:876997578175:android:45548c20f04023b2",
+        "android_client_info": {
+          "package_name": "com.tattood.tattood"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "876997578175-hkoqr3jhe87vrt3mnfl66db003fmet0j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaNMS1mgaijtjrwTjqUwFTzuc8px-sZ_I"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "876997578175-hkoqr3jhe87vrt3mnfl66db003fmet0j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
     }
   ],
   "configuration_version": "1"
