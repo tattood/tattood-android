@@ -2,7 +2,7 @@
 Discovery Page -> Tattoo Page -> Camera Button -> Apply Filter -> Send to Unity -> Press Initialize ->
   Edge Detection (Threshold) -> Find Gradient (PCA or FFT) ->
 * TODO
-** Tattoo Page [7/7]
+** Tattoo Page [7/8]
 + [X] Increase size
 + [X] Add margin
 + [X] Change like button
@@ -16,6 +16,7 @@ Discovery Page -> Tattoo Page -> Camera Button -> Apply Filter -> Send to Unity 
 + [X] Tattoo Page opens profile activity
 + [X] Do not show 0 likes
 + [X] Add Border
++ [ ] Tags are not shown properly
 ** Discovery [6/6]
 + [X] Discovery Page Profile Button
 + [X] Pull-swipe longer animation
@@ -131,3 +132,6 @@ Discovery Page -> Tattoo Page -> Camera Button -> Apply Filter -> Send to Unity 
 + [ ] /delete and /like reads tattoo-id from email field
 + [ ] Use Server.getTattooImage2 and remove the first one
 + [-] Clicking on another place should close search bar (Kinda works)
+** Unity [0/2]
++ [ ] Override AndroidManifest
++ [ ] Disable Screen Rotation
