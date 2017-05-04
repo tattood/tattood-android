@@ -1,4 +1,4 @@
-package com.tattood.app;
+package com.tattood.tattood;
 
 import android.app.ActivityOptions;
 import android.app.SearchManager;

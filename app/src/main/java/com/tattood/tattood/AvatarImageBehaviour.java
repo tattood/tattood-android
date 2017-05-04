@@ -1,4 +1,4 @@
-package com.tattood.app;
+package com.tattood.tattood;
 
 /**
  * Created by eksi on 29/04/17.

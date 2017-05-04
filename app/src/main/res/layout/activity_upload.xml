@@ -36,7 +36,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.9">
 
-                    <com.tattood.app.DrawView
+                    <com.tattood.tattood.DrawView
                         android:id="@+id/tattoo_image"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

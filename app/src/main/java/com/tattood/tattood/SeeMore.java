@@ -1,4 +1,4 @@
-package com.tattood.app;
+package com.tattood.tattood;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

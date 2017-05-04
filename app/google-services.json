@@ -1,71 +1,35 @@
 {
   "project_info": {
-    "project_number": "876997578175",
-    "firebase_url": "https://tattood-e35a5.firebaseio.com",
-    "project_id": "tattood-e35a5",
-    "storage_bucket": "tattood-e35a5.appspot.com"
+    "project_number": "941085858813",
+    "firebase_url": "https://tattood-7c7e0.firebaseio.com",
+    "project_id": "tattood-7c7e0",
+    "storage_bucket": "tattood-7c7e0.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:876997578175:android:132b5415db632268",
-        "android_client_info": {
-          "package_name": "com.tattood.app"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "876997578175-f51rvjbs5nf32nnoqr17a9mlnqt9ja1f.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.tattood.app",
-            "certificate_hash": "59f1b0887fd1548cd376462a78d365e80e82f61c"
-          }
-        },
-        {
-          "client_id": "876997578175-hkoqr3jhe87vrt3mnfl66db003fmet0j.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCaNMS1mgaijtjrwTjqUwFTzuc8px-sZ_I"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "876997578175-hkoqr3jhe87vrt3mnfl66db003fmet0j.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:876997578175:android:45548c20f04023b2",
+        "mobilesdk_app_id": "1:941085858813:android:45548c20f04023b2",
         "android_client_info": {
           "package_name": "com.tattood.tattood"
         }
       },
       "oauth_client": [
         {
-          "client_id": "876997578175-hkoqr3jhe87vrt3mnfl66db003fmet0j.apps.googleusercontent.com",
+          "client_id": "941085858813-7s3lgd80ar0a92p9g96a8kddh0dtlg8c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tattood.tattood",
+            "certificate_hash": "59f1b0887fd1548cd376462a78d365e80e82f61c"
+          }
+        },
+        {
+          "client_id": "941085858813-vnk5casq54jqj4sptisugvi6ae9v1le1.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCaNMS1mgaijtjrwTjqUwFTzuc8px-sZ_I"
+          "current_key": "AIzaSyCgjV6Kpb67KWiZGEvgU3-mRssBJah4mxk"
         }
       ],
       "services": {
@@ -76,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "876997578175-hkoqr3jhe87vrt3mnfl66db003fmet0j.apps.googleusercontent.com",
+              "client_id": "941085858813-vnk5casq54jqj4sptisugvi6ae9v1le1.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

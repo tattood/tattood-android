@@ -1,4 +1,4 @@
-package com.tattood.app;
+package com.tattood.tattood;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -25,7 +25,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import static com.tattood.app.R.id.button_delete;
+import static com.tattood.tattood.R.id.button_delete;
 
 public class TattooEditActivity extends AppCompatActivity {
 

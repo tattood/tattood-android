@@ -1,4 +1,4 @@
-package com.tattood.app;
+package com.tattood.tattood;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -7,7 +7,7 @@ import com.android.volley.toolbox.HttpHeaderParser;
 
 import java.util.Map;
 
-import static com.tattood.app.Server.default_error_handler;
+import static com.tattood.tattood.Server.default_error_handler;
 
 public class InputStreamVolleyRequest extends Request<byte[]> {
     private final Response.Listener<byte[]> mListener;
