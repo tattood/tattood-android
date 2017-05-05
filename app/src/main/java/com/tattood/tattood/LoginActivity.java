@@ -30,6 +30,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.karlgao.materialroundbutton.MaterialButton;
+import com.shaishavgandhi.loginbuttons.GooglePlusButton;
 
 import org.json.JSONObject;
 
@@ -56,7 +58,7 @@ public class LoginActivity extends AppCompatActivity implements
         initLogin();
         askForPermission();
         setContentView(R.layout.activity_login);
-        ImageButton login_button = (ImageButton) findViewById(R.id.login_button);
+        GooglePlusButton login_button = (GooglePlusButton) findViewById(R.id.login_button);
 //        SignInButton login_button = (SignInButton) findViewById(R.id.login_button);
 //        login_button.setSize(SignInButton.SIZE_WIDE);
         login_button.setOnClickListener(new OnClickListener() {

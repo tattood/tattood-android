@@ -3,6 +3,7 @@ package com.tattood.tattood;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -45,6 +46,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         TextView tv_user = (TextView) findViewById(R.id.owner_name);
         tv_user.setText(user.username);
+        tv_user.setTypeface(null, Typeface.BOLD_ITALIC);
+        tv_user.setTextSize(16);
         final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {

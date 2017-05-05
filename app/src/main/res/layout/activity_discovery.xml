@@ -20,7 +20,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:background="@drawable/background_toolbar_translucent"
+            android:background="@drawable/color5"
             android:theme="@style/ToolBarStyle"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
@@ -28,7 +28,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -45,7 +46,10 @@
                     android:layout_weight="3"
                     android:gravity="center_vertical|center"
                     android:text="@string/recent"
-                    android:textAlignment="center"/>
+                    android:textColor="@color/colorSunrise1"
+                    android:textAlignment="center"
+                    android:textStyle="bold"
+                    android:textSize="16dp"/>
 
                 <com.karlgao.materialroundbutton.MaterialButton
                     android:id="@+id/see_more_recent"
@@ -53,7 +57,7 @@
                     android:layout_weight="2"
                     android:layout_height="36dp"
                     android:layout_gravity="top"
-                    app:mb_buttonColor="@color/colorTransPurple"
+                    app:mb_buttonColor="@color/colorSunriseGrey"
                     app:mb_buttonType="raised"
                     app:mb_cornerRadius="28dp"
                     app:mb_rippleColor="#40ffffff"
@@ -79,7 +83,7 @@
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_weight="0.8"
-                    android:background="@color/colorPurple"/>
+                    android:background="@drawable/color5"/>
                 <View
                     android:layout_width="0dp"
                     android:layout_height="1dp"
@@ -117,7 +121,10 @@
                     android:layout_weight="3"
                     android:gravity="center_vertical|center"
                     android:text="@string/popular"
-                    android:textAlignment="center"/>
+                    android:textColor="@color/colorSunrise1"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
+                    android:textSize="16dp"/>
 
                 <com.karlgao.materialroundbutton.MaterialButton
                     android:id="@+id/see_more_popular"
@@ -125,7 +132,7 @@
                     android:layout_weight="2"
                     android:layout_height="36dp"
                     android:layout_gravity="top"
-                    app:mb_buttonColor="@color/colorTransPurple"
+                    app:mb_buttonColor="@color/colorSunriseGrey"
                     app:mb_buttonType="raised"
                     app:mb_cornerRadius="28dp"
                     app:mb_rippleColor="#40ffffff"
@@ -153,7 +160,7 @@
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_weight="0.8"
-                    android:background="@color/colorPurple"/>
+                    android:background="@drawable/color5"/>
 
                 <View
                     android:layout_width="0dp"

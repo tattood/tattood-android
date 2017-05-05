@@ -14,4 +14,26 @@
     <color name="colorPinkAlpha">#79a67aa6</color>
 
 
+    <color name="colorStarfallPurple1">#4B1248</color>
+    <color name="colorStarfallPurple2">#3A1C71</color>
+    <color name="colorStarfallPink">#D76D77</color>
+    <color name="colorStarfallSomon">#FFAF7B</color>
+    <color name="colorStarfallBeige">#F0C27B</color>
+
+    <color name="colorSunrise1">#ff512f</color>
+    <color name="colorSunrise2">#f09819</color>
+
+    <color name="colorSunriseGrey">#bdc3c7</color>
+
+
+    <!--
+        <color name="colorStarfallPurple1">#ff512f</color>
+        <color name="colorStarfallPurple2">#f09819</color>
+        <color name="colorStarfallPink">#a73737</color>
+        <color name="colorStarfallSomon">#7a2828</color>
+
+        -->
+
+
+
 </resources>

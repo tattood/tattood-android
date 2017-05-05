@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="256dp"
         android:fitsSystemWindows="true"
-        android:background="@drawable/pattern9"
+        android:background="@drawable/color5"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <android.support.design.widget.CollapsingToolbarLayout

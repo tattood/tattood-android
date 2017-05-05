@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/pattern7"
+    android:background="@drawable/color5"
     tools:context="com.tattood.tattood.SeeMore">
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
