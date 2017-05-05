@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:background="@drawable/color5"
+    android:background="@drawable/tattoo_artist"
     tools:context="com.tattood.tattood.LoginActivity"
     android:weightSum="3">
 
@@ -29,7 +29,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="0"
         android:orientation="vertical"
         android:gravity="center_vertical">
 
