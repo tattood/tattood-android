@@ -69,9 +69,9 @@ Discovery Page -> Tattoo Page -> Camera Button -> Apply Filter -> Send to Unity 
 + [X] Cannot access photos
 + [ ] Show cropped image
 + [ ] Give information on network failure
-** Register [0/2]
-+ [ ] Check username is empty
-+ [ ] Back to discovery goes to register page
+** Register [2/2]
++ [X] Check username is empty
++ [X] Back to discovery goes to register page
 ** See more [5/6]
 + [X] See more changes to single row
 + [X] Change See More button
@@ -79,7 +79,7 @@ Discovery Page -> Tattoo Page -> Camera Button -> Apply Filter -> Send to Unity 
 + [X] See more Card layout grid (or simply add borders)
 + [X] Make See-More image density dynamic to make it fit 3 items
 + [ ] Auto load at the bottom of the page (Requires change in server)
-** Profile Page [9/12]
+** Profile Page [9/13]
 + [X] Make profile icon circular
 + [X] Profile page list alignment
 + [X] Profile page move toolbar inside the view
@@ -89,6 +89,7 @@ Discovery Page -> Tattoo Page -> Camera Button -> Apply Filter -> Send to Unity 
 + [X] Make tabs 3 column
 + [X] Add refresh
 + [X] Sometimes username is not shown
++ [ ] Add Camera button in Tattoo-Edit
 + [ ] Auto-load images as they scroll
 + [ ] Set Toolbar Icon
 + [ ] Add toolbar transition animation
