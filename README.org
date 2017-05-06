@@ -2,7 +2,7 @@
 Discovery Page -> Tattoo Page -> Camera Button -> Apply Filter -> Send to Unity -> Press Initialize ->
   Edge Detection (Threshold) -> Find Gradient (PCA or FFT) ->
 * TODO
-** Tattoo Page [8/8]
+** Tattoo Page [8/9]
 + [X] Increase size
 + [X] Add margin
 + [X] Change like button
@@ -17,6 +17,7 @@ Discovery Page -> Tattoo Page -> Camera Button -> Apply Filter -> Send to Unity 
 + [X] Do not show 0 likes
 + [X] Add Border
 + [X] Tags are not shown properly
++ [ ] Open User page when clicked on Image
 ** Discovery [6/6]
 + [X] Discovery Page Profile Button
 + [X] Pull-swipe longer animation

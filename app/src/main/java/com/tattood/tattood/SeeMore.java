@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.android.volley.Response;
 
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 
 public class SeeMore extends AppCompatActivity {
 
-    private final int LIST_SIZE = 100;
+    private final int LIST_SIZE = 15;
     private int previousTotal = LIST_SIZE;
     private boolean loading = false;
     private int visibleThreshold = 3;
@@ -49,13 +48,13 @@ public class SeeMore extends AppCompatActivity {
                         previousTotal = totalItemCount;
                     }
                 }
-                if (!loading && (totalItemCount - visibleItemCount)
-                        <= (firstVisibleItem + visibleThreshold)) {
-                    loading = true;
+                if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
                     ArrayList<Tattoo> val = ((TattooRecyclerViewAdapter)recyclerView.getAdapter()).mValues;
-                    populate_list(val.get(val.size() - 1).tattoo_id);
+                    if (val.get(val.size() - 1) == null)
+                        return;
+                    populate_list(String.valueOf(val.size()));
                 }
-                Log.d("SEARCH", String.valueOf(loading));
+
             }
         });
         if (tag != null) {
@@ -72,15 +71,19 @@ public class SeeMore extends AppCompatActivity {
         }
     }
 
-    private void populate_list(String latest) {
+    private void populate_list(final String latest) {
         if (tag.equals("RECENT")) {
             Server.getRecent(this,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
                             ((TattooRecyclerViewAdapter) list_view.getAdapter()).set_data(response);
+                            if (latest != null) {
+                                loading = true;
+                                totalItemCount += LIST_SIZE;
+                            }
                         }
-                    }, LIST_SIZE);
+                    }, LIST_SIZE, latest);
         } else if (tag.equals("POPULAR")) {
             Server.getPopular(this,
                     new Response.Listener<JSONObject>() {
@@ -88,13 +91,13 @@ public class SeeMore extends AppCompatActivity {
                         public void onResponse(JSONObject response) {
                             ((TattooRecyclerViewAdapter) list_view.getAdapter()).set_data(response);
                         }
-                    }, LIST_SIZE);
+                    }, LIST_SIZE, latest);
         } else if (user != null && tag.equals("PRIVATE")) {
-            user.setPrivateView(this, list_view, LIST_SIZE);
+            user.setPrivateView(this, list_view, LIST_SIZE, false, latest);
         } else if (user != null && tag.equals("PUBLIC")) {
-            user.setPublicView(this, list_view, LIST_SIZE);
+            user.setPublicView(this, list_view, LIST_SIZE, false, latest);
         } else if (user != null && tag.equals("LIKED")) {
-            user.setLikedView(this, list_view, LIST_SIZE);
+            user.setLikedView(this, list_view, LIST_SIZE, false, latest);
         } else if (tag.equals("TAG")) {
             String query = extras.getString("query");
             Server.search(SeeMore.this, query,
@@ -125,6 +128,10 @@ public class SeeMore extends AppCompatActivity {
                             }
                         }
                     }, LIST_SIZE, latest);
+        }
+        if (latest != null) {
+            loading = true;
+            totalItemCount += LIST_SIZE;
         }
     }
 }

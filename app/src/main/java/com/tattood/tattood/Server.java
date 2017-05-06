@@ -139,12 +139,28 @@ public class Server {
         request(context, "/register", data, callback, error_handler);
     }
 
+    public static void getPopular(Context context, Response.Listener<JSONObject> callback,
+                                  int limit, String latest) {
+        if (latest == null)
+            getRecent(context, callback, limit);
+        else
+            request(context, "/popular?limit=" + limit + "&latest=" + latest, null, callback);
+    }
+
     public static void getPopular(Context context, Response.Listener<JSONObject> callback, int limit) {
         request(context, "/popular?limit=" + limit, null, callback);
     }
 
     public static void getPopular(Context context, Response.Listener<JSONObject> callback) {
         getPopular(context, callback, 20);
+    }
+
+    public static void getRecent(Context context, Response.Listener<JSONObject> callback,
+                                 int limit, String latest) {
+        if (latest == null)
+            getRecent(context, callback, limit);
+        else
+            request(context, "/recent?limit=" + limit + "&latest=" + latest, null, callback);
     }
 
     public static void getRecent(Context context, Response.Listener<JSONObject> callback, int limit) {
@@ -193,8 +209,12 @@ public class Server {
         view.setImageURI(url);
     }
 
-        public static void getTattooList(Context context, TattooRequest r, String username,
+    public static void getTattooList(Context context, TattooRequest r, String username,
                                      Response.Listener<JSONObject> callback, int limit) {
+        getTattooList(context, r, username, callback, limit, null);
+    }
+    public static void getTattooList(Context context, TattooRequest r, String username,
+                                     Response.Listener<JSONObject> callback, int limit, String latest) {
         String url;
         if (r == TattooRequest.Liked) {
             url = "/user-likes?";
@@ -205,6 +225,8 @@ public class Server {
                 url = "/user-tattoo?private=1";
         }
         url += "&token=" + User.getInstance().token + "&user=" + username + "&limit=" + limit;
+        if (latest != null)
+            url += "&latest=" + latest;
         Log.d("User-tattoo", url);
         request(context, url, null, callback);
     }

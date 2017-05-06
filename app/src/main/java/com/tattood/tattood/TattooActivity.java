@@ -88,7 +88,6 @@ public class TattooActivity extends AppCompatActivity {
                                         @Override
                                         public void onResponse(JSONObject response) {
                                             like_count++;
-                                            Log.d("TATTOO", "LIKE");
                                             com.tattood.tattood.User.getInstance().addLike(tattoo);
                                             refreshLikeButton();
                                         }
@@ -102,7 +101,6 @@ public class TattooActivity extends AppCompatActivity {
                                         @Override
                                         public void onResponse(JSONObject response) {
                                             like_count--;
-                                            Log.d("TATTOO", "UNLIKE");
                                             com.tattood.tattood.User.getInstance().removeLike(tattoo);
                                             refreshLikeButton();
                                         }

@@ -41,15 +41,15 @@ public class User {
             user = new User(t, u, p);
     }
 
-    public void setLikedView(Context context, final RecyclerView list_view) {
-        setLikedView(context, list_view, 20);
-    }
-
     public void setLikedView(Context context, final RecyclerView list_view, int limit) {
         setLikedView(context, list_view, limit, false);
     }
 
     public void setLikedView(Context context, final RecyclerView list_view, int limit, boolean refresh) {
+        setLikedView(context, list_view, limit, refresh, null);
+    }
+
+    public void setLikedView(Context context, final RecyclerView list_view, int limit, boolean refresh, String latest) {
         if (liked_view == null || refresh) {
             liked_view = list_view;
             Server.getTattooList(context, Server.TattooRequest.Liked, username,
@@ -58,14 +58,10 @@ public class User {
                         public void onResponse(JSONObject response) {
                             ((TattooRecyclerViewAdapter) list_view.getAdapter()).set_data(response);
                         }
-                    }, limit);
+                    }, limit, latest);
         } else {
             changeView(liked_view, list_view);
         }
-    }
-
-    public void setPublicView(Context context, final RecyclerView list_view) {
-        setPublicView(context, list_view, 20);
     }
 
     public void setPublicView(Context context, final RecyclerView list_view, int limit) {
@@ -73,24 +69,22 @@ public class User {
     }
 
     public void setPublicView(Context context, final RecyclerView list_view, int limit, boolean refresh) {
+        setPublicView(context, list_view, limit, refresh, null);
+    }
+
+    public void setPublicView(Context context, final RecyclerView list_view, int limit, boolean refresh, String latest) {
         if (public_view == null || refresh) {
             public_view = list_view;
-            Log.d("NULL", "PUBLIC");
             Server.getTattooList(context, Server.TattooRequest.Public, username,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
                         ((TattooRecyclerViewAdapter) list_view.getAdapter()).set_data(response);
                         }
-                    }, limit);
+                    }, limit, latest);
         } else {
-            Log.d("NOT-NULL", "PUBLIC");
             changeView(public_view, list_view);
         }
-    }
-
-    public void setPrivateView(Context context, final RecyclerView list_view) {
-        setPrivateView(context, list_view, 20);
     }
 
     public void setPrivateView(Context context, final RecyclerView list_view, int limit) {
@@ -98,6 +92,10 @@ public class User {
     }
 
     public void setPrivateView(Context context, final RecyclerView list_view, int limit, boolean refresh) {
+        setPrivateView(context, list_view, limit, refresh, null);
+    }
+
+    public void setPrivateView(Context context, final RecyclerView list_view, int limit, boolean refresh, String latest) {
         if (private_view == null || refresh) {
             private_view = list_view;
             Server.getTattooList(context, Server.TattooRequest.Private, username,
@@ -106,7 +104,7 @@ public class User {
                         public void onResponse(JSONObject response) {
                             ((TattooRecyclerViewAdapter) list_view.getAdapter()).set_data(response);
                         }
-                    }, limit);
+                    }, limit, latest);
         } else {
             changeView(private_view, list_view);
         }
