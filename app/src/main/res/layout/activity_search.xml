@@ -7,18 +7,27 @@
     android:background="@color/colorGrey2"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:id="@+id/tv_no_results"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/no_results_found"
-        android:visibility="invisible"/>
+        android:layout_height="56dp"
+        android:background="@drawable/color5"
+        android:theme="@style/ToolBarStyle"/>
+        <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/tag_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="invisible"/>
+
+  <TextView
+      android:id="@+id/tv_no_results"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:text="@string/no_results_found"
+      android:visibility="invisible"/>
 
 </LinearLayout>
