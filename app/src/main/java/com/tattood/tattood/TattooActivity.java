@@ -45,6 +45,9 @@ public class TattooActivity extends AppCompatActivity {
                             final String url = response.getString("url");
                             TextView owner = (TextView) findViewById(R.id.owner_name);
                             owner.setText(username);
+                            owner.setTextColor(getResources().getColor(R.color.colorWhite));
+                            owner.setTypeface(null, Typeface.BOLD_ITALIC);
+                            owner.setTextSize(16);
                             final SimpleDraweeView img = (SimpleDraweeView) findViewById(R.id.user_image);
                             img.setImageURI(url);
                             tattoo.owner_id = owner_id;

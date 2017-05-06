@@ -47,6 +47,7 @@ public class ProfileActivity extends AppCompatActivity {
         tv_user.setText(user.username);
         tv_user.setTypeface(null, Typeface.BOLD_ITALIC);
         tv_user.setTextSize(16);
+        tv_user.setTextColor(getResources().getColor(R.color.colorWhite));
         final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
