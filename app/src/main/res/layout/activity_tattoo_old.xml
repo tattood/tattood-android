@@ -11,32 +11,6 @@
     tools:layout_editor_absoluteY="8dp"
     android:background="@drawable/color5">
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
-
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/user_image"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginStart="30dp"
-            fresco:roundedCornerRadius="5dp"
-            fresco:roundAsCircle="true"
-            fresco:roundingBorderWidth="1dp"/>
-
-        <TextView
-            android:id="@+id/owner_name"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/user"
-            android:textAlignment="center"
-            android:layout_marginStart="10dp"/>
-    </LinearLayout>
-
     <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
@@ -44,9 +18,9 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="0dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginStart="0dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
         card_view:cardCornerRadius="0dp"
         card_view:cardElevation="10dp">
 
@@ -55,47 +29,45 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="6dp"
-            android:orientation="vertical"
-            android:weightSum="1">
-
-            <View
-                android:id="@+id/view6"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorGrey1"
-                android:layout_marginTop="5dp"/>
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/user_image"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginStart="30dp"
+                    fresco:roundedCornerRadius="0dp"
+                    fresco:roundAsCircle="true"
+                    fresco:roundWithOverlayColor="@android:color/white"
+                    fresco:roundingBorderColor="@color/colorWhite"
+                    fresco:roundingBorderWidth="1dp"/>
+
+                <TextView
+                    android:id="@+id/owner_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/user"
+                    android:textAlignment="center"/>
+            </LinearLayout>
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/tattoo_image"
                 android:layout_width="match_parent"
-                android:layout_height="370dp"
+                android:layout_height="200dp"
                 android:layout_margin="5dp"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/tattoo_description"
                 fresco:actualImageScaleType="fitCenter"
-                fresco:placeholderImage="@drawable/common_google_signin_btn_icon_dark_normal" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="11dp"
-                android:orientation="vertical"
-                android:weightSum="1">
-
-                <View
-                    android:id="@+id/view7"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorGrey1"
-                    android:layout_marginTop="0dp"/>
-            </LinearLayout>
+                fresco:placeholderImage="@drawable/common_google_signin_btn_icon_dark_normal"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <com.like.LikeButton
@@ -106,14 +78,14 @@
                     app:anim_scale_factor="3"
                     app:icon_size="30dp"
                     app:icon_type="heart"
-                    app:is_enabled="true" />
+                    app:is_enabled="true"/>
 
                 <TextView
                     android:id="@+id/like_count"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start|center"
-                    android:layout_weight="0.82" />
+                    android:layout_weight="1"/>
 
                 <ImageView
                     android:id="@+id/fab_camera"
@@ -121,7 +93,7 @@
                     android:layout_height="40dp"
                     android:layout_gravity="end|center"
                     android:layout_margin="@dimen/fab_margin"
-                    android:src="@android:drawable/ic_menu_camera" />
+                    android:src="@android:drawable/ic_menu_camera"/>
 
             </LinearLayout>
 
@@ -139,7 +111,5 @@
 
         </LinearLayout>
     </android.support.v7.widget.CardView>
-
-
 
 </LinearLayout>
