@@ -68,6 +68,10 @@ Discovery Page -> Tattoo Page -> Camera Button -> Apply Filter -> Send to Unity 
 + [ ] Show cropped image
 + [ ] Give information on network failure
 + [ ] Open keyboard when clicked new tag label (Might be a bug in Virtual Device)
++ [ ] Cannot access photos
+** Register [0/2]
++ [ ] Check username is empty
++ [ ] Back to discovery goes to register page
 ** See more [5/6]
 + [X] See more changes to single row
 + [X] Change See More button
@@ -87,6 +91,7 @@ Discovery Page -> Tattoo Page -> Camera Button -> Apply Filter -> Send to Unity 
 + [ ] Auto-load images as they scroll
 + [ ] Set Toolbar Icon
 + [ ] Add toolbar transition animation
++ [ ] Sometimes username is not shown
 ** AR Camera [0/9]
 + [ ] Plane rotation depends on gyroscope, not stable
 + [ ] Apply filters
@@ -109,7 +114,9 @@ Discovery Page -> Tattoo Page -> Camera Button -> Apply Filter -> Send to Unity 
 + [X] Tags are deleted when changed visibility
 + [ ] Fill with white if <=300
 + [ ] Check Other Image Classification Models: [Inception, TF-SLIM]
++ [ ] Background of the image should be transparent
 ** Visual [0/3]
++ [ ] Change cardview into consistent layout
 + [ ] Check constant dp
 + [ ] Change text font
   + [[http://fontawesome.io][FontAwesome]]
