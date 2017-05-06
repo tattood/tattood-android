@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -30,7 +29,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.karlgao.materialroundbutton.MaterialButton;
 import com.shaishavgandhi.loginbuttons.GooglePlusButton;
 
 import org.json.JSONObject;
@@ -189,6 +187,7 @@ public class LoginActivity extends AppCompatActivity implements
                                     editor.apply();
                                     Intent myIntent = new Intent(getBaseContext(), DiscoveryActivity.class);
                                     myIntent.putExtra("token", acct.getIdToken());
+                                    myIntent.putExtra("username", username);
                                     myIntent.putExtra("photo-uri", url);
                                     startActivity(myIntent);
                                     finish();
