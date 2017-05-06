@@ -20,10 +20,9 @@
     <color name="colorStarfallSomon">#FFAF7B</color>
     <color name="colorStarfallBeige">#F0C27B</color>
 
-    <color name="colorSunrise1">#ff512f</color>
+    <color name="colorSunrise1">#ff512f</color> <!-- gradient colors -->
     <color name="colorSunrise2">#f09819</color>
-
-    <color name="colorSunriseGrey">#bdc3c7</color>
+    <color name="colorSunriseGrey">#bdc3c7</color> <!-- button color -->
 
     <color name="colorNamn1">#a73737</color>
     <color name="colorNamn2">#7a2828</color>
