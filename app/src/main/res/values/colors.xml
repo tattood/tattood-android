@@ -25,6 +25,20 @@
 
     <color name="colorSunriseGrey">#bdc3c7</color>
 
+    <color name="colorNamn1">#a73737</color>
+    <color name="colorNamn2">#7a2828</color>
+    <color name="colorNamn1_trans">#26a73737</color>
+    <color name="colorNamn2_trans">#267a2828</color>
+
+    <color name="colorNamnGradient1">#EF3B36</color>
+    <color name="colorNamnGradient2">#FFFFFF</color>
+
+    <color name="colorMidnight1">#232526</color>
+    <color name="colorMidnight2">#414345</color>
+    <color name="colorGrey1">#8e9eab</color>
+    <color name="colorGrey2">#eef2f3</color>
+
+    <color name="colorTransparent">#00000000</color>
 
     <!--
         <color name="colorStarfallPurple1">#ff512f</color>
