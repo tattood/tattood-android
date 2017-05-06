@@ -1,35 +1,24 @@
 package com.tattood.tattood;
 
-import android.animation.ArgbEvaluator;
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.TransitionDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.google.android.gms.auth.GooglePlayServicesAvailabilityException;
-import com.karlgao.materialroundbutton.MaterialButton;
 import com.shaishavgandhi.loginbuttons.GooglePlusButton;
 
 import org.json.JSONObject;
-
-import static android.animation.ValueAnimator.REVERSE;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -45,6 +34,10 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 TextView tv = (TextView) findViewById(R.id.editText_username);
                 final String username = tv.getText().toString();
+                if (username.isEmpty()) {
+                    tv.setError("Username cannot be empty");
+                    return;
+                }
                 final String email = getIntent().getStringExtra("email");
                 final String token = getIntent().getStringExtra("token");
                 final Uri photo = Uri.parse(getIntent().getStringExtra("photo-uri"));
@@ -61,6 +54,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 myIntent.putExtra("username", username);
                                 myIntent.putExtra("photo-uri", photo.toString());
                                 startActivity(myIntent);
+                                finish();
                             }
                         }, new Response.ErrorListener() {
                             @Override
