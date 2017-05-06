@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.cunoraz.tagview.Tag;
@@ -89,6 +88,7 @@ public class TattooActivity extends AppCompatActivity {
                                         @Override
                                         public void onResponse(JSONObject response) {
                                             like_count++;
+                                            Log.d("TATTOO", "LIKE");
                                             com.tattood.tattood.User.getInstance().addLike(tattoo);
                                             refreshLikeButton();
                                         }
@@ -102,6 +102,7 @@ public class TattooActivity extends AppCompatActivity {
                                         @Override
                                         public void onResponse(JSONObject response) {
                                             like_count--;
+                                            Log.d("TATTOO", "UNLIKE");
                                             com.tattood.tattood.User.getInstance().removeLike(tattoo);
                                             refreshLikeButton();
                                         }

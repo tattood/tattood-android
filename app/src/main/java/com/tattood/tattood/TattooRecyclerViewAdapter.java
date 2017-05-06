@@ -146,10 +146,11 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
     public void removeTattoo(Tattoo t) {
         Log.d("REMOVE", String.valueOf(t.tattoo_id));
         for (int i = 0; i < mValues.size(); i++) {
-            Log.d("REMOVE", String.valueOf(mValues.get(i).tattoo_id));
-            Log.d("REMOVE2", String.valueOf(mValues.get(i) == t));
+            if (t.tattoo_id.equals(mValues.get(i).tattoo_id)) {
+                mValues.remove(i);
+                break;
+            }
         }
-        mValues.remove(t);
         setData(mValues);
     }
 

@@ -23,6 +23,7 @@
         android:name=".BaseApp"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
+        android:largeHeap="true"
         tools:ignore="GoogleAppIndexingWarning">
         <provider
             android:name="com.tattood.tattood.MySuggestionProvider"

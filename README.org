@@ -2,7 +2,7 @@
 Discovery Page -> Tattoo Page -> Camera Button -> Apply Filter -> Send to Unity -> Press Initialize ->
   Edge Detection (Threshold) -> Find Gradient (PCA or FFT) ->
 * TODO
-** Tattoo Page [7/8]
+** Tattoo Page [8/8]
 + [X] Increase size
 + [X] Add margin
 + [X] Change like button
@@ -16,7 +16,7 @@ Discovery Page -> Tattoo Page -> Camera Button -> Apply Filter -> Send to Unity 
 + [X] Tattoo Page opens profile activity
 + [X] Do not show 0 likes
 + [X] Add Border
-+ [ ] Tags are not shown properly
++ [X] Tags are not shown properly
 ** Discovery [6/6]
 + [X] Discovery Page Profile Button
 + [X] Pull-swipe longer animation
@@ -56,7 +56,7 @@ Discovery Page -> Tattoo Page -> Camera Button -> Apply Filter -> Send to Unity 
 + [X] Cache profile photo [[[https://github.com/facebook/fresco][Fresco]]]
 + [X] Ask for confirmation to discard changes in TattooEdit
 + [X] Make Images in RecyclerViewAdapter use Fresco
-** Upload page [8/11]
+** Upload page [10/12]
 + [X] Change Add tag button to textinput and move to bottom
 + [X] Enable crop without clicking image
 + [X] Move submit to the bottom
@@ -65,10 +65,10 @@ Discovery Page -> Tattoo Page -> Camera Button -> Apply Filter -> Send to Unity 
 + [X] Save cropped image
 + [X] second Crop shows small line
 + [X] Uncomment extract tags
++ [X] Open keyboard when clicked new tag label (Might be a bug in Virtual Device)
++ [X] Cannot access photos
 + [ ] Show cropped image
 + [ ] Give information on network failure
-+ [ ] Open keyboard when clicked new tag label (Might be a bug in Virtual Device)
-+ [ ] Cannot access photos
 ** Register [0/2]
 + [ ] Check username is empty
 + [ ] Back to discovery goes to register page
@@ -79,7 +79,7 @@ Discovery Page -> Tattoo Page -> Camera Button -> Apply Filter -> Send to Unity 
 + [X] See more Card layout grid (or simply add borders)
 + [X] Make See-More image density dynamic to make it fit 3 items
 + [ ] Auto load at the bottom of the page (Requires change in server)
-** Profile Page [8/11]
+** Profile Page [9/12]
 + [X] Make profile icon circular
 + [X] Profile page list alignment
 + [X] Profile page move toolbar inside the view
@@ -88,10 +88,10 @@ Discovery Page -> Tattoo Page -> Camera Button -> Apply Filter -> Send to Unity 
 + [X] [DESIGN] Profile photo in the middle, public/private as tabs
 + [X] Make tabs 3 column
 + [X] Add refresh
++ [X] Sometimes username is not shown
 + [ ] Auto-load images as they scroll
 + [ ] Set Toolbar Icon
 + [ ] Add toolbar transition animation
-+ [ ] Sometimes username is not shown
 ** AR Camera [0/9]
 + [ ] Plane rotation depends on gyroscope, not stable
 + [ ] Apply filters
@@ -107,14 +107,14 @@ Discovery Page -> Tattoo Page -> Camera Button -> Apply Filter -> Send to Unity 
 + [ ] Take screenshot
 + [ ] Save
 + [ ] Share
-** Server [4/6]
+** Server [6/7]
 + [X] Added /delete end-point
 + [X] Move to DigitalOcean
 + [X] While saving, make white pixels transparent ??
 + [X] Tags are deleted when changed visibility
-+ [ ] Fill with white if <=300
++ [X] Fill with white if <=300
++ [X] Background of the image should be transparent
 + [ ] Check Other Image Classification Models: [Inception, TF-SLIM]
-+ [ ] Background of the image should be transparent
 ** Visual [0/3]
 + [ ] Change cardview into consistent layout
 + [ ] Check constant dp
