@@ -2,7 +2,7 @@
 Discovery Page -> Tattoo Page -> Camera Button -> Apply Filter -> Send to Unity -> Press Initialize ->
   Edge Detection (Threshold) -> Find Gradient (PCA or FFT) ->
 * TODO
-** Tattoo Page [8/9]
+** Tattoo Page [9/9]
 + [X] Increase size
 + [X] Add margin
 + [X] Change like button
@@ -17,7 +17,7 @@ Discovery Page -> Tattoo Page -> Camera Button -> Apply Filter -> Send to Unity 
 + [X] Do not show 0 likes
 + [X] Add Border
 + [X] Tags are not shown properly
-+ [ ] Open User page when clicked on Image
++ [X] Open User page when clicked on Image
 ** Discovery [6/6]
 + [X] Discovery Page Profile Button
 + [X] Pull-swipe longer animation
@@ -73,13 +73,13 @@ Discovery Page -> Tattoo Page -> Camera Button -> Apply Filter -> Send to Unity 
 ** Register [2/2]
 + [X] Check username is empty
 + [X] Back to discovery goes to register page
-** See more [5/6]
+** See more [6/6]
 + [X] See more changes to single row
 + [X] Change See More button
 + [X] Add background
 + [X] See more Card layout grid (or simply add borders)
 + [X] Make See-More image density dynamic to make it fit 3 items
-+ [ ] Auto load at the bottom of the page (Requires change in server)
++ [X] Auto load at the bottom of the page (Requires change in server)
 ** Profile Page [9/13]
 + [X] Make profile icon circular
 + [X] Profile page list alignment

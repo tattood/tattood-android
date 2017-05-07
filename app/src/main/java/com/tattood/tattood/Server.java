@@ -142,7 +142,7 @@ public class Server {
     public static void getPopular(Context context, Response.Listener<JSONObject> callback,
                                   int limit, String latest) {
         if (latest == null)
-            getRecent(context, callback, limit);
+            getPopular(context, callback, limit);
         else
             request(context, "/popular?limit=" + limit + "&latest=" + latest, null, callback);
     }

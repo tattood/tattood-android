@@ -128,7 +128,7 @@
             <com.cunoraz.tagview.TagView
                 android:id="@+id/tag_group"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 app:lineMargin="5dp"
                 app:tagMargin="5dp"
