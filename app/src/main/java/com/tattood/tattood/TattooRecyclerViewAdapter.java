@@ -145,6 +145,7 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
     }
 
     public void addTattoo(Tattoo t) {
+        views.add(null);
         mValues.add(t);
         setData(mValues);
     }
@@ -154,6 +155,7 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
         for (int i = 0; i < mValues.size(); i++) {
             if (t.tattoo_id.equals(mValues.get(i).tattoo_id)) {
                 mValues.remove(i);
+                views.remove(i);
                 break;
             }
         }

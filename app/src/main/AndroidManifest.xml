@@ -71,12 +71,13 @@
         </activity>
         <activity
             android:name="com.tattood.tattood.UploadActivity"
-            android:label="@string/title_activity_upload"
+            android:label="@string/upload"
             android:windowSoftInputMode="adjustPan">
         </activity>
         <activity
             android:name="com.tattood.tattood.SearchActivity"
-            android:label="@string/title_activity_search">
+            android:label="@string/title_activity_search"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH"/>
             </intent-filter>
