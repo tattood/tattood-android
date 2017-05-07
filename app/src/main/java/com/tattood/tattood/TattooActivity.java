@@ -1,7 +1,9 @@
 package com.tattood.tattood;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,7 +14,13 @@ import android.widget.TextView;
 import com.android.volley.Response;
 import com.cunoraz.tagview.Tag;
 import com.cunoraz.tagview.TagView;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.request.BasePostprocessor;
+import com.facebook.imagepipeline.request.ImageRequest;
+import com.facebook.imagepipeline.request.ImageRequestBuilder;
+import com.facebook.imagepipeline.request.Postprocessor;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.wikitude.unity.WikitudeActivity;
@@ -25,6 +33,8 @@ public class TattooActivity extends AppCompatActivity {
 
     boolean is_liked;
     int like_count;
+    SimpleDraweeView tattoo_img;
+    Bitmap tattoo_copy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +43,33 @@ public class TattooActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         final String tattoo_id = extras.getString("tid");
         final com.tattood.tattood.Tattoo tattoo = new com.tattood.tattood.Tattoo(tattoo_id, null);
-        final SimpleDraweeView tattoo_img = (SimpleDraweeView) findViewById(R.id.tattoo_image);
-        com.tattood.tattood.Server.getTattooImage2(tattoo, tattoo_img);
+        tattoo_img = (SimpleDraweeView) findViewById(R.id.tattoo_image);
+        //com.tattood.tattood.Server.getTattooImage2(tattoo, tattoo_img);
+        Uri uri = Uri.parse(Server.host + "/tattoo?id="+tattoo.tattoo_id+"&token="+User.getInstance().token);
+        Postprocessor redMeshPostprocessor = new BasePostprocessor() {
+            @Override
+            public String getName() {
+                return "redMeshPostprocessor";
+            }
+
+            @Override
+            public void process(Bitmap bitmap) {
+                tattoo_copy = bitmap.copy(bitmap.getConfig(), true);
+            }
+        };
+
+        ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
+                .setPostprocessor(redMeshPostprocessor)
+                .build();
+
+        PipelineDraweeController controller = (PipelineDraweeController)
+                Fresco.newDraweeControllerBuilder()
+                        .setImageRequest(request)
+                        .setOldController(tattoo_img.getController())
+                        // other setters as you need
+                        .build();
+        tattoo_img.setController(controller);
+
         com.tattood.tattood.Server.getTattooData(this, tattoo_id,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -133,6 +168,15 @@ public class TattooActivity extends AppCompatActivity {
                 startActivity(myIntent);
             }
         });
+
+
+        /*final Button fbutton = (Button) findViewById(R.id.filter_button);
+        fbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //filterTattoo();
+            }
+        });*/
     }
 
     private void refreshLikeButton() {
@@ -145,4 +189,6 @@ public class TattooActivity extends AppCompatActivity {
             like_label.setText("");
         }
     }
+
+
 }
