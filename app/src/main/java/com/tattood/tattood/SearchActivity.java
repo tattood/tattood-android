@@ -1,12 +1,17 @@
 package com.tattood.tattood;
 
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.SearchRecentSuggestions;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 
 import com.android.volley.Response;
@@ -49,6 +54,20 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                     }
                 });
         handleIntent(getIntent());
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        myToolbar.setTitle(query);
+        setSupportActionBar(myToolbar);
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_search, menu);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        return true;
     }
 
     public boolean empty(JSONObject obj) {
@@ -86,4 +105,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         }*/
         startActivity(myIntent);
     }
+
+
 }
