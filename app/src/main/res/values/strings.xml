@@ -7,8 +7,8 @@
     <string name="title_activity_see_more">See More</string>
     <string name="title_activity_tattoo">TattooActivity</string>
     <string name="title_activity_user">UserActivity</string>
-    <string name="title_activity_upload">UploadActivity</string>
-    <string name="title_activity_search">SearchActivity</string>
+    <string name="title_activity_upload">Upload</string>
+    <string name="title_activity_search">Search</string>
     <string name="sign_out">Sign Out</string>
     <string name="user_name">Select a user name!</string>
     <string name="register">Register</string>

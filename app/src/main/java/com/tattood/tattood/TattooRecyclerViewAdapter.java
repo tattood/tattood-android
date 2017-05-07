@@ -24,6 +24,7 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
     private final OnListFragmentInteractionListener mListener;
     private final Context mContext;
     private boolean isGrid;
+    private ArrayList<SimpleDraweeView> views;
 
     public TattooRecyclerViewAdapter(Context context) {
         this(context, null);
@@ -68,8 +69,10 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final int pos = holder.getAdapterPosition();
         final Tattoo tattoo = mValues.get(pos);
-        if (tattoo != null)
+        if (views != null) {
+            views.set(pos, holder.image);
             Server.getTattooImage2(tattoo, holder.image);
+        }
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,14 +110,19 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
         try {
             obj = obj.getJSONObject("data");
             int prev = 0;
-            if (mValues == null)
+            if (mValues == null || !isGrid) {
                 mValues = new ArrayList<>(obj.length());
+                views = new ArrayList<>(obj.length());
+            }
             else
                 prev = mValues.size();
             Log.d("DATA", String.valueOf(obj.length()));
-            for (int i = 0; i < obj.length(); i++)
+            for (int i = 0; i < obj.length(); i++) {
                 mValues.add(null);
+                views.add(null);
+            }
             Iterator<String> keys = obj.keys();
+
             while( keys.hasNext() ) {
                 String key = keys.next();
                 final int index = prev + Integer.parseInt(key);
@@ -122,14 +130,10 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
                 String tattoo_id = tattooJSON.getString(0);
                 String owner_id = tattooJSON.getString(1);
                 this.setTattoo(index, new Tattoo(tattoo_id, owner_id));
-                Server.getTattooImage(mContext, mValues.get(index),
-                        new Server.ResponseCallback() {
-                            @Override
-                            public void run() {
-                                notifyDataSetChanged();
-                            }
-                        });
+//                notifyDataSetChanged();
+//                Server.getTattooImage2(mValues.get(index), views.get(index));
             }
+            notifyDataSetChanged();
         } catch(JSONException e) {
             e.printStackTrace();
         }

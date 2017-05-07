@@ -2,7 +2,6 @@ package com.tattood.tattood;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -25,7 +24,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.ArrayList;
@@ -175,33 +173,6 @@ public class Server {
                                      Response.Listener<JSONObject> callback) {
         final String url = "/tattoo-data?id="+id+"&token="+User.getInstance().token;
         request(context, url, null, callback);
-    }
-
-    public static void getTattooImage(final Context context, final Tattoo tattoo,
-                                      final ResponseCallback callback) {
-        final String url = host + "/tattoo?id="+tattoo.tattoo_id+"&token="+User.getInstance().token;
-        InputStreamVolleyRequest request = new InputStreamVolleyRequest(url,
-                new Response.Listener<byte[]>() {
-                    @Override
-                    public void onResponse(byte[] response) {
-                        if (response != null) {
-                            FileOutputStream outputStream;
-                            String name = tattoo.tattoo_id + ".png";
-                            try {
-                                outputStream = context.openFileOutput(name, Context.MODE_PRIVATE);
-                                outputStream.write(response);
-                                outputStream.close();
-                                Bitmap img = BitmapFactory.decodeByteArray(response, 0, response.length);
-                                tattoo.image = img;
-                                callback.run();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                });
-        RequestQueue mRequestQueue = Volley.newRequestQueue(context);
-        mRequestQueue.add(request);
     }
 
     public static void getTattooImage2(final Tattoo tattoo, SimpleDraweeView view) {
