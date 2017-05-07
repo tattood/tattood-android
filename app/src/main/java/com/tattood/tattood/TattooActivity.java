@@ -59,6 +59,14 @@ public class TattooActivity extends AppCompatActivity {
                                     myIntent.putExtra("other_user_photo", url);
                                     startActivity(myIntent);
                                 }});
+                            img.setOnClickListener( new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Intent myIntent = new Intent(TattooActivity.this, com.tattood.tattood.UserActivity.class);
+                                    myIntent.putExtra("username", username);
+                                    myIntent.putExtra("other_user_photo", url);
+                                    startActivity(myIntent);
+                                }});
                             JSONArray tattooJSON = response.getJSONArray("tags");
                             TagView tagGroup = (TagView) findViewById(R.id.tag_group);
                             for (int i = 0; i < tattooJSON.length(); i++) {
