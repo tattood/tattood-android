@@ -79,11 +79,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         Intent myIntent = new Intent(this, SeeMore.class);
         myIntent.putExtra("query", query);
-        /*if (view.getId() == R.id.see_more_tag) {
-            myIntent.putExtra("TAG", "TAG");
-        } else if (view.getId() == R.id.see_more_user) {
-            myIntent.putExtra("TAG", "USER");
-        }*/
         startActivity(myIntent);
     }
 }

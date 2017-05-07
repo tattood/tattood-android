@@ -1,5 +1,6 @@
 package com.tattood.tattood;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
@@ -23,14 +24,13 @@ import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.facebook.imagepipeline.request.Postprocessor;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
-import com.wikitude.unity.WikitudeActivity;
+import com.tattood.unity.UnityPlayerActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.FileOutputStream;
-import java.io.IOException;
 
 public class TattooActivity extends AppCompatActivity {
 
@@ -163,23 +163,16 @@ public class TattooActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d("CAMERA", "Clicked");
-                Intent myIntent = new Intent(TattooActivity.this, WikitudeActivity.class);
-                FileOutputStream out = null;
+                Intent myIntent = new Intent(TattooActivity.this, UnityPlayerActivity.class);
                 final String path = tattoo_id + ".png";
                 try {
-                    out = new FileOutputStream(path);
-                    bmp.compress(Bitmap.CompressFormat.PNG, 100, out);
+                    FileOutputStream fos = openFileOutput(path, Context.MODE_PRIVATE);
+                    bmp.compress(Bitmap.CompressFormat.PNG, 100, fos);
+                    fos.close();
                 } catch (Exception e) {
                     e.printStackTrace();
-                } finally {
-                    try {
-                        if (out != null) {
-                            out.close();
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
                 }
+                myIntent.putExtra("path", path);
                 startActivity(myIntent);
             }
         });

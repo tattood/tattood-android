@@ -93,6 +93,8 @@
         </activity>
         <activity android:name="com.wikitude.unity.WikitudeActivity">
         </activity>
+        <activity android:name="com.tattood.unity.UnityPlayerActivity">
+        </activity>
     </application>
 
 </manifest>

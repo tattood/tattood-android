@@ -1,32 +1,49 @@
 package com.tattood.unity;
 
-import com.unity3d.player.*;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
+
+import com.unity3d.player.UnityPlayer;
+import com.wikitude.unity.WikitudeActivity;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 
 public class UnityPlayerActivity extends Activity
 {
     protected UnityPlayer mUnityPlayer; // don't change the name of this variable; referenced from native code
+
+    public String getStringImage(String path){
+        path = new File(getFilesDir(), path).getAbsolutePath();
+        Bitmap bmp = BitmapFactory.decodeFile(path);
+        ByteArrayOutputStream byte_stream = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, byte_stream);
+        byte[] imageBytes = byte_stream.toByteArray();
+        return Base64.encodeToString(imageBytes, Base64.DEFAULT);
+    }
 
     // Setup activity layout
     @Override protected void onCreate (Bundle savedInstanceState)
     {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-
         getWindow().setFormat(PixelFormat.RGBX_8888); // <--- This makes xperia play happy
-
         mUnityPlayer = new UnityPlayer(this);
         setContentView(mUnityPlayer);
         mUnityPlayer.requestFocus();
+        Intent myIntent = new Intent(this, WikitudeActivity.class);
+        String path = getIntent().getExtras().getString("path");
+        UnityPlayer.UnitySendMessage("Controller", "changeMaterial", getStringImage(path));
+        startActivity(myIntent);
     }
 
     @Override protected void onNewIntent(Intent intent)

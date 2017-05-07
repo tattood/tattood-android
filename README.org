@@ -57,6 +57,16 @@ Discovery Page -> Tattoo Page -> Camera Button -> Apply Filter -> Send to Unity 
 + [X] Cache profile photo [[[https://github.com/facebook/fresco][Fresco]]]
 + [X] Ask for confirmation to discard changes in TattooEdit
 + [X] Make Images in RecyclerViewAdapter use Fresco
+** Register [2/2]
++ [X] Check username is empty
++ [X] Back to discovery goes to register page
+** See more [6/6]
++ [X] See more changes to single row
++ [X] Change See More button
++ [X] Add background
++ [X] See more Card layout grid (or simply add borders)
++ [X] Make See-More image density dynamic to make it fit 3 items
++ [X] Auto load at the bottom of the page (Requires change in server)
 ** Upload page [10/12]
 + [X] Change Add tag button to textinput and move to bottom
 + [X] Enable crop without clicking image
@@ -70,16 +80,6 @@ Discovery Page -> Tattoo Page -> Camera Button -> Apply Filter -> Send to Unity 
 + [X] Cannot access photos
 + [ ] Show cropped image
 + [ ] Give information on network failure
-** Register [2/2]
-+ [X] Check username is empty
-+ [X] Back to discovery goes to register page
-** See more [6/6]
-+ [X] See more changes to single row
-+ [X] Change See More button
-+ [X] Add background
-+ [X] See more Card layout grid (or simply add borders)
-+ [X] Make See-More image density dynamic to make it fit 3 items
-+ [X] Auto load at the bottom of the page (Requires change in server)
 ** Profile Page [9/13]
 + [X] Make profile icon circular
 + [X] Profile page list alignment
@@ -94,21 +94,14 @@ Discovery Page -> Tattoo Page -> Camera Button -> Apply Filter -> Send to Unity 
 + [ ] Auto-load images as they scroll
 + [ ] Set Toolbar Icon
 + [ ] Add toolbar transition animation
-** AR Camera [0/9]
-+ [ ] Plane rotation depends on gyroscope, not stable
+** AR Camera [3/14]
 + [ ] Apply filters
-+ [ ] Edge detection, arm width
-+ [ ] Image gradient
 + [ ] Try to make the input image black-white
 + [ ] [CONSTRAINT] Arm must be in the center
 + [ ] [CONSTRAINT] Background should not be colorful
 + [ ] Based on the arm width select the appropriate mesh
 + [ ] Apply some function on the mesh using arm edges and orientation => shape the mesh
 + [ ] Apply the same function on the other 4 meshes and update the slider shape bar
-+ [ ] [CONSTRAINT] Maybe draw something to improve tracking -> if so try to eliminate drawing on the camera
-+ [ ] Take screenshot
-+ [ ] Save
-+ [ ] Share
 ** Server [6/7]
 + [X] Added /delete end-point
 + [X] Move to DigitalOcean
@@ -141,6 +134,12 @@ Discovery Page -> Tattoo Page -> Camera Button -> Apply Filter -> Send to Unity 
 + [ ] /delete and /like reads tattoo-id from email field
 + [ ] Use Server.getTattooImage2 and remove the first one
 + [-] Clicking on another place should close search bar (Kinda works)
-** Unity [0/2]
+** Unity [1/8]
 + [ ] Override AndroidManifest
-+ [ ] Disable Screen Rotation
++ [X] Disable Screen Rotation
++ [-] Back button
++ [ ] Save
++ [ ] Share
++ [ ] Filter
++ [ ] Remove Texts
++ [ ] Add cross-hair
