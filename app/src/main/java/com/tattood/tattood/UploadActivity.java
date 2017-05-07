@@ -1,6 +1,5 @@
 package com.tattood.tattood;
 
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
@@ -10,12 +9,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -154,6 +149,37 @@ public class UploadActivity extends AppCompatActivity {
                         });
             }
         });
+
+        TextView toolbarSave = (TextView) findViewById(R.id.toolbar_save);
+        toolbarSave.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Server.uploadImage(UploadActivity.this, path, tattoo, x, y,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                try {
+                                    tattoo.tattoo_id = response.getString("id");
+                                    if (tattoo.is_private)
+                                        User.getInstance().addPrivate(tattoo);
+                                    else
+                                        User.getInstance().addPublic(tattoo);
+                                    User.getInstance().private_view.getAdapter().notifyDataSetChanged();
+                                    User.getInstance().public_view.getAdapter().notifyDataSetChanged();
+                                    finish();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+            }});
+
+        TextView toolbarCancel = (TextView) findViewById(R.id.toolbar_cancel);
+        toolbarCancel.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }});
 //        [TODO] Uncomment below
         extract();
     }
