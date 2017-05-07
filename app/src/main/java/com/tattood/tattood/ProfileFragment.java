@@ -47,19 +47,6 @@ public class ProfileFragment extends Fragment {
         adapter = new TattooRecyclerViewAdapter(mRecyclerView.getContext(), listener, true);
         mRecyclerView.setAdapter(adapter);
         refresh();
-//        final SwipeRefreshLayout swipeContainer = (SwipeRefreshLayout) v.findViewById(R.id.swipeContainer);
-//        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                refresh();
-//                swipeContainer.setRefreshing(false);
-//
-//            }
-//        });
-//        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
-//                android.R.color.holo_green_light,
-//                android.R.color.holo_orange_light,
-//                android.R.color.holo_red_light);
         return v;
     }
 

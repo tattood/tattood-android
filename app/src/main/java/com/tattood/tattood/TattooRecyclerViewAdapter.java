@@ -130,8 +130,6 @@ public class TattooRecyclerViewAdapter extends RecyclerView.Adapter<TattooRecycl
                 String tattoo_id = tattooJSON.getString(0);
                 String owner_id = tattooJSON.getString(1);
                 this.setTattoo(index, new Tattoo(tattoo_id, owner_id));
-//                notifyDataSetChanged();
-//                Server.getTattooImage2(mValues.get(index), views.get(index));
             }
             notifyDataSetChanged();
         } catch(JSONException e) {

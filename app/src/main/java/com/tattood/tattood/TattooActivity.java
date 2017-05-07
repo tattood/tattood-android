@@ -29,22 +29,24 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 public class TattooActivity extends AppCompatActivity {
 
     boolean is_liked;
     int like_count;
-    SimpleDraweeView tattoo_img;
-    Bitmap tattoo_copy;
+    private String tattoo_id = null;
+    Bitmap bmp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tattoo);
         Bundle extras = getIntent().getExtras();
-        final String tattoo_id = extras.getString("tid");
-        final com.tattood.tattood.Tattoo tattoo = new com.tattood.tattood.Tattoo(tattoo_id, null);
-        tattoo_img = (SimpleDraweeView) findViewById(R.id.tattoo_image);
-        //com.tattood.tattood.Server.getTattooImage2(tattoo, tattoo_img);
+        tattoo_id = extras.getString("tid");
+        final Tattoo tattoo = new Tattoo(tattoo_id, null);
+        final SimpleDraweeView tattoo_img = (SimpleDraweeView) findViewById(R.id.tattoo_image);
         Uri uri = Uri.parse(Server.host + "/tattoo?id="+tattoo.tattoo_id+"&token="+User.getInstance().token);
         Postprocessor redMeshPostprocessor = new BasePostprocessor() {
             @Override
@@ -54,23 +56,20 @@ public class TattooActivity extends AppCompatActivity {
 
             @Override
             public void process(Bitmap bitmap) {
-                tattoo_copy = bitmap.copy(bitmap.getConfig(), true);
+                bmp = bitmap.copy(bitmap.getConfig(), true);
             }
         };
-
         ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
                 .setPostprocessor(redMeshPostprocessor)
                 .build();
-
         PipelineDraweeController controller = (PipelineDraweeController)
                 Fresco.newDraweeControllerBuilder()
                         .setImageRequest(request)
                         .setOldController(tattoo_img.getController())
-                        // other setters as you need
                         .build();
         tattoo_img.setController(controller);
 
-        com.tattood.tattood.Server.getTattooData(this, tattoo_id,
+        Server.getTattooData(this, tattoo_id,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -165,18 +164,25 @@ public class TattooActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Log.d("CAMERA", "Clicked");
                 Intent myIntent = new Intent(TattooActivity.this, WikitudeActivity.class);
+                FileOutputStream out = null;
+                final String path = tattoo_id + ".png";
+                try {
+                    out = new FileOutputStream(path);
+                    bmp.compress(Bitmap.CompressFormat.PNG, 100, out);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        if (out != null) {
+                            out.close();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
                 startActivity(myIntent);
             }
         });
-
-
-        /*final Button fbutton = (Button) findViewById(R.id.filter_button);
-        fbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //filterTattoo();
-            }
-        });*/
     }
 
     private void refreshLikeButton() {
