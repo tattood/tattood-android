@@ -174,6 +174,7 @@ public class TattooActivity extends AppCompatActivity {
                 }
                 myIntent.putExtra("path", path);
                 startActivity(myIntent);
+                Log.d("CAMERA", "RETURNED");
             }
         });
     }

@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.Window;
@@ -21,6 +22,7 @@ import java.io.File;
 public class UnityPlayerActivity extends Activity
 {
     protected UnityPlayer mUnityPlayer; // don't change the name of this variable; referenced from native code
+    private int count = 0;
 
     public String getStringImage(String path){
         path = new File(getFilesDir(), path).getAbsolutePath();
@@ -43,7 +45,15 @@ public class UnityPlayerActivity extends Activity
         Intent myIntent = new Intent(this, WikitudeActivity.class);
         String path = getIntent().getExtras().getString("path");
         UnityPlayer.UnitySendMessage("Controller", "changeMaterial", getStringImage(path));
-        startActivity(myIntent);
+        Log.d("WIKITUDE", "STARTED");
+        startActivityForResult(myIntent, 200);
+//        startActivity(myIntent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("WIKITUDE", "RETURNED");
+//        finish();
     }
 
     @Override protected void onNewIntent(Intent intent)
@@ -73,7 +83,11 @@ public class UnityPlayerActivity extends Activity
     @Override protected void onResume()
     {
         super.onResume();
+        count++;
+        Log.d("RESUME", "RESUME");
         mUnityPlayer.resume();
+        if(count == 3)
+            finish();
     }
 
     // Low Memory Unity
@@ -118,7 +132,12 @@ public class UnityPlayerActivity extends Activity
 
     // Pass any events not handled by (unfocused) views straight to UnityPlayer
     @Override public boolean onKeyUp(int keyCode, KeyEvent event)     { return mUnityPlayer.injectEvent(event); }
-    @Override public boolean onKeyDown(int keyCode, KeyEvent event)   { return mUnityPlayer.injectEvent(event); }
+    @Override public boolean onKeyDown(int keyCode, KeyEvent event)   { Log.d("WIKITUDE", "Clicked"); return mUnityPlayer.injectEvent(event); }
     @Override public boolean onTouchEvent(MotionEvent event)          { return mUnityPlayer.injectEvent(event); }
     /*API12*/ public boolean onGenericMotionEvent(MotionEvent event)  { return mUnityPlayer.injectEvent(event); }
+
+    @Override public void onBackPressed() {
+        Log.d("WIKITUDE", "BACK");
+        super.onBackPressed();
+    }
 }

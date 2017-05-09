@@ -24,6 +24,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:largeHeap="true"
+        android:allowClearUserData="true"
         tools:ignore="GoogleAppIndexingWarning">
         <provider
             android:name="com.tattood.tattood.MySuggestionProvider"
@@ -92,9 +93,14 @@
         </activity>
         <activity android:name="com.tattood.tattood.ProfileActivity">
         </activity>
-        <activity android:name="com.wikitude.unity.WikitudeActivity">
+        <activity android:name="com.wikitude.unity.WikitudeActivity"
+                  android:noHistory="true"
+                  android:launchMode="singleTask"
+                  android:process=":unity">
         </activity>
-        <activity android:name="com.tattood.unity.UnityPlayerActivity">
+        <activity android:name="com.tattood.unity.UnityPlayerActivity"
+                  android:launchMode="singleTask"
+                  android:process=":unity">
         </activity>
     </application>
 
