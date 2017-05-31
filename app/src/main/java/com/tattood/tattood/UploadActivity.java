@@ -125,30 +125,30 @@ public class UploadActivity extends AppCompatActivity {
                 crop_button.setVisibility(View.VISIBLE);
             }
         });
-        final ImageView upload_button = (ImageView) findViewById(R.id.edit_finish);
-        upload_button.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                Server.uploadImage(UploadActivity.this, path, tattoo, x, y,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                try {
-                                    tattoo.tattoo_id = response.getString("id");
-                                    if (tattoo.is_private)
-                                        User.getInstance().addPrivate(tattoo);
-                                    else
-                                        User.getInstance().addPublic(tattoo);
-                                    User.getInstance().private_view.getAdapter().notifyDataSetChanged();
-                                    User.getInstance().public_view.getAdapter().notifyDataSetChanged();
-                                    finish();
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        });
-            }
-        });
+//        final ImageView upload_button = (ImageView) findViewById(R.id.edit_finish);
+//        upload_button.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View view) {
+//                Server.uploadImage(UploadActivity.this, path, tattoo, x, y,
+//                        new Response.Listener<JSONObject>() {
+//                            @Override
+//                            public void onResponse(JSONObject response) {
+//                                try {
+//                                    tattoo.tattoo_id = response.getString("id");
+//                                    if (tattoo.is_private)
+//                                        User.getInstance().addPrivate(tattoo);
+//                                    else
+//                                        User.getInstance().addPublic(tattoo);
+//                                    User.getInstance().private_view.getAdapter().notifyDataSetChanged();
+//                                    User.getInstance().public_view.getAdapter().notifyDataSetChanged();
+//                                    finish();
+//                                } catch (JSONException e) {
+//                                    e.printStackTrace();
+//                                }
+//                            }
+//                        });
+//            }
+//        });
 
         TextView toolbarSave = (TextView) findViewById(R.id.toolbar_save);
         toolbarSave.setOnClickListener( new View.OnClickListener() {

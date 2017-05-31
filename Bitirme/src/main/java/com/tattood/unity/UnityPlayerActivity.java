@@ -11,7 +11,6 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
-import android.view.Window;
 
 import com.unity3d.player.UnityPlayer;
 import com.wikitude.unity.WikitudeActivity;
@@ -36,7 +35,7 @@ public class UnityPlayerActivity extends Activity
     // Setup activity layout
     @Override protected void onCreate (Bundle savedInstanceState)
     {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         getWindow().setFormat(PixelFormat.RGBX_8888); // <--- This makes xperia play happy
         mUnityPlayer = new UnityPlayer(this);
@@ -47,7 +46,6 @@ public class UnityPlayerActivity extends Activity
         UnityPlayer.UnitySendMessage("Controller", "changeMaterial", getStringImage(path));
         Log.d("WIKITUDE", "STARTED");
         startActivityForResult(myIntent, 200);
-//        startActivity(myIntent);
     }
 
     @Override

@@ -1,6 +1,3 @@
-* Pipeline
-Discovery Page -> Tattoo Page -> Camera Button -> Apply Filter -> Send to Unity -> Press Initialize ->
-  Edge Detection (Threshold) -> Find Gradient (PCA or FFT) ->
 * TODO
 ** Tattoo Page [9/9]
 + [X] Increase size
@@ -135,11 +132,13 @@ Discovery Page -> Tattoo Page -> Camera Button -> Apply Filter -> Send to Unity 
 + [ ] Use Server.getTattooImage2 and remove the first one
 + [-] Clicking on another place should close search bar (Kinda works)
 ** Unity [1/8]
-+ [ ] Override AndroidManifest
-+ [X] Disable Screen Rotation
-+ [-] Back button
 + [ ] Save
 + [ ] Share
 + [ ] Filter
 + [ ] Remove Texts
 + [ ] Add cross-hair
+** CS Fair
+1. In Unity, first rotate then count pixels
+2. Apply filter in server-side
+3. Screenshot button -- Share button
+4. Change labels and button
